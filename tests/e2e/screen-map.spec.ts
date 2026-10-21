@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 
 test.use({ permissions: ["clipboard-read", "clipboard-write"] });
 
@@ -12,13 +12,13 @@ async function openMap(page: Page): Promise<void> {
   await expect(page.locator(".react-flow__edge")).toHaveCount(18);
 }
 
-test.describe("section X screen map", () => {
+test.describe("screen-map-x", () => {
   test.beforeEach(async ({ page }) => {
     await openMap(page);
   });
 
   test("renders the hub layout with seven screens and eighteen links", async ({ page }) => {
-    await expect(page.locator(".app-title")).toContainText("Карта экранов");
+    await expect(page.locator(".app-title")).toContainText("Screen-map-x");
     await expect(page.locator('.react-flow__node[data-id="hub"]')).toBeVisible();
     await expect(page.locator(".counter")).toContainText("7 screens · 30 fields · 18 links");
   });
@@ -77,9 +77,63 @@ test.describe("section X screen map", () => {
     await expect(page.locator(".react-flow__edge")).toHaveCount(18);
   });
 
+  test("toolbar button shows a focus ring on keyboard navigation", async ({ page }) => {
+    const toolbarBtn = page.locator(".toolbar .btn").first();
+    const resting = await toolbarBtn.evaluate((el) => getComputedStyle(el).boxShadow);
+    for (let i = 0; i < 12; i += 1) {
+      if (await toolbarBtn.evaluate((el) => el === el.ownerDocument.activeElement)) break;
+      await page.keyboard.press("Tab");
+    }
+    await expect(toolbarBtn).toBeFocused();
+    const focused = await toolbarBtn.evaluate((el) => getComputedStyle(el).boxShadow);
+    expect(focused).not.toBe(resting);
+    await expect(toolbarBtn).toHaveCSS("box-shadow", /0px 0px 0px 2px/);
+  });
+
+  test("the active menu item is visibly different from the rest", async ({ page }) => {
+    await page.getByRole("button", { name: /Экспорт/ }).click();
+    await page.keyboard.press("ArrowDown");
+    const highlighted = page.locator(".menu-item[data-highlighted]").first();
+    const plain = page.locator(".menu-item:not([data-highlighted])").first();
+    await expect(highlighted).toBeVisible();
+
+    const luminance = async (locator: Locator): Promise<number> => {
+      const rgb = await locator.evaluate((el) => getComputedStyle(el).color);
+      const [r, g, b] = rgb.match(/\d+/g)?.map(Number) ?? [0, 0, 0];
+      return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    };
+    expect(await luminance(highlighted)).toBeGreaterThan(await luminance(plain));
+  });
+
+  test("inactive field port keeps the token colours", async ({ page }) => {
+    const port = page.locator(".react-flow__handle.port").first();
+    await expect(port).toHaveCSS("background-color", "rgb(16, 19, 26)");
+    await expect(port).toHaveCSS("border-color", "rgb(58, 66, 86)");
+  });
+
+  test("canvas grid paints with the grid token", async ({ page }) => {
+    await expect(page.locator(".react-flow__background-pattern").first()).toHaveCSS("stroke", "rgb(20, 24, 33)");
+  });
+
+  test("card parts add up to the height locked by the spec", async ({ page }) => {
+    const deltas = await page.evaluate(() =>
+      [...document.querySelectorAll(".scr")].map((card) => {
+        const height = (element: Element | null): number => (element ? element.getBoundingClientRect().height : 0);
+        const parts =
+          height(card.querySelector(".scr-head")) +
+          [...card.querySelectorAll(".fld")].reduce((sum, row) => sum + height(row), 0) +
+          height(card.querySelector(".skel")) +
+          height(card.querySelector(".chrome"));
+        return parts - height(card);
+      }),
+    );
+    expect(deltas.length).toBe(7);
+    for (const delta of deltas) expect(Math.abs(delta)).toBeLessThanOrEqual(1);
+  });
+
   test("right inspector can be hidden and restored while the canvas stays centred", async ({ page }) => {
-    await expect(page.locator(".app-title")).toContainText("Карта экранов");
-    await expect(page.locator(".inspector .insp-h")).toHaveText("Карта экранов");
+    await expect(page.locator(".app-title")).toContainText("Screen-map-x");
+    await expect(page.locator(".inspector .insp-h")).toHaveText("Screen-map-x");
 
     await page.locator(".inspector-collapse").click();
     await expect(page.locator(".inspector")).toHaveCount(0);
@@ -98,6 +152,6 @@ test.describe("section X screen map", () => {
     expect(centreDelta).toBeLessThan(24);
 
     await page.locator(".inspector-toggle").click();
-    await expect(page.locator(".inspector .insp-h")).toHaveText("Карта экранов");
+    await expect(page.locator(".inspector .insp-h")).toHaveText("Screen-map-x");
   });
 });

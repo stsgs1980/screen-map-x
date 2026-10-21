@@ -1,0 +1,119 @@
+/* Design tokens: the single source of visual values for the screen map.
+   Values locked to the product spec are marked and guarded by tokens.test.ts. */
+
+:root {
+  /* fonts */
+  --font-sans: "Geist Sans", -apple-system, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", menlo, consolas, monospace;
+
+  /* surfaces */
+  --bg-canvas: #0b0d12;
+  --bg-surface: #151922;
+  --bg-raised: #1b202b;
+  --bg-sunken: #10131a;
+  --bg-hover: #1f2532;
+  --bg-active: #262d3c;
+  --bg-accent: #6366f1;
+  --bg-accent-hover: #5457e5;
+  --bg-accent-soft: rgb(99 102 241 / 12%);
+  --bg-glass: rgb(27 32 43 / 88%);
+
+  /* text */
+  --fg: #e7ebf3;
+  --fg-muted: #97a0b3;
+  --fg-subtle: #6a7387;
+  --fg-on-accent: #fff;
+  --fg-accent: #818cf8;
+
+  /* borders */
+  --border-subtle: #1e2430;
+  --border: #2a3140;
+  --border-strong: #3a4256;
+  --border-accent: #6366f1;
+
+  /* elevation */
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 35%);
+  --shadow-popup: 0 2px 6px rgb(0 0 0 / 30%), 0 12px 32px rgb(0 0 0 / 45%);
+  --ring-inset: inset 0 1px 0 rgb(255 255 255 / 5%);
+
+  /* radii */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-pill: 999px;
+
+  /* mirrors EDGE_STYLE.cornerRadius; the radius itself is applied in TS */
+  --r-edge: 8px;
+
+  /* typography */
+  --t-xs: 11px;
+  --t-sm: 12px;
+  --t-md: 13.5px;
+  --t-lg: 16px;
+  --t-xl: 20px;
+
+  /* locked to the spec: caption */
+  --caption-size: 10px;
+  --caption-tracking: 0.11em;
+  --caption-color: #5a5a5a;
+
+  /* geometry: mirrors the locked TS constants, checked by tokens.test.ts */
+  --head-h: 40px;
+  --row-h: 23px;
+  --skel-h: 30px;
+  --chrome-h: 13px;
+  --port-size: 5px;
+  --icon-size: 12px;
+
+  /* spacing, step 4 */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+
+  /* motion */
+  --dur-fast: 100ms;
+  --dur-base: 160ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+
+  /* focus and transparency */
+  --accent-focus: #6366f1;
+  --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--accent-focus);
+  --opacity-dim: 0.2;
+  --opacity-disabled: 0.5;
+
+  /* overlays */
+  --overlay-scrim: rgb(0 0 0 / 62%);
+  --overlay-soft: rgb(255 255 255 / 6%);
+  --scrollbar-thumb: #2a3140;
+  --scrollbar-thumb-hover: #3a4256;
+
+  /* react flow */
+  --canvas-bg: #111;
+  --grid-line: #141821;
+  --connection-stroke: #ededed;
+
+  /* locked to the spec: edge */
+  --edge-color: #7c7c7c;
+  --edge-dash: 3 4;
+  --edge-hl: #f2f2f2;
+  --minimap-bg: #141414;
+  --minimap-mask: rgb(60 60 60 / 60%);
+  --minimap-node: #2e2e2e;
+  --minimap-node-hub: #5a5a5a;
+  --control-bg: #151922;
+  --control-bg-hover: #1f2532;
+  --control-fg: #97a0b3;
+  --port-bg: #10131a;
+  --port-border: #3a4256;
+
+  /* statuses: mirrors STATUS in data/status.ts, checked by tokens.test.ts */
+  --status-new: #a78bfa;
+  --status-sent: #66d97a;
+  --status-pending: #e6d24f;
+  --status-failed: #f0788a;
+  --status-none: #3d3d3d;
+}

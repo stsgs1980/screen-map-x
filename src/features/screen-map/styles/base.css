@@ -1,8 +1,5 @@
-/* Section X screen map — dark production theme, values locked to the spec */
-:root {
-  --font-sans: "Geist Sans", -apple-system, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SF Mono", menlo, consolas, monospace;
-}
+/* Section X screen map — reset, typography and the application shell.
+   All visual values come from tokens.css. */
 
 * {
   box-sizing: border-box;
@@ -16,9 +13,9 @@ body,
 
 body {
   margin: 0;
-  background: #0a0a0a;
-  color: #ededed;
-  font: 13px/1.45 var(--font-sans);
+  background: var(--bg-canvas);
+  color: var(--fg);
+  font: var(--t-md) / 1.45 var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -31,18 +28,20 @@ button {
   font-family: var(--font-mono);
 }
 
-/* spec caption: mono 10px, letter-spacing .11em, #5A5A5A */
+/* spec caption: mono 10px, letter-spacing .11em */
 .mono-label {
-  font-size: 10px;
+  font-size: var(--caption-size);
   line-height: 1.3;
-  letter-spacing: 0.11em;
+  letter-spacing: var(--caption-tracking);
   text-transform: uppercase;
-  color: #5a5a5a;
+  color: var(--caption-color);
 }
 
+/* The ring keeps the `none` status readable on dark surfaces. */
 .dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--fg-subtle);
   border-radius: 50%;
   flex: none;
   display: inline-block;
@@ -60,54 +59,55 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--sp-4);
   flex-wrap: wrap;
-  padding: 10px 16px;
-  background: #0d0d0d;
-  border-bottom: 1px solid #1f1f1f;
+  padding: var(--sp-2) var(--sp-4);
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: var(--ring-inset);
 }
 
 .topbar-l {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: var(--sp-4);
   flex-wrap: wrap;
 }
 
 .app-title {
   margin: 2px 0 0;
-  font-size: 16px;
+  font-size: var(--t-lg);
   font-weight: 650;
   letter-spacing: -0.01em;
 }
 
 .title-dim {
-  color: #7c7c7c;
+  color: var(--fg-muted);
   font-weight: 500;
 }
 
 .counter {
-  font-size: 11px;
-  color: #6e6e6e;
+  font-size: var(--t-sm);
+  color: var(--fg-subtle);
 }
 
 .pin-chip {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  background: #ededed;
-  color: #111;
+  background: var(--bg-accent);
+  color: var(--fg-on-accent);
   border: 0;
-  border-radius: 999px;
-  padding: 4px 10px;
-  font-size: 11.5px;
+  border-radius: var(--r-pill);
+  padding: var(--sp-1) var(--sp-2);
+  font-size: var(--t-sm);
   font-weight: 600;
   cursor: pointer;
 }
 
 .toolbar {
   display: flex;
-  gap: 8px;
+  gap: var(--sp-2);
   flex-wrap: wrap;
 }
 
@@ -116,47 +116,59 @@ button {
   align-items: center;
   gap: 6px;
   height: 32px;
-  padding: 0 12px;
-  border-radius: 7px;
+  padding: 0 var(--sp-3);
+  border-radius: var(--r-md);
   cursor: pointer;
-  background: #1a1a1a;
-  border: 1px solid #2c2c2c;
-  color: #ededed;
-  font-size: 12.5px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--ring-inset);
+  color: var(--fg);
+  font-size: var(--t-sm);
+  transition:
+    background var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
 }
 
 .btn:hover {
-  background: #222;
-  border-color: #3a3a3a;
+  background: var(--bg-hover);
+  border-color: var(--border-strong);
+}
+
+.btn:active {
+  transform: translateY(1px);
 }
 
 .btn:disabled {
-  opacity: 0.5;
+  opacity: var(--opacity-disabled);
   cursor: wait;
 }
 
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
 .btn-primary {
-  background: #ededed;
-  border-color: #ededed;
-  color: #111;
+  background: var(--bg-accent);
+  border-color: transparent;
+  color: var(--fg-on-accent);
   font-weight: 650;
 }
 
 .btn-primary:hover {
-  background: #fff;
-  border-color: #fff;
+  background: var(--bg-accent-hover);
 }
 
 .btn-ghost {
   background: transparent;
   border-color: transparent;
-  color: #9a9a9a;
+  color: var(--fg-muted);
 }
 
 .btn-ghost:hover {
-  background: #1c1c1c;
-  border-color: #2c2c2c;
-  color: #ededed;
+  background: var(--bg-hover);
+  color: var(--fg);
 }
 
 .main {
@@ -170,15 +182,37 @@ button {
   min-width: 0;
   overflow: auto;
   display: flex;
-  padding: 18px;
+  padding: var(--sp-4);
 }
 
 .canvas-frame {
   margin: auto;
   flex: none;
   position: relative;
-  border: 1px solid #262626;
-  border-radius: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
   overflow: hidden;
-  box-shadow: 0 24px 60px rgb(0 0 0 / 50%);
+  box-shadow: var(--shadow-card);
+}
+
+/* ------------------------------------------------------- reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .scr,
+  .fld,
+  .btn,
+  .leg-chip,
+  .cmdk-item,
+  .menu-item,
+  .menu-popup,
+  .tip,
+  .preview-card,
+  .toast,
+  .dlg-popup,
+  .dlg-backdrop,
+  .pal-popup,
+  .react-flow__edge.edge-hl path.react-flow__edge-path,
+  .skel span {
+    animation: none !important;
+    transition: none !important;
+  }
 }

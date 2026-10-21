@@ -4,15 +4,15 @@
 .scr-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--sp-2);
   text-align: left;
   cursor: pointer;
   background: transparent;
   border: 0;
-  border-top: 1px solid #1e1e1e;
-  border-radius: 6px;
-  color: #dcdcdc;
-  padding: 7px 8px;
+  border-top: 1px solid var(--border-subtle);
+  border-radius: var(--r-md);
+  color: var(--fg);
+  padding: var(--sp-2);
   margin: 0 -8px;
   width: calc(100% + 16px);
 }
@@ -20,40 +20,40 @@
 .link-row:hover,
 .ent-row:hover,
 .scr-row:hover {
-  background: #1b1b1b;
+  background: var(--bg-hover);
 }
 
 .link-ent,
 .ent-key {
   font-family: var(--font-mono);
-  font-size: 11px;
-  color: #ededed;
+  font-size: var(--t-sm);
+  color: var(--fg);
 }
 
 .link-arrow {
-  color: #5f5f5f;
+  color: var(--fg-subtle);
 }
 
 .link-target {
   margin-left: auto;
-  font-size: 11.5px;
-  color: #9a9a9a;
+  font-size: var(--t-sm);
+  color: var(--fg-muted);
   text-align: right;
 }
 
 .ent-row.on {
-  background: rgb(255 255 255 / 6%);
+  background: var(--overlay-soft);
 }
 
 .ent-label {
-  font-size: 12px;
-  color: #bdbdbd;
+  font-size: var(--t-sm);
+  color: var(--fg-muted);
 }
 
 .ent-meta {
   margin-left: auto;
-  font-size: 10.5px;
-  color: #6e6e6e;
+  font-size: var(--t-xs);
+  color: var(--fg-subtle);
   white-space: nowrap;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .scr-row-t {
-  font-size: 12.5px;
+  font-size: var(--t-md);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -73,8 +73,8 @@
 .scr-row-r {
   margin-left: auto;
   font-family: var(--font-mono);
-  font-size: 10px;
-  color: #6e6e6e;
+  font-size: var(--t-xs);
+  color: var(--fg-subtle);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -101,7 +101,7 @@
   .inspector {
     width: auto;
     border-left: 0;
-    border-top: 1px solid #1f1f1f;
+    border-top: 1px solid var(--border-subtle);
   }
 
   .hints {
@@ -111,7 +111,7 @@
 
 .scr-row-t svg {
   vertical-align: -1px;
-  margin-left: 4px;
+  margin-left: var(--sp-1);
 }
 
 .link-arrow svg {
@@ -130,5 +130,10 @@
 }
 
 .inspector-content {
-  padding: 16px;
+  padding: var(--sp-4);
+
+  /* Base UI sets min-width: fit-content inline on the scroll content, which
+     sizes it to the widest row and clips the panel. The panel is fixed
+     width, so the content has to stay inside it. */
+  min-width: 0 !important;
 }

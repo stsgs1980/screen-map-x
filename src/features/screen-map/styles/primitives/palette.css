@@ -6,14 +6,14 @@
   z-index: 300;
   width: min(640px, 92vw);
   transform: translateX(-50%);
-  background: #141414;
-  border: 1px solid #2c2c2c;
-  border-radius: 12px;
-  box-shadow: 0 24px 64px rgb(0 0 0 / 65%);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-popup), var(--ring-inset);
   overflow: hidden;
   transition:
-    opacity 0.14s ease,
-    transform 0.14s ease;
+    opacity var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
 }
 
 .pal-popup[data-starting-style],
@@ -25,10 +25,10 @@
 .cmdk-input-wrap {
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 0 14px;
-  border-bottom: 1px solid #262626;
-  color: #7c7c7c;
+  gap: var(--sp-2);
+  padding: 0 var(--sp-3);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--fg-subtle);
 }
 
 .cmdk-input {
@@ -36,14 +36,14 @@
   background: none;
   border: 0;
   outline: none;
-  color: #ededed;
+  color: var(--fg);
   font: inherit;
-  font-size: 14px;
-  padding: 14px 0;
+  font-size: var(--t-md);
+  padding: var(--sp-3) 0;
 }
 
 .cmdk-input::placeholder {
-  color: #5f5f5f;
+  color: var(--fg-subtle);
 }
 
 .cmdk-list {
@@ -53,43 +53,44 @@
 }
 
 .cmdk-empty {
-  padding: 20px;
+  padding: var(--sp-5);
   text-align: center;
-  color: #707070;
+  color: var(--fg-subtle);
 }
 
 .cmdk-group [cmdk-group-heading] {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--t-xs);
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: #666;
-  padding: 9px 9px 4px;
+  color: var(--fg-subtle);
+  padding: var(--sp-2) var(--sp-2) var(--sp-1);
 }
 
 .cmdk-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 9px;
-  border-radius: 7px;
-  color: #cfcfcf;
+  gap: var(--sp-2);
+  padding: 7px var(--sp-2);
+  border-radius: var(--r-md);
+  color: var(--fg-muted);
   cursor: pointer;
   user-select: none;
+  font-size: var(--t-sm);
 }
 
 .cmdk-item[data-selected="true"] {
-  background: #242424;
-  color: #fff;
+  background: var(--bg-accent-soft);
+  color: var(--fg);
 }
 
 .cmdk-dim {
-  color: #7c7c7c;
-  font-size: 11px;
+  color: var(--fg-subtle);
+  font-size: var(--t-xs);
 }
 
 .cmdk-note {
   margin-left: auto;
-  color: #636363;
-  font-size: 11px;
+  color: var(--fg-subtle);
+  font-size: var(--t-xs);
 }

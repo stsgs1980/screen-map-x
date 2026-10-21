@@ -3,9 +3,9 @@
   position: fixed;
   inset: 0;
   z-index: 290;
-  background: rgb(0 0 0 / 62%);
+  background: var(--overlay-scrim);
   backdrop-filter: blur(2px);
-  transition: opacity 0.16s ease;
+  transition: opacity var(--dur-base) var(--ease);
 }
 
 .dlg-backdrop[data-starting-style],
@@ -19,14 +19,14 @@
   left: 50%;
   z-index: 300;
   transform: translate(-50%, -50%);
-  background: #141414;
-  border: 1px solid #2c2c2c;
-  border-radius: 12px;
-  padding: 18px;
-  box-shadow: 0 24px 64px rgb(0 0 0 / 65%);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: var(--sp-6);
+  box-shadow: var(--shadow-popup), var(--ring-inset);
   transition:
-    opacity 0.16s ease,
-    transform 0.16s ease;
+    opacity var(--dur-base) var(--ease),
+    transform var(--dur-base) var(--ease);
 }
 
 .dlg-popup[data-starting-style],
@@ -47,25 +47,25 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 14px;
+  gap: var(--sp-3);
 }
 
 .dlg-title {
   margin: 2px 0 0;
-  font-size: 16px;
+  font-size: var(--t-lg);
   font-weight: 600;
 }
 
 .dlg-desc {
-  margin: 8px 0 0;
-  color: #8f8f8f;
-  font-size: 12.5px;
+  margin: var(--sp-2) 0 0;
+  color: var(--fg-muted);
+  font-size: var(--t-md);
 }
 
 .dlg-actions {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: var(--sp-2);
 }
 
 .dlg-x {
@@ -73,28 +73,28 @@
 }
 
 .json-pre {
-  margin-top: 14px;
+  margin-top: var(--sp-3);
   max-height: 56vh;
   overflow: auto;
-  background: #0d0d0d;
-  border: 1px solid #262626;
-  border-radius: 8px;
-  padding: 14px;
+  background: var(--bg-sunken);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-md);
+  padding: var(--sp-3);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--t-sm);
   line-height: 1.55;
-  color: #c9c9c9;
+  color: var(--fg-muted);
 }
 
 .help-list {
-  margin: 14px 0 0;
+  margin: var(--sp-3) 0 0;
 }
 
 .help-row {
   display: flex;
-  gap: 14px;
+  gap: var(--sp-3);
   padding: 7px 0;
-  border-top: 1px solid #222;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .help-row dt {
@@ -103,5 +103,5 @@
 
 .help-row dd {
   margin: 0;
-  color: #a8a8a8;
+  color: var(--fg-muted);
 }

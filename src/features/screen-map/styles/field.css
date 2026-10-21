@@ -1,32 +1,37 @@
+/* Field row, ports, skeleton block and the chrome strip of a screen card.
+   The row height is locked by the spec: the card must keep fitting its parts. */
+
 /* -------------------------------------------------------------- card/field */
 .fld {
   position: relative;
-  height: 23px;
+  height: var(--row-h);
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 0 10px 0 12px;
+  gap: var(--sp-2);
+  padding: 0 var(--sp-3);
   transition:
-    opacity 0.15s ease,
-    background 0.15s ease;
+    opacity var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease);
   cursor: default;
 }
 
 .fld + .fld {
-  border-top: 1px solid #1e1e1e;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .fld svg {
   flex: none;
-  color: #8f8f8f;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  color: var(--fg-subtle);
 }
 
 .fld.on {
-  background: rgb(255 255 255 / 5.5%);
+  background: var(--overlay-soft);
 }
 
 .fld.on svg {
-  color: #f2f2f2;
+  color: var(--fg);
 }
 
 .fld-bar {
@@ -38,8 +43,8 @@
 }
 
 .fld-label {
-  font-size: 11.5px;
-  color: #dcdcdc;
+  font-size: var(--t-sm);
+  color: var(--fg);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -48,48 +53,48 @@
 .fld-ent {
   margin-left: auto;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: var(--t-xs);
   letter-spacing: 0.06em;
-  color: #5f5f5f;
+  color: var(--fg-subtle);
 }
 
 .fld.on .fld-ent {
-  color: #bdbdbd;
+  color: var(--fg-muted);
 }
 
-/* ports: 5px dots, separate child elements (Handles) on the card edges */
+/* ports: dots on the card edges, separate child elements (Handles) */
 .react-flow__handle.port {
-  width: 5px;
-  height: 5px;
+  width: var(--port-size);
+  height: var(--port-size);
   min-width: 0;
   min-height: 0;
-  border: 1px solid #6e6e6e;
+  border: 1px solid var(--port-border);
   border-radius: 50%;
-  background: #141414;
+  background: var(--port-bg);
   transition:
-    background 0.15s ease,
-    border-color 0.15s ease;
+    background var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
 }
 
 .react-flow__handle.port:hover {
-  background: #ededed;
-  border-color: #ededed;
+  background: var(--fg);
+  border-color: var(--fg);
 }
 
 /* skeleton block + chrome strip */
 .skel {
-  height: 30px;
+  height: var(--skel-h);
   padding: 6px 10px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  border-top: 1px solid #1c1c1c;
+  gap: var(--sp-1);
+  border-top: 1px solid var(--border-subtle);
 }
 
 .skel span {
   height: 4px;
   border-radius: 2px;
-  background: #242424;
+  background: var(--bg-active);
   animation: skel 1.5s ease-in-out infinite alternate;
 }
 
@@ -104,21 +109,21 @@
 }
 
 .chrome {
-  height: 13px;
+  height: var(--chrome-h);
   display: flex;
   align-items: center;
   gap: 5px;
   padding: 0 8px;
-  background: #101010;
-  border-top: 1px solid #1e1e1e;
-  border-radius: 0 0 9px 9px;
+  background: var(--bg-sunken);
+  border-top: 1px solid var(--border-subtle);
+  border-radius: 0 0 calc(var(--r-lg) - 1px) calc(var(--r-lg) - 1px);
 }
 
 .chrome i {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #2e2e2e;
+  background: var(--border-strong);
   flex: none;
   display: block;
 }
@@ -126,9 +131,9 @@
 .chrome-route {
   margin-left: 2px;
   font-family: var(--font-mono);
-  font-size: 8px;
+  font-size: 9px;
   letter-spacing: 0.04em;
-  color: #4d4d4d;
+  color: var(--fg-subtle);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
