@@ -1,7 +1,7 @@
 import { writeFileSync } from "node:fs";
-import { EDGE_DEFS } from "../src/data/edges.ts";
-import { buildExport } from "../src/data/export.ts";
-import { initialPositions } from "../src/data/screens.ts";
+import { EDGE_DEFS } from "../src/features/screen-map/data/edges.ts";
+import { buildExport } from "../src/features/screen-map/data/export.ts";
+import { initialPositions } from "../src/features/screen-map/data/screens.ts";
 
 const payload = buildExport(initialPositions(), EDGE_DEFS);
 const out = new URL("../section-x-screen-map.schema.json", import.meta.url);
