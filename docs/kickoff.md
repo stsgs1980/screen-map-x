@@ -23,11 +23,11 @@
 
 ## 2. Отредактируйте модули
 
-- `src/data/screens.ts` - `SCREENS` и производные индексы.
-- `src/data/entities.ts` - `ENTITY_META`.
-- `src/data/edges.ts` - `EDGE_DEFS`.
-- `src/data/status.ts` - палитра, если набор статусов другой.
-- `src/data/constants.ts` - только если меняется геометрия или путь раздела.
+- `src/features/screen-map/data/screens.ts` - `SCREENS` и производные индексы.
+- `src/features/screen-map/data/entities.ts` - `ENTITY_META`.
+- `src/features/screen-map/data/edges.ts` - `EDGE_DEFS`.
+- `src/features/screen-map/data/status.ts` - палитра, если набор статусов другой.
+- `src/features/screen-map/data/constants.ts` - только если меняется геометрия или путь раздела.
 
 Не добавляйте данные прямо в компоненты. Компоненты получают экраны и поля из
 модулей данных и store.
@@ -94,4 +94,4 @@ npm run build
 ```
 
 Если изменился публичный набор данных, перегенерируйте образец экспорта и
-обновите скриншоты в `screenshots/` в том же логическом изменении.
+обновите скриншоты в `docs/assets/screenshots/` в том же логическом изменении.

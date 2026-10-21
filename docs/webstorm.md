@@ -28,7 +28,7 @@ CLI-гейты: при расхождении источником истины 
 
 - Prettier должен использовать локальный пакет и `.prettierrc`.
 - ESLint работает с flat config `eslint.config.js`; кастомные правила лежат в
-  `eslint-rules/`, процессоры - в `eslint-processors/`, парсеры - в `eslint-parsers/`.
+  `tools/eslint/rules/`, процессоры - в `tools/eslint/processors/`, парсеры - в `tools/eslint/parsers/`.
 - Stylelint использует `.stylelintrc.json`; сгенерированный `dist` исключен через
   `.stylelintignore`.
 - On-save форматирование можно включить вручную, но перед коммитом все равно

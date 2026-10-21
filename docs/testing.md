@@ -8,9 +8,9 @@ Playwright для браузерных сценариев. Скриншоты д
 
 Файлы:
 
-- `src/flow.test.ts` - выбор сторон портов и построение React Flow edges.
-- `src/data/data.test.ts` - целостность экранов, полей, сущностей и экспорта.
-- `src/store/mapStore.test.ts` - начальный граф, connect, undo/redo и границы истории.
+- `src/features/screen-map/flow/adapter.test.ts` - выбор сторон портов и построение React Flow edges.
+- `src/features/screen-map/data/data.test.ts` - целостность экранов, полей, сущностей и экспорта.
+- `src/features/screen-map/model/mapStore.test.ts` - начальный граф, connect, undo/redo и границы истории.
 
 Команды:
 
@@ -76,5 +76,5 @@ E2E hover-сценарий специально проверяет реальн�
 - палитра, меню и диалоги закрываются по Escape и клику снаружи;
 - после ELK линии остаются привязаны к полям, undo возвращает предыдущий граф.
 
-Эталонные кадры лежат в `screenshots/`, кадры новых примитивов - в
-`screenshots/ui/`.
+Эталонные кадры лежат в `docs/assets/screenshots/`, кадры новых примитивов - в
+`docs/assets/screenshots/ui/`.

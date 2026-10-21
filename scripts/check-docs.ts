@@ -7,15 +7,7 @@ import { join } from "node:path";
 const KNOWN_FUTURE_SCRIPTS = ["dev"];
 
 /** Inline-code path prefixes that must exist in the repository. */
-const PATH_PREFIXES = [
-  "docs/",
-  ".idea/",
-  "scripts/",
-  ".husky/",
-  "eslint-rules/",
-  "eslint-processors/",
-  "eslint-parsers/",
-];
+const PATH_PREFIXES = ["docs/", ".idea/", "scripts/", ".husky/", "tools/eslint/"];
 
 /** `npm run <name>` references inside docs. */
 const SCRIPT_PATTERN = /npm run ([a-z0-9:.-]+)/g;

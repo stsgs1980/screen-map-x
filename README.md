@@ -10,7 +10,7 @@
 > **Version**: 2.0.0
 > **Last Updated**: 2026-10-21
 
-![Карта экранов раздела X](screenshots/ui/01-main.png)
+![Карта экранов раздела X](docs/assets/screenshots/ui/01-main.png)
 
 ## Overview
 
@@ -53,20 +53,20 @@
 
 ## Specification
 
-| Требование                        | Реализация                                                   |
-| --------------------------------- | ------------------------------------------------------------ |
-| Холст 1200 x 900, фон `#111`      | Фиксированный frame и React Flow Background Lines            |
-| Сетка и snap 10 px                | `snapGrid: [10, 10]`, позиции экранов в модулях данных       |
-| Заголовок карточки 40 px          | `HEAD_H = 40` в `src/data/constants.ts`                      |
-| Строка поля 23 px                 | `ROW_H = 23`, компонент `FieldRow`                           |
-| Скелетон 30 px и chrome 13 px     | Опциональный блок и нижняя полоса карточки                   |
-| Иконки полей 12 px, порты 5 px    | Lucide 12 px и отдельные React Flow Handle по краям          |
-| Линии orth, dash 3/4, `#7C7C7C`   | SmoothStep с радиусом 8 px в `OrthEdge`                      |
-| 7 экранов, хаб в центре           | Хаб `// 02 / A` и шесть сателлитов                           |
-| Статусы полей                     | `new`, `sent`, `pending`, `failed`, `no status`              |
-| Моно-подписи 10 px, spacing .11em | `.mono-label`, цвет `#5A5A5A`, шрифт Geist Mono              |
-| ELK layered / DOWN                | Лениво загружаемый `elkjs`, стороны портов по геометрии      |
-| Экспорт JSON                      | `buildExport()` и образец `section-x-screen-map.schema.json` |
+| Требование                        | Реализация                                                             |
+| --------------------------------- | ---------------------------------------------------------------------- |
+| Холст 1200 x 900, фон `#111`      | Фиксированный frame и React Flow Background Lines                      |
+| Сетка и snap 10 px                | `snapGrid: [10, 10]`, позиции экранов в модулях данных                 |
+| Заголовок карточки 40 px          | `HEAD_H = 40` в `src/features/screen-map/data/constants.ts`            |
+| Строка поля 23 px                 | `ROW_H = 23`, компонент `FieldRow`                                     |
+| Скелетон 30 px и chrome 13 px     | Опциональный блок и нижняя полоса карточки                             |
+| Иконки полей 12 px, порты 5 px    | Lucide 12 px и отдельные React Flow Handle по краям                    |
+| Линии orth, dash 3/4, `#7C7C7C`   | SmoothStep с радиусом 8 px в `OrthEdge`                                |
+| 7 экранов, хаб в центре           | Хаб `// 02 / A` и шесть сателлитов                                     |
+| Статусы полей                     | `new`, `sent`, `pending`, `failed`, `no status`                        |
+| Моно-подписи 10 px, spacing .11em | `.mono-label`, цвет `#5A5A5A`, шрифт Geist Mono                        |
+| ELK layered / DOWN                | Лениво загружаемый `elkjs`, стороны портов по геометрии                |
+| Экспорт JSON                      | `buildExport()` и образец `artifacts/section-x-screen-map.schema.json` |
 
 ### Взаимодействие
 
@@ -127,7 +127,7 @@ npm run preview
 npm run export:schema
 ```
 
-`npm run export:schema` обновляет `section-x-screen-map.schema.json` из исходных
+`npm run export:schema` обновляет `artifacts/section-x-screen-map.schema.json` из исходных
 данных. Экспорт из интерфейса дополнительно учитывает текущие позиции и ручные связи.
 
 ## Scripts
@@ -155,48 +155,56 @@ npm run export:schema
 
 ## Docs
 
-| Документ                                      | Содержание                                 |
-| --------------------------------------------- | ------------------------------------------ |
-| [getting-started.md](docs/getting-started.md) | Установка, запуск, гейты и troubleshooting |
-| [kickoff.md](docs/kickoff.md)                 | Как заменить демо-данные реальным разделом |
-| [webstorm.md](docs/webstorm.md)               | Настройки WebStorm и включённые `.idea/`   |
-| [testing.md](docs/testing.md)                 | Unit, e2e и визуальная проверка            |
-| [markdown.md](docs/markdown.md)               | Правила оформления Markdown                |
-| [COMPLIANCE-REPORT.md](COMPLIANCE-REPORT.md)  | Исходный аудит и итоговое дополнение       |
-| [SECURITY.md](SECURITY.md)                    | Политика безопасности и состояние аудита   |
+| Документ                                               | Содержание                                 |
+| ------------------------------------------------------ | ------------------------------------------ |
+| [getting-started.md](docs/getting-started.md)          | Установка, запуск, гейты и troubleshooting |
+| [kickoff.md](docs/kickoff.md)                          | Как заменить демо-данные реальным разделом |
+| [webstorm.md](docs/webstorm.md)                        | Настройки WebStorm и включённые `.idea/`   |
+| [testing.md](docs/testing.md)                          | Unit, e2e и визуальная проверка            |
+| [markdown.md](docs/markdown.md)                        | Правила оформления Markdown                |
+| [compliance-report.md](artifacts/compliance-report.md) | Исходный аудит и итоговое дополнение       |
+| [SECURITY.md](SECURITY.md)                             | Политика безопасности и состояние аудита   |
 
 ## Architecture
 
 ```text
 src/
-  data/          типы, константы, статусы, сущности, экраны, ребра, экспорт
-  store/         zustand store, zundo history и ссылка на React Flow instance
-  layout/        ELK adapter и анимация позиций между раскладками
-  hooks/         экспорт JSON и глобальные горячие клавиши
-  components/    карточки, ребра, тулбар, меню, диалоги, палитра и инспектор
-  styles/        base, canvas, inspector и primitives CSS
-tests/e2e/       Playwright-сценарии
-scripts/         проверки длины и доков, changelog и экспорт схемы
+  app/                         точка входа и тонкая оболочка приложения
+  features/screen-map/
+    data/                      типы, экраны, сущности, ребра и экспорт
+    flow/                      адаптер семантического графа к React Flow
+    layout/                    ELK adapter и анимация позиций
+    model/                     graph/UI slices, history bridge и flow instance
+    hooks/                     экспорт JSON и глобальные горячие клавиши
+    ui/                        карточки, ребра, меню, диалоги и инспектор
+    styles/                    CSS карты и UI-примитивов
+  shared/                      lucide icons и ambient TypeScript declarations
+tests/e2e/                     Playwright-сценарии
+scripts/                       проверки, changelog и экспорт схемы
+tools/eslint/                  кастомные правила, процессор и парсер ESLint
+docs/assets/screenshots/       эталонные и UI-кадры для ручной сверки
+artifacts/                     compliance report и образец экспортной JSON-схемы
 ```
 
 Главные инварианты:
 
-- Данные экранов и ребер не зависят от React Flow; адаптер находится в `src/flow.ts`.
+- Данные экранов и ребер не зависят от React Flow; адаптер находится в `src/features/screen-map/flow/adapter.ts`.
+- Graph slice владеет `nodes`, `edges`, раскладками и командами истории; UI slice владеет
+  выбором, hover, фильтрами, диалогами и контекстным меню.
 - История undo/redo содержит только `nodes` и `edges`.
-- Выбор, hover, фильтры и открытые диалоги являются UI-состоянием и в историю не попадают.
 - Во время анимации раскладки история ставится на паузу; финальная позиция дает один шаг undo.
 - Иконки Lucide импортируются по одному модулю, чтобы production-бандлер не обрабатывал
   весь корневой граф пакета.
 
 ## Data Model
 
-Чтобы построить карту другого раздела, отредактируйте модули в `src/data/`:
+Чтобы построить карту другого раздела, отредактируйте модули в `src/features/screen-map/data/`:
 
-1. `SCREENS` в `src/data/screens.ts`: id, код, заголовок, route, API, состояния,
+1. `SCREENS` в `src/features/screen-map/data/screens.ts`: id, код, заголовок, route, API, состояния,
    поля, начальная позиция и признак хаба.
-2. `ENTITY_META` в `src/data/entities.ts`: подпись и иконка сущности.
-3. `EDGE_DEFS` в `src/data/edges.ts`: переходы `{ screen, entity } -> { screen, entity }`.
-4. При необходимости статусы в `src/data/status.ts` и геометрию в `src/data/constants.ts`.
+2. `ENTITY_META` в `src/features/screen-map/data/entities.ts`: подпись и иконка сущности.
+3. `EDGE_DEFS` в `src/features/screen-map/data/edges.ts`: переходы `{ screen, entity } -> { screen, entity }`.
+4. При необходимости статусы в `src/features/screen-map/data/status.ts` и геометрию в `src/features/screen-map/data/constants.ts`.
 
 После изменений выполните `npm test`, `npm run export:schema` и `npm run test:e2e`.
 Тесты данных проверяют уникальность и связность идентификаторов, а экспорт строится из
@@ -204,11 +212,11 @@ scripts/         проверки длины и доков, changelog и экс�
 
 ## Testing
 
-- Unit: 17 тестов в `src/flow.test.ts`, `src/data/data.test.ts` и
-  `src/store/mapStore.test.ts`.
+- Unit: 17 тестов в `src/features/screen-map/flow/adapter.test.ts`, `src/features/screen-map/data/data.test.ts` и
+  `src/features/screen-map/model/mapStore.test.ts`.
 - E2E: 6 сценариев в `tests/e2e/screen-map.spec.ts`: рендер, hover-маршрут и tooltip,
   палитра, экспорт в буфер, фильтр статусов, контекстное удаление связи и undo.
-- Visual: кадры в `screenshots/` и `screenshots/ui/` используются для ручной сверки,
+- Visual: кадры в `docs/assets/screenshots/` и `docs/assets/screenshots/ui/` используются для ручной сверки,
   а не как pixel-snapshot assertions.
 
 Подробности: [docs/testing.md](docs/testing.md).

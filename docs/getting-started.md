@@ -56,7 +56,7 @@ npm run export:schema
 ```
 
 Команда запускает `scripts/export-schema.ts` и обновляет файл
-`section-x-screen-map.schema.json`. Экспорт из UI строит тот же payload, но из
+`artifacts/section-x-screen-map.schema.json`. Экспорт из UI строит тот же payload, но из
 текущего состояния store: с фактическими позициями и вручную добавленными связями.
 
 ## 6. Browser tests
@@ -135,6 +135,6 @@ npm run prepare
 ### Docs check fails after editing Markdown
 
 `scripts/check-docs.ts` проверяет ссылки на npm-скрипты, inline-code пути с
-префиксами `docs/`, `.idea/`, `scripts/`, `.husky/`, `eslint-rules/`,
-`eslint-processors/` и `eslint-parsers/`, а также маркер минимальной версии Node
+префиксами `docs/`, `.idea/`, `scripts/`, `.husky/`, `tools/eslint/rules/`,
+`tools/eslint/processors/` и `tools/eslint/parsers/`, а также маркер минимальной версии Node
 в README. Запустите `npm run check:docs` и исправьте конкретную строку из отчета.

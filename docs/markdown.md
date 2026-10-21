@@ -33,7 +33,7 @@ npm run check:docs
 
 - каждая команда запуска npm-скрипта должна соответствовать реальному script в `package.json`;
 - inline-code пути с префиксами `docs/`, `.idea/`, `scripts/`, `.husky/`,
-  `eslint-rules/`, `eslint-processors/` и `eslint-parsers/` должны существовать;
+  `tools/eslint/rules/`, `tools/eslint/processors/` и `tools/eslint/parsers/` должны существовать;
 - маркеры версии Node.js должны совпадать с минимумом `engines.node`;
 - в README должен быть хотя бы один маркер минимальной версии Node.js.
 

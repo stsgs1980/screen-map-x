@@ -14,9 +14,9 @@ import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 // noinspection NpmUsedModulesInstalled
 import tseslint from "typescript-eslint";
-import plainTextParser from "./eslint-parsers/plain-text.js";
-import markdownSnippetsProcessor from "./eslint-processors/markdown-snippets.js";
-import unicodePolicy from "./eslint-rules/unicode-policy.js";
+import plainTextParser from "./tools/eslint/parsers/plain-text.js";
+import markdownSnippetsProcessor from "./tools/eslint/processors/markdown-snippets.js";
+import unicodePolicy from "./tools/eslint/rules/unicode-policy.js";
 
 export default [
   {
