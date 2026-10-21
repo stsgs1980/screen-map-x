@@ -27,6 +27,18 @@ describe("check-docs", () => {
     expect(failures).toHaveLength(0);
   });
 
+  it("ignores the local inspection profile that is not tracked", () => {
+    const failures: string[] = [];
+
+    checkPaths(
+      "docs/webstorm.md",
+      "Файл `.idea/inspectionProfiles/Project_Default.xml` живёт только локально.",
+      failures,
+    );
+
+    expect(failures).toHaveLength(0);
+  });
+
   it("flags a markdown link target that does not exist", () => {
     const failures: string[] = [];
 
