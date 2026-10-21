@@ -1,15 +1,29 @@
-import { useRef, useState, type ReactElement } from "react";
+import { Menu } from "@base-ui/react/menu";
+import type { ReactElement } from "react";
 import { SECTION_PATH } from "../data/constants";
 import { SCREENS } from "../data/screens";
 import { useExport } from "../hooks/useExport";
 import { useMapStore, useTemporalStore } from "../store/mapStore";
-import { Check, Copy, Download, Network, Redo2, RotateCcw, Undo2, X } from "./icons";
+import {
+  ChevronDown,
+  Copy,
+  Download,
+  FileBraces,
+  Keyboard,
+  Network,
+  Redo2,
+  RotateCcw,
+  Search,
+  Undo2,
+  X,
+} from "./icons";
+import { notify } from "./Toasts";
 
 const FIELDS_TOTAL = SCREENS.reduce((n, s) => n + s.fields.length, 0);
 
 /**
- * Top application bar: section title, counters, pinned-route chip and
- * map actions (undo/redo, hub reset, ELK layout, JSON export).
+ * Top application bar: section title, counters, pinned-route chip and map
+ * actions (undo/redo, hub reset, ELK layout, export menu, palette).
  * @returns the header bar
  */
 export function Toolbar(): ReactElement {
@@ -21,17 +35,16 @@ export function Toolbar(): ReactElement {
   const runElk = useMapStore((s) => s.runElk);
   const undo = useMapStore((s) => s.undo);
   const redo = useMapStore((s) => s.redo);
+  const setPaletteOpen = useMapStore((s) => s.setPaletteOpen);
+  const setJsonDialogOpen = useMapStore((s) => s.setJsonDialogOpen);
+  const setHelpOpen = useMapStore((s) => s.setHelpOpen);
   const canUndo = useTemporalStore((s) => s.pastStates.length > 0);
   const canRedo = useTemporalStore((s) => s.futureStates.length > 0);
   const { downloadJSON, copyJSON } = useExport();
-  const [copied, setCopied] = useState(false);
-  const copiedTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const onCopy = async (): Promise<void> => {
     await copyJSON();
-    setCopied(true);
-    if (copiedTimer.current) clearTimeout(copiedTimer.current);
-    copiedTimer.current = setTimeout(() => setCopied(false), 1600);
+    notify("JSON скопирован в буфер обмена");
   };
 
   return (
@@ -53,6 +66,10 @@ export function Toolbar(): ReactElement {
         )}
       </div>
       <div className="toolbar">
+        <button className="btn search-btn" onClick={() => setPaletteOpen(true)} title="Поиск и команды">
+          <Search size={13} aria-hidden /> Поиск
+          <kbd>Ctrl K</kbd>
+        </button>
         <button className="btn" onClick={undo} disabled={!canUndo} title="Отменить (Ctrl+Z)">
           <Undo2 size={13} aria-hidden /> Отменить
         </button>
@@ -70,13 +87,30 @@ export function Toolbar(): ReactElement {
         >
           <Network size={13} aria-hidden /> {elkBusy ? "ELK…" : "ELK · layered"}
         </button>
-        <button className="btn" onClick={() => void onCopy()}>
-          {copied ? <Check size={13} aria-hidden /> : <Copy size={13} aria-hidden />}{" "}
-          {copied ? "Скопировано" : "Копировать JSON"}
-        </button>
-        <button className="btn btn-primary" onClick={downloadJSON}>
-          <Download size={13} aria-hidden /> Экспорт JSON
-        </button>
+        <Menu.Root>
+          <Menu.Trigger className="btn btn-primary" title="Экспорт схемы в JSON">
+            <Download size={13} aria-hidden /> Экспорт <ChevronDown size={12} aria-hidden />
+          </Menu.Trigger>
+          <Menu.Portal>
+            <Menu.Positioner className="pop-pos" side="bottom" align="end" sideOffset={6}>
+              <Menu.Popup className="menu-popup">
+                <Menu.Item className="menu-item" onClick={downloadJSON}>
+                  <Download size={13} aria-hidden /> Скачать JSON
+                </Menu.Item>
+                <Menu.Item className="menu-item" onClick={() => void onCopy()}>
+                  <Copy size={13} aria-hidden /> Копировать JSON
+                </Menu.Item>
+                <Menu.Item className="menu-item" onClick={() => setJsonDialogOpen(true)}>
+                  <FileBraces size={13} aria-hidden /> Посмотреть JSON…
+                </Menu.Item>
+                <Menu.Separator className="menu-sep" />
+                <Menu.Item className="menu-item" onClick={() => setHelpOpen(true)}>
+                  <Keyboard size={13} aria-hidden /> Клавиши и жесты
+                </Menu.Item>
+              </Menu.Popup>
+            </Menu.Positioner>
+          </Menu.Portal>
+        </Menu.Root>
       </div>
     </header>
   );

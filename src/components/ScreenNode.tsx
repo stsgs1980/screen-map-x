@@ -22,7 +22,7 @@ export const ScreenNode = memo(function ScreenNode({ data, selected }: NodeProps
 
   return (
     <div
-      className={`scr${selected ? "sel" : ""}${inRoute ? "" : "dim"}`}
+      className={["scr", selected ? "sel" : "", inRoute ? "" : "dim"].filter(Boolean).join(" ")}
       style={{ width: NODE_W, height: screenHeight(s) }}
     >
       <div className="scr-head">

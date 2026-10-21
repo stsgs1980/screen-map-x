@@ -60,7 +60,7 @@ export function InspectorScreen({ screen }: { screen: ScreenDef }): ReactElement
       <div className="sec-h mono-label">Поля · статусы</div>
       {screen.fields.map((f) => (
         <div
-          className={`spec-field${activeEntity === f.entity ? "on" : ""}`}
+          className={activeEntity === f.entity ? "spec-field on" : "spec-field"}
           key={f.entity}
           onMouseEnter={() => setHoverEntity(f.entity)}
           onMouseLeave={() => setHoverEntity(null)}

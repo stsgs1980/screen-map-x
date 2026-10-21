@@ -1,3 +1,4 @@
+import { PreviewCard } from "@base-ui/react/preview-card";
 import { useMemo, type ReactElement } from "react";
 import { SECTION_PATH } from "../../data/constants";
 import { ENTITY_META } from "../../data/entities";
@@ -5,6 +6,7 @@ import { SCREENS } from "../../data/screens";
 import { defOf } from "../../flow";
 import { selectActiveEntity, useMapStore } from "../../store/mapStore";
 import { Star } from "../icons";
+import { EntityPreview } from "./EntityPreview";
 
 /**
  * Inspector in overview mode (no screen selected): section counters,
@@ -53,20 +55,33 @@ export function InspectorOverview(): ReactElement {
       <div className="sec-h mono-label">Сущности · маршруты</div>
       <div className="ent-list">
         {entities.map((e) => (
-          <button
-            key={e.key}
-            className={`ent-row${activeEntity === e.key ? "on" : ""}`}
-            onMouseEnter={() => setHoverEntity(e.key)}
-            onMouseLeave={() => setHoverEntity(null)}
-            onClick={() => togglePin(e.key)}
-            title="Клик — закрепить подсветку маршрута"
-          >
-            <span className="ent-key">{e.key}</span>
-            <span className="ent-label">{ENTITY_META[e.key].label}</span>
-            <span className="ent-meta">
-              {e.fields} пол. · {e.edges} перех.{pinnedEntity === e.key ? " · pinned" : ""}
-            </span>
-          </button>
+          <PreviewCard.Root key={e.key}>
+            <PreviewCard.Trigger
+              render={
+                <button
+                  type="button"
+                  className={activeEntity === e.key ? "ent-row on" : "ent-row"}
+                  onMouseEnter={() => setHoverEntity(e.key)}
+                  onMouseLeave={() => setHoverEntity(null)}
+                  onClick={() => togglePin(e.key)}
+                  title="Клик — закрепить подсветку маршрута"
+                />
+              }
+            >
+              <span className="ent-key">{e.key}</span>
+              <span className="ent-label">{ENTITY_META[e.key].label}</span>
+              <span className="ent-meta">
+                {e.fields} пол. · {e.edges} перех.{pinnedEntity === e.key ? " · pinned" : ""}
+              </span>
+            </PreviewCard.Trigger>
+            <PreviewCard.Portal>
+              <PreviewCard.Positioner className="pop-pos" side="left" sideOffset={10}>
+                <PreviewCard.Popup className="preview-card">
+                  <EntityPreview entity={e.key} />
+                </PreviewCard.Popup>
+              </PreviewCard.Positioner>
+            </PreviewCard.Portal>
+          </PreviewCard.Root>
         ))}
       </div>
 

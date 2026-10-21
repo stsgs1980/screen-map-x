@@ -39,7 +39,7 @@
   color: #ededed;
 }
 
-.leg-chip.on {
+.leg-chip[data-pressed] {
   border-color: #ededed;
   color: #fff;
   background: #1e1e1e;
@@ -336,4 +336,8 @@
 
 .react-flow__node:focus {
   outline: none;
+}
+
+.legend-group {
+  display: contents;
 }

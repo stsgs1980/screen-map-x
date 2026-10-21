@@ -1,11 +1,15 @@
+import { Toggle } from "@base-ui/react/toggle";
+import { ToggleGroup } from "@base-ui/react/toggle-group";
 import { Panel } from "@xyflow/react";
 import type { ReactElement } from "react";
 import { STATUS, STATUS_KEYS } from "../data/status";
+import type { StatusKey } from "../data/types";
 import { useMapStore } from "../store/mapStore";
 
 /**
  * Canvas overlay panels: map caption (top-left), interaction hints
- * (top-center) and the status legend with filter toggles (bottom-left).
+ * (top-center) and the status legend (bottom-left) built on a Base UI
+ * ToggleGroup, so filtering is keyboard-accessible with proper semantics.
  * @returns the three React Flow panels
  */
 export function CanvasOverlays(): ReactElement {
@@ -19,22 +23,24 @@ export function CanvasOverlays(): ReactElement {
       </Panel>
 
       <Panel position="top-center" className="hints mono">
-        hover поле — маршрут · клик экран — спецификация · Ctrl+Z — отмена · drag от порта — связь · Del — удалить
+        Ctrl+K — поиск · hover поле — маршрут · Ctrl+Z — отмена · drag от порта — связь · Del — удалить
       </Panel>
 
       <Panel position="bottom-left" className="panel-card legend">
         <span className="mono-label">STATUS</span>
-        {STATUS_KEYS.map((k) => (
-          <button
-            key={k}
-            className={`leg-chip${statusFilter === k ? "on" : ""}`}
-            onClick={() => setStatusFilter(statusFilter === k ? null : k)}
-            title={`${STATUS[k].ru} — клик фильтрует поля по статусу`}
-          >
-            <span className="dot" style={{ background: STATUS[k].color }} />
-            {STATUS[k].label}
-          </button>
-        ))}
+        <ToggleGroup
+          className="legend-group"
+          aria-label="Фильтр полей по статусу"
+          value={statusFilter ? [statusFilter] : []}
+          onValueChange={(value) => setStatusFilter((value[0] as StatusKey | undefined) ?? null)}
+        >
+          {STATUS_KEYS.map((k) => (
+            <Toggle key={k} value={k} className="leg-chip" title={`${STATUS[k].ru} — фильтр полей по статусу`}>
+              <span className="dot" style={{ background: STATUS[k].color }} />
+              {STATUS[k].label}
+            </Toggle>
+          ))}
+        </ToggleGroup>
       </Panel>
     </>
   );

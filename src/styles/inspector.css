@@ -2,8 +2,7 @@
 .inspector {
   width: 348px;
   flex: none;
-  overflow-y: auto;
-  padding: 16px;
+  position: relative;
   background: #121212;
   border-left: 1px solid #1f1f1f;
 }
@@ -286,4 +285,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.inspector-viewport {
+  height: 100%;
+  overscroll-behavior: contain;
+}
+
+.inspector-content {
+  padding: 16px;
 }
