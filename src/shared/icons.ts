@@ -21,8 +21,8 @@ import FileText from "lucide-react/dist/esm/icons/file-text";
 import KeyRound from "lucide-react/dist/esm/icons/key-round";
 import Keyboard from "lucide-react/dist/esm/icons/keyboard";
 import Network from "lucide-react/dist/esm/icons/network";
-import PanelTopClose from "lucide-react/dist/esm/icons/panel-top-close";
-import PanelTopOpen from "lucide-react/dist/esm/icons/panel-top-open";
+import PanelRightClose from "lucide-react/dist/esm/icons/panel-right-close";
+import PanelRightOpen from "lucide-react/dist/esm/icons/panel-right-open";
 import Pin from "lucide-react/dist/esm/icons/pin";
 import ReceiptText from "lucide-react/dist/esm/icons/receipt-text";
 import Redo2 from "lucide-react/dist/esm/icons/redo-2";
@@ -55,8 +55,8 @@ export {
   KeyRound,
   Keyboard,
   Network,
-  PanelTopClose,
-  PanelTopOpen,
+  PanelRightClose,
+  PanelRightOpen,
   Pin,
   ReceiptText,
   Redo2,

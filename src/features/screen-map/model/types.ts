@@ -33,7 +33,7 @@ export interface GraphSlice extends GraphHistory {
 
 /** UI-owned state and actions: selection, route highlighting, filters and overlays. */
 export interface UiSlice {
-  headerVisible: boolean;
+  inspectorVisible: boolean;
   hoverEntity: string | null;
   pinnedEntity: string | null;
   statusFilter: StatusKey | null;
@@ -42,8 +42,8 @@ export interface UiSlice {
   jsonDialogOpen: boolean;
   helpOpen: boolean;
   contextTarget: ContextTarget | null;
-  setHeaderVisible: (visible: boolean) => void;
-  toggleHeader: () => void;
+  setInspectorVisible: (visible: boolean) => void;
+  toggleInspector: () => void;
   centerMap: () => void;
   setHoverEntity: (entity: string | null) => void;
   togglePin: (entity: string) => void;

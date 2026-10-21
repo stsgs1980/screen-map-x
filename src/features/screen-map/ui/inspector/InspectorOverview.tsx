@@ -1,6 +1,6 @@
 import { PreviewCard } from "@base-ui/react/preview-card";
 import { useMemo, type ReactElement } from "react";
-import { Star } from "../../../../shared/icons";
+import { PanelRightClose, Star } from "../../../../shared/icons";
 import { SECTION_PATH } from "../../data/constants";
 import { ENTITY_META } from "../../data/entities";
 import { SCREENS } from "../../data/screens";
@@ -20,6 +20,7 @@ export function InspectorOverview(): ReactElement {
   const setHoverEntity = useMapStore((s) => s.setHoverEntity);
   const togglePin = useMapStore((s) => s.togglePin);
   const focusScreen = useMapStore((s) => s.focusScreen);
+  const toggleInspector = useMapStore((s) => s.toggleInspector);
 
   const defs = useMemo(() => edges.map(defOf), [edges]);
   const fieldsTotal = SCREENS.reduce((n, s) => n + s.fields.length, 0);
@@ -31,8 +32,20 @@ export function InspectorOverview(): ReactElement {
 
   return (
     <>
-      <div className="mono-label">{SECTION_PATH}</div>
-      <h2 className="insp-h">Карта экранов</h2>
+      <div className="insp-top">
+        <div>
+          <div className="mono-label">{SECTION_PATH}</div>
+          <h2 className="insp-h">Карта экранов</h2>
+        </div>
+        <button
+          className="btn btn-ghost insp-close inspector-collapse"
+          onClick={toggleInspector}
+          aria-label="Скрыть правую панель"
+          title="Скрыть правую панель"
+        >
+          <PanelRightClose size={14} aria-hidden />
+        </button>
+      </div>
       <p className="insp-p">
         Узлы — экраны, рёбра — переходы по полям-сущностям (не по кнопкам). Наведите курсор на поле, чтобы подсветить
         весь маршрут сущности; клик по экрану открывает его спецификацию.

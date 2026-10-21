@@ -3,7 +3,7 @@ import { useMapStore } from "../model/mapStore";
 
 /**
  * Keep the fixed 1200x900 canvas frame centred in its scroll viewport and
- * fit the graph inside React Flow after mount, header toggles and resizes.
+ * fit the graph inside React Flow after mount, inspector toggles and resizes.
  * @param scrollRef - scrollable canvas viewport element
  * @param frameRef - fixed-size canvas frame element
  */
@@ -12,7 +12,7 @@ export function useAutoCenter(
   frameRef: RefObject<HTMLDivElement | null>,
 ): void {
   const centerMap = useMapStore((s) => s.centerMap);
-  const headerVisible = useMapStore((s) => s.headerVisible);
+  const inspectorVisible = useMapStore((s) => s.inspectorVisible);
 
   useEffect(() => {
     let frame = 0;
@@ -52,5 +52,5 @@ export function useAutoCenter(
       if (resizeTimer !== undefined) window.clearTimeout(resizeTimer);
       window.removeEventListener("resize", onResize);
     };
-  }, [centerMap, frameRef, headerVisible, scrollRef]);
+  }, [centerMap, frameRef, inspectorVisible, scrollRef]);
 }

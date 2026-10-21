@@ -7,12 +7,17 @@ import { InspectorScreen } from "./InspectorScreen";
 
 /**
  * Right-hand inspector panel in a custom Base UI scroll viewport: screen
- * spec when a screen is selected, section overview otherwise.
- * @returns the inspector region
+ * spec when a screen is selected, section overview otherwise. Returns
+ * nothing while the panel is hidden.
+ * @returns the inspector region or null when hidden
  */
-export function Inspector(): ReactElement {
+export function Inspector(): ReactElement | null {
+  const inspectorVisible = useMapStore((s) => s.inspectorVisible);
   const selectedId = useMapStore((s) => s.selectedId);
   const screen = selectedId ? SCREEN_BY_ID[selectedId] : null;
+
+  if (!inspectorVisible) return null;
+
   return (
     <ScrollArea.Root className="inspector" render={<aside />}>
       <ScrollArea.Viewport className="inspector-viewport">

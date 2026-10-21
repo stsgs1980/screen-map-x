@@ -77,12 +77,13 @@ test.describe("section X screen map", () => {
     await expect(page.locator(".react-flow__edge")).toHaveCount(18);
   });
 
-  test("top bar can be hidden and restored while the canvas stays centred", async ({ page }) => {
-    await page.getByRole("button", { name: "Скрыть верхнюю панель" }).click();
-    await expect(page.locator(".app-title")).toHaveCount(0);
+  test("right inspector can be hidden and restored while the canvas stays centred", async ({ page }) => {
+    await expect(page.locator(".app-title")).toContainText("Карта экранов");
+    await expect(page.locator(".inspector .insp-h")).toHaveText("Карта экранов");
 
-    const restore = page.getByRole("button", { name: "Показать верхнюю панель" });
-    await expect(restore).toBeVisible();
+    await page.locator(".inspector-collapse").click();
+    await expect(page.locator(".inspector")).toHaveCount(0);
+    await expect(page.locator(".app-title")).toBeVisible();
 
     const centreDelta = await page.evaluate(() => {
       const scroll = document.querySelector(".canvas-scroll");
@@ -96,7 +97,7 @@ test.describe("section X screen map", () => {
     });
     expect(centreDelta).toBeLessThan(24);
 
-    await restore.click();
-    await expect(page.locator(".app-title")).toContainText("Карта экранов");
+    await page.locator(".inspector-toggle").click();
+    await expect(page.locator(".inspector .insp-h")).toHaveText("Карта экранов");
   });
 });

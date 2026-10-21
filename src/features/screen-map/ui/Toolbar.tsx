@@ -8,8 +8,8 @@ import {
   FileBraces,
   Keyboard,
   Network,
-  PanelTopClose,
-  PanelTopOpen,
+  PanelRightClose,
+  PanelRightOpen,
   Redo2,
   RotateCcw,
   Search,
@@ -30,8 +30,8 @@ const FIELDS_TOTAL = SCREENS.reduce((n, s) => n + s.fields.length, 0);
  * @returns the header bar
  */
 export function Toolbar(): ReactElement {
-  const headerVisible = useMapStore((s) => s.headerVisible);
-  const toggleHeader = useMapStore((s) => s.toggleHeader);
+  const inspectorVisible = useMapStore((s) => s.inspectorVisible);
+  const toggleInspector = useMapStore((s) => s.toggleInspector);
   const centerMap = useMapStore((s) => s.centerMap);
   const links = useMapStore((s) => s.edges.length);
   const pinnedEntity = useMapStore((s) => s.pinnedEntity);
@@ -52,19 +52,6 @@ export function Toolbar(): ReactElement {
     const copied = await copyJSON();
     notify(copied ? "JSON скопирован в буфер обмена" : "Не удалось скопировать JSON");
   };
-
-  if (!headerVisible) {
-    return (
-      <button
-        className="btn header-restore"
-        onClick={toggleHeader}
-        aria-label="Показать верхнюю панель"
-        title="Показать верхнюю панель"
-      >
-        <PanelTopOpen size={14} aria-hidden /> Панель
-      </button>
-    );
-  }
 
   return (
     <header className="topbar">
@@ -133,8 +120,15 @@ export function Toolbar(): ReactElement {
             </Menu.Positioner>
           </Menu.Portal>
         </Menu.Root>
-        <button className="btn" onClick={toggleHeader} aria-label="Скрыть верхнюю панель" title="Скрыть верхнюю панель">
-          <PanelTopClose size={14} aria-hidden /> Скрыть
+        <button
+          className="btn inspector-toggle"
+          onClick={toggleInspector}
+          aria-pressed={inspectorVisible}
+          aria-label={inspectorVisible ? "Скрыть правую панель" : "Показать правую панель"}
+          title={inspectorVisible ? "Скрыть правую панель" : "Показать правую панель"}
+        >
+          {inspectorVisible ? <PanelRightClose size={14} aria-hidden /> : <PanelRightOpen size={14} aria-hidden />}
+          Инспектор
         </button>
       </div>
     </header>

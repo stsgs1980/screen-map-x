@@ -1,5 +1,5 @@
 import { useMemo, type ReactElement } from "react";
-import { X } from "../../../../shared/icons";
+import { PanelRightClose, X } from "../../../../shared/icons";
 import { STATUS } from "../../data/status";
 import type { ScreenDef } from "../../data/types";
 import { defOf } from "../../flow/adapter";
@@ -17,6 +17,7 @@ export function InspectorScreen({ screen }: { screen: ScreenDef }): ReactElement
   const activeEntity = useMapStore(selectActiveEntity);
   const setHoverEntity = useMapStore((s) => s.setHoverEntity);
   const setSelected = useMapStore((s) => s.setSelected);
+  const toggleInspector = useMapStore((s) => s.toggleInspector);
   const defs = useMemo(() => edges.map(defOf), [edges]);
   const incoming = defs.filter((e) => e.to.screen === screen.id);
   const outgoing = defs.filter((e) => e.from.screen === screen.id);
@@ -31,9 +32,23 @@ export function InspectorScreen({ screen }: { screen: ScreenDef }): ReactElement
           </div>
           <h2 className="insp-h">{screen.title}</h2>
         </div>
-        <button className="btn btn-ghost insp-close" onClick={() => setSelected(null)} title="Закрыть (клик по холсту)">
-          <X size={13} aria-hidden />
-        </button>
+        <div className="insp-actions">
+          <button
+            className="btn btn-ghost insp-close inspector-collapse"
+            onClick={toggleInspector}
+            aria-label="Скрыть правую панель"
+            title="Скрыть правую панель"
+          >
+            <PanelRightClose size={14} aria-hidden />
+          </button>
+          <button
+            className="btn btn-ghost insp-close"
+            onClick={() => setSelected(null)}
+            title="Закрыть (клик по холсту)"
+          >
+            <X size={13} aria-hidden />
+          </button>
+        </div>
       </div>
 
       <div className="route-chip">{screen.route}</div>

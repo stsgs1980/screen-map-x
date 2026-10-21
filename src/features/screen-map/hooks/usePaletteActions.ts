@@ -5,8 +5,8 @@ import {
   FileBraces,
   Keyboard,
   Network,
-  PanelTopClose,
-  PanelTopOpen,
+  PanelRightClose,
+  PanelRightOpen,
   Redo2,
   RotateCcw,
   Undo2,
@@ -35,8 +35,8 @@ export function usePaletteActions(): PaletteAction[] {
   const redo = useMapStore((s) => s.redo);
   const setJsonDialogOpen = useMapStore((s) => s.setJsonDialogOpen);
   const setHelpOpen = useMapStore((s) => s.setHelpOpen);
-  const headerVisible = useMapStore((s) => s.headerVisible);
-  const toggleHeader = useMapStore((s) => s.toggleHeader);
+  const inspectorVisible = useMapStore((s) => s.inspectorVisible);
+  const toggleInspector = useMapStore((s) => s.toggleInspector);
   const centerMap = useMapStore((s) => s.centerMap);
   const { downloadJSON, copyJSON } = useExport();
 
@@ -48,10 +48,10 @@ export function usePaletteActions(): PaletteAction[] {
       run: centerMap,
     },
     {
-      value: "панель заголовок скрыть показать верхняя панель header",
-      label: headerVisible ? "Скрыть верхнюю панель" : "Показать верхнюю панель",
-      icon: headerVisible ? PanelTopClose : PanelTopOpen,
-      run: toggleHeader,
+      value: "инспектор правая панель скрыть показать inspector panel",
+      label: inspectorVisible ? "Скрыть правую панель" : "Показать правую панель",
+      icon: inspectorVisible ? PanelRightClose : PanelRightOpen,
+      run: toggleInspector,
     },
     {
       value: "elk раскладка layered layout",

@@ -44,12 +44,12 @@ describe("map store", () => {
     expect(temporal().pastStates).toHaveLength(0);
   });
 
-  it("toggles the top bar visibility", () => {
-    expect(state().headerVisible).toBe(true);
-    state().toggleHeader();
-    expect(state().headerVisible).toBe(false);
-    state().toggleHeader();
-    expect(state().headerVisible).toBe(true);
+  it("toggles the right inspector visibility", () => {
+    expect(state().inspectorVisible).toBe(true);
+    state().toggleInspector();
+    expect(state().inspectorVisible).toBe(false);
+    state().toggleInspector();
+    expect(state().inspectorVisible).toBe(true);
   });
 
   it("tracks hover over pin as the active entity inputs", () => {
