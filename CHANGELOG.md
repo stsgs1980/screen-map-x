@@ -5,8 +5,10 @@
 ### Bug Fixes
 
 - **app:** close compliance audit findings in data, model and tooling ([6d67885](https://github.com/stsgs1980/screen-map-x/commit/6d67885f37ee463406694b83ff12703ce697571d))
+- **docs:** allow documentation of local-only paths ([052f11c](https://github.com/stsgs1980/screen-map-x/commit/052f11ca483fec8322b4387398f3c67acdf45b74))
 - **docs:** ignore generated husky paths in the docs check ([aaaf044](https://github.com/stsgs1980/screen-map-x/commit/aaaf044c26af6369f18a7648db6cbfe6f96522a0))
 - **export:** handle clipboard copy failures ([4de77a7](https://github.com/stsgs1980/screen-map-x/commit/4de77a7c3f6bd281e297f2c6aaafca2a44f56e1c))
+- **styles:** raise the accent contrast above WCAG AA ([313f24b](https://github.com/stsgs1980/screen-map-x/commit/313f24b2f364c6b29e1ff29798e832e158bc3726))
 - **ui:** make right inspector collapsible ([2703a0f](https://github.com/stsgs1980/screen-map-x/commit/2703a0f8e9d1d7865076a91fbce6069d879c765f))
 - **ui:** set the document title to Screen-map-x ([16e0aeb](https://github.com/stsgs1980/screen-map-x/commit/16e0aeba50e510274cfe08e4f86b89a66fdf2c78))
 
