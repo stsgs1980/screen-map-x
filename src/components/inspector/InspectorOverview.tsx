@@ -4,6 +4,7 @@ import { ENTITY_META } from "../../data/entities";
 import { SCREENS } from "../../data/screens";
 import { defOf } from "../../flow";
 import { selectActiveEntity, useMapStore } from "../../store/mapStore";
+import { Star } from "../icons";
 
 /**
  * Inspector in overview mode (no screen selected): section counters,
@@ -76,7 +77,7 @@ export function InspectorOverview(): ReactElement {
             <span className="mono-label">{s.code}</span>
             <span className="scr-row-t">
               {s.title}
-              {s.hub ? " ★" : ""}
+              {s.hub ? <Star size={10} fill="currentColor" aria-hidden /> : null}
             </span>
             <span className="scr-row-r">{s.route}</span>
           </button>

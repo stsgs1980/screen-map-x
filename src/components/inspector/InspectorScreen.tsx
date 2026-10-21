@@ -3,6 +3,7 @@ import { STATUS } from "../../data/status";
 import type { ScreenDef } from "../../data/types";
 import { defOf } from "../../flow";
 import { selectActiveEntity, useMapStore } from "../../store/mapStore";
+import { X } from "../icons";
 import { LinkRow } from "./LinkRow";
 
 /**
@@ -31,7 +32,7 @@ export function InspectorScreen({ screen }: { screen: ScreenDef }): ReactElement
           <h2 className="insp-h">{screen.title}</h2>
         </div>
         <button className="btn btn-ghost insp-close" onClick={() => setSelected(null)} title="Закрыть (клик по холсту)">
-          ✕
+          <X size={13} aria-hidden />
         </button>
       </div>
 

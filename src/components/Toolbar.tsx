@@ -3,6 +3,7 @@ import { SECTION_PATH } from "../data/constants";
 import { SCREENS } from "../data/screens";
 import { useExport } from "../hooks/useExport";
 import { useMapStore, useTemporalStore } from "../store/mapStore";
+import { Check, Copy, Download, Network, Redo2, RotateCcw, Undo2, X } from "./icons";
 
 const FIELDS_TOTAL = SCREENS.reduce((n, s) => n + s.fields.length, 0);
 
@@ -47,19 +48,19 @@ export function Toolbar(): ReactElement {
         </span>
         {pinnedEntity && (
           <button className="pin-chip" onClick={() => setPinnedEntity(null)} title="Снять закрепление">
-            маршрут: {pinnedEntity} ✕
+            маршрут: {pinnedEntity} <X size={11} aria-hidden />
           </button>
         )}
       </div>
       <div className="toolbar">
         <button className="btn" onClick={undo} disabled={!canUndo} title="Отменить (Ctrl+Z)">
-          Отменить
+          <Undo2 size={13} aria-hidden /> Отменить
         </button>
         <button className="btn" onClick={redo} disabled={!canRedo} title="Повторить (Ctrl+Shift+Z)">
-          Повторить
+          <Redo2 size={13} aria-hidden /> Повторить
         </button>
         <button className="btn" onClick={resetMap} title="Исходная схема: хаб в центре, сателлиты по краям">
-          Сброс · хаб ★
+          <RotateCcw size={13} aria-hidden /> Сброс · хаб
         </button>
         <button
           className="btn"
@@ -67,13 +68,14 @@ export function Toolbar(): ReactElement {
           disabled={elkBusy}
           title="elkjs: layered, direction DOWN, orthogonal routing"
         >
-          {elkBusy ? "ELK…" : "ELK · layered ↓"}
+          <Network size={13} aria-hidden /> {elkBusy ? "ELK…" : "ELK · layered"}
         </button>
         <button className="btn" onClick={() => void onCopy()}>
-          {copied ? "Скопировано ✓" : "Копировать JSON"}
+          {copied ? <Check size={13} aria-hidden /> : <Copy size={13} aria-hidden />}{" "}
+          {copied ? "Скопировано" : "Копировать JSON"}
         </button>
         <button className="btn btn-primary" onClick={downloadJSON}>
-          ⇩ Экспорт JSON
+          <Download size={13} aria-hidden /> Экспорт JSON
         </button>
       </div>
     </header>

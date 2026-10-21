@@ -3,6 +3,7 @@ import { FIELD_OF, SCREEN_BY_ID } from "../../data/screens";
 import { STATUS } from "../../data/status";
 import type { EdgeDef } from "../../data/types";
 import { useMapStore } from "../../store/mapStore";
+import { ArrowLeft, ArrowRight } from "../icons";
 
 /**
  * One incoming/outgoing link in the screen spec. Hovering lights the
@@ -26,7 +27,9 @@ export function LinkRow({ def, dir }: { def: EdgeDef; dir: "in" | "out" }): Reac
     >
       <span className="dot" style={{ background: otherField ? STATUS[otherField.status].color : "#666" }} />
       <span className="link-ent">{def.entity}</span>
-      <span className="link-arrow">{dir === "in" ? "←" : "→"}</span>
+      <span className="link-arrow">
+        {dir === "in" ? <ArrowLeft size={11} aria-hidden /> : <ArrowRight size={11} aria-hidden />}
+      </span>
       <span className="link-target">
         {otherScreen?.title} · {otherField?.label}
       </span>

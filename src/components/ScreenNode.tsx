@@ -6,6 +6,7 @@ import { STATUS } from "../data/status";
 import type { ScreenFlowNode } from "../flow";
 import { selectActiveEntity, useMapStore } from "../store/mapStore";
 import { FieldRow } from "./FieldRow";
+import { Star } from "./icons";
 
 /**
  * `card/screen`: header 40px + field rows 23px + optional skeleton block
@@ -30,7 +31,11 @@ export const ScreenNode = memo(function ScreenNode({ data, selected }: NodeProps
           <div className="scr-title">{s.title}</div>
         </div>
         <div className="scr-head-r">
-          {s.hub && <span className="hub-badge">hub ★</span>}
+          {s.hub && (
+            <span className="hub-badge">
+              hub <Star size={8} fill="currentColor" aria-hidden />
+            </span>
+          )}
           <span className="scr-dots">
             {statusDots.map((st) => (
               <i key={st} style={{ background: STATUS[st].color }} />

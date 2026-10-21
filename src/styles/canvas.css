@@ -1,0 +1,339 @@
+/* ------------------------------------------------------- canvas overlays */
+.panel-card {
+  background: rgb(17 17 17 / 88%);
+  border: 1px solid #262626;
+  border-radius: 8px;
+  padding: 8px 10px;
+  backdrop-filter: blur(4px);
+}
+
+.canvas-sub {
+  margin-top: 4px;
+  font-size: 10px;
+  color: #6e6e6e;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  max-width: 560px;
+}
+
+.leg-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid #2c2c2c;
+  border-radius: 999px;
+  color: #bdbdbd;
+  padding: 3px 9px;
+  font-size: 11px;
+}
+
+.leg-chip:hover {
+  border-color: #454545;
+  color: #ededed;
+}
+
+.leg-chip.on {
+  border-color: #ededed;
+  color: #fff;
+  background: #1e1e1e;
+}
+
+.hints {
+  font-size: 10px;
+  color: #5f5f5f;
+  background: rgb(17 17 17 / 75%);
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid #222;
+  white-space: nowrap;
+}
+
+.edge-chip {
+  position: absolute;
+  pointer-events: none;
+  z-index: 5;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  background: #ededed;
+  color: #111;
+  padding: 2px 7px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+
+/* ------------------------------------------------------------- card/screen */
+.scr {
+  background: #161616;
+  border: 1px solid #2b2b2b;
+  border-radius: 10px;
+  box-shadow: 0 10px 28px rgb(0 0 0 / 45%);
+  transition:
+    opacity 0.18s ease,
+    filter 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.scr.dim {
+  opacity: 0.2;
+  filter: saturate(0.35);
+}
+
+.scr.sel {
+  border-color: #e8e8e8;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 85%),
+    0 14px 34px rgb(0 0 0 / 50%);
+}
+
+.scr-head {
+  height: 40px;
+  padding: 6px 10px 5px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  background: #191919;
+  border-bottom: 1px solid #232323;
+  border-radius: 9px 9px 0 0;
+}
+
+.scr-title {
+  margin-top: 2px;
+  font-size: 12.5px;
+  font-weight: 650;
+  color: #e8e8e8;
+  white-space: nowrap;
+}
+
+.scr-head-r {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.hub-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  color: #111;
+  background: #d8d8d8;
+  border-radius: 4px;
+  padding: 1px 5px;
+  text-transform: uppercase;
+}
+
+.scr-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.scr-dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  display: block;
+}
+
+/* -------------------------------------------------------------- card/field */
+.fld {
+  position: relative;
+  height: 23px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 10px 0 12px;
+  transition:
+    opacity 0.15s ease,
+    background 0.15s ease;
+  cursor: default;
+}
+
+.fld + .fld {
+  border-top: 1px solid #1e1e1e;
+}
+
+.fld svg {
+  flex: none;
+  color: #8f8f8f;
+}
+
+.fld.on {
+  background: rgb(255 255 255 / 5.5%);
+}
+
+.fld.on svg {
+  color: #f2f2f2;
+}
+
+.fld-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+}
+
+.fld-label {
+  font-size: 11.5px;
+  color: #dcdcdc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fld-ent {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: #5f5f5f;
+}
+
+.fld.on .fld-ent {
+  color: #bdbdbd;
+}
+
+/* ports: 5px dots, separate child elements (Handles) on the card edges */
+.react-flow__handle.port {
+  width: 5px;
+  height: 5px;
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid #6e6e6e;
+  border-radius: 50%;
+  background: #141414;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.react-flow__handle.port:hover {
+  background: #ededed;
+  border-color: #ededed;
+}
+
+/* skeleton block + chrome strip */
+.skel {
+  height: 30px;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border-top: 1px solid #1c1c1c;
+}
+
+.skel span {
+  height: 4px;
+  border-radius: 2px;
+  background: #242424;
+  animation: skel 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes skel {
+  from {
+    opacity: 0.45;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.chrome {
+  height: 13px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 8px;
+  background: #101010;
+  border-top: 1px solid #1e1e1e;
+  border-radius: 0 0 9px 9px;
+}
+
+.chrome i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #2e2e2e;
+  flex: none;
+  display: block;
+}
+
+.chrome-route {
+  margin-left: 2px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  color: #4d4d4d;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ------------------------------------------------------------ React Flow */
+.react-flow__edge {
+  cursor: pointer;
+}
+
+.react-flow__edge.edge-hl path.react-flow__edge-path {
+  animation: march 0.55s linear infinite;
+}
+
+@keyframes march {
+  to {
+    stroke-dashoffset: -7;
+  }
+}
+
+.react-flow__controls {
+  background: #161616;
+  border: 1px solid #2b2b2b;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 45%);
+}
+
+.react-flow__controls-button {
+  background: #161616;
+  border-bottom: 1px solid #242424;
+  fill: #bdbdbd;
+}
+
+.react-flow__controls-button:hover {
+  background: #202020;
+}
+
+.react-flow__minimap {
+  border: 1px solid #2b2b2b;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.react-flow__attribution {
+  background: transparent;
+  color: #4d4d4d;
+}
+
+.react-flow__attribution a {
+  color: #5f5f5f;
+}
+
+.react-flow__connection-path {
+  stroke: #ededed;
+  stroke-dasharray: 3 4;
+}
+
+.react-flow__node:focus {
+  outline: none;
+}
