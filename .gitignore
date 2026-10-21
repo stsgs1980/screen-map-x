@@ -63,3 +63,8 @@ npm-debug.log*
 
 # TypeScript build info
 *.tsbuildinfo
+
+# Local-only documents
+# The compliance audit describes an external reference implementation and stays
+# out of version control: the public repository ships the project, not the audit.
+artifacts/compliance-report.md
