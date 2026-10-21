@@ -9,10 +9,7 @@ import "@xyflow/react/dist/style.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
-import "./styles/base.css";
-import "./styles/canvas.css";
-import "./styles/inspector.css";
-import "./styles/primitives.css";
+import "./styles/index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

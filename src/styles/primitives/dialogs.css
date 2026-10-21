@@ -1,0 +1,107 @@
+/* ------------------------------------------------------------------ dialogs */
+.dlg-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 290;
+  background: rgb(0 0 0 / 62%);
+  backdrop-filter: blur(2px);
+  transition: opacity 0.16s ease;
+}
+
+.dlg-backdrop[data-starting-style],
+.dlg-backdrop[data-ending-style] {
+  opacity: 0;
+}
+
+.dlg-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 300;
+  transform: translate(-50%, -50%);
+  background: #141414;
+  border: 1px solid #2c2c2c;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 24px 64px rgb(0 0 0 / 65%);
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease;
+}
+
+.dlg-popup[data-starting-style],
+.dlg-popup[data-ending-style] {
+  opacity: 0;
+  transform: translate(-50%, -48%) scale(0.98);
+}
+
+.json-dlg {
+  width: min(760px, 92vw);
+}
+
+.help-dlg {
+  width: min(560px, 92vw);
+}
+
+.dlg-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.dlg-title {
+  margin: 2px 0 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.dlg-desc {
+  margin: 8px 0 0;
+  color: #8f8f8f;
+  font-size: 12.5px;
+}
+
+.dlg-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.dlg-x {
+  padding: 0 8px;
+}
+
+.json-pre {
+  margin-top: 14px;
+  max-height: 56vh;
+  overflow: auto;
+  background: #0d0d0d;
+  border: 1px solid #262626;
+  border-radius: 8px;
+  padding: 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.55;
+  color: #c9c9c9;
+}
+
+.help-list {
+  margin: 14px 0 0;
+}
+
+.help-row {
+  display: flex;
+  gap: 14px;
+  padding: 7px 0;
+  border-top: 1px solid #222;
+}
+
+.help-row dt {
+  min-width: 168px;
+}
+
+.help-row dd {
+  margin: 0;
+  color: #a8a8a8;
+}
