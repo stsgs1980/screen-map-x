@@ -18,7 +18,7 @@ const PATH_PREFIXES = [
 ];
 
 /** `npm run <name>` references inside docs. */
-const SCRIPT_PATTERN = /npm run ([a-z:.-]+)/g;
+const SCRIPT_PATTERN = /npm run ([a-z0-9:.-]+)/g;
 
 /** Inline-code values shaped like repository paths. */
 const PATH_PATTERN = /`([^`]+\/[^`]*)`/g;
