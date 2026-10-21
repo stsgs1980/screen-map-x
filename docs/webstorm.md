@@ -6,12 +6,17 @@ CLI-гейты: при расхождении источником истины 
 ## Что уже лежит в `.idea/`
 
 - `.idea/codeStyles/Project.xml` - code style: 2 пробела, ширина 120, LF.
-- `.idea/inspectionProfiles/Project_Default.xml` - пороги anti-monolith и качества.
 - `.idea/jsLinters/eslint.xml` и `.idea/prettier.xml` - точки интеграции линтеров.
 - `.idea/fileTemplates/` - шаблоны React-компонента, Vitest-теста и Astro-страницы.
 - `.idea/liveTemplates/` - сниппеты React, TypeScript, тестов и утилит.
 - `.idea/scopes/generated_changelog.xml` - отдельный scope для сгенерированного журнала.
 - `.idea/dictionaries/project.xml` - проектный словарь.
+
+Файл `.idea/inspectionProfiles/Project_Default.xml` с порогами anti-monolith и качества
+живёт только локально и не отслеживается git: профиль инспекций повторяет набор
+плагинов конкретной IDE, WebStorm переписывает его при каждом сохранении, и в общем
+репозитории он бы только шумел. Пороги, которые он задаёт, продублированы в
+`eslint.config.js` и `scripts/check-file-length.ts`.
 
 Локальные файлы IDE, не входящие в allowlist `.gitignore`, не коммитятся.
 
