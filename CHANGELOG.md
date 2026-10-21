@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 - **export:** handle clipboard copy failures 4de77a7
+- **ui:** make right inspector collapsible 3e06267
 
 ### Features
 
