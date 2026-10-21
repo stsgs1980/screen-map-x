@@ -94,5 +94,5 @@ npm run build
 ```
 
 Если изменился публичный набор данных, перегенерируйте образец экспорта и
-обновите кадры в `docs/assets/screenshots/ui/` через `npm run screenshots` в том же
+обновите кадры в `docs/assets/screenshots/` через `npm run screenshots` в том же
 логическом изменении.

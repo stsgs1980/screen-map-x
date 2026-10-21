@@ -215,9 +215,6 @@ export function collectMarkdown(dir: string): string[] {
     const full = join(dir, entry.name).replace(/\\/g, "/");
 
     if (entry.isDirectory()) {
-      if (full === "docs/superpowers") {
-        continue;
-      }
       out.push(...collectMarkdown(full));
     } else if (entry.name.endsWith(".md")) {
       out.push(full);

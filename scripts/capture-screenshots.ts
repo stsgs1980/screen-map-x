@@ -3,10 +3,10 @@ import { mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 /**
- * Where the frames are written. The folder mirrors the reference frames one
- * level up, so the ui/ set stays the current state of the interface.
+ * Where the frames are written. The folder holds the current state of the
+ * interface and is the input for the manual visual check in docs/testing.md.
  */
-const OUT_DIR = fileURLToPath(new URL("../docs/assets/screenshots/ui/", import.meta.url));
+const OUT_DIR = fileURLToPath(new URL("../docs/assets/screenshots/", import.meta.url));
 
 /** Dev server that serves the current state of the interface. */
 const BASE_URL = process.env.SCREENSHOTS_URL ?? "http://127.0.0.1:5173";

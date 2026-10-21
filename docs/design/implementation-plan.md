@@ -17,7 +17,7 @@
 **Tech Stack:** React 19, Vite 8, TypeScript 6, Base UI, React Flow (`@xyflow/react` 12),
 cmdk, lucide-react, Vitest 5, Playwright 1.64, stylelint 17, prettier 3.
 
-**Spec:** `docs/superpowers/specs/2026-10-21-design-system-design.md`
+**Spec:** `docs/design/design-system.md`
 
 **Commits:** по решению владельца коммиты не делаются. Вместо шага «Commit» каждый
 задача заканчивается чекпоинтом из гейтов репозитория.
@@ -32,7 +32,7 @@ cmdk, lucide-react, Vitest 5, Playwright 1.64, stylelint 17, prettier 3.
   скругление 8. Подпись: mono 10px, tracking `.11em`, цвет `#5A5A5A`. Цвета статусов:
   `#A78BFA`, `#66D97A`, `#E6D24F`, `#F0788A`, `#3D3D3D`.
 - Приглушение поля при фильтре равно ровно `opacity: 0.2`. Это проверяется e2e
-  (`tests/e2e/screen-map.spec.ts:60`), значение менять нельзя.
+  (`tests/e2e/screen-map.spec.ts`, строка 60), значение менять нельзя.
 - `box-sizing: border-box` обязателен. Внутри `.scr` нельзя добавлять `gap`, лишние
   рамки или padding: высота карточки обязана остаться `40 + строки×23 + (скелетон? 30 : 0) + 13`.
 - Никаких новых зависимостей. Base UI, React Flow, cmdk, lucide-react, Geist
@@ -873,4 +873,4 @@ Expected: единственное изменение — строка `meta.exp
 
 Если по ходу работ появились решения, расходящиеся со спецификацией (например,
 обводка точки статуса `none`), дописать их в
-`docs/superpowers/specs/2026-10-21-design-system-design.md` в раздел 5.2 или 6.
+`docs/design/design-system.md` в раздел 5.2 или 6.

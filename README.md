@@ -10,7 +10,7 @@
 > **Version**: 2.0.0
 > **Last Updated**: 2026-10-21
 
-![Screen-map-x](docs/assets/screenshots/ui/01-main.png)
+![Screen-map-x](docs/assets/screenshots/01-main.png)
 
 ## Overview
 
@@ -187,11 +187,22 @@ src/
     styles/                    CSS карты и UI-примитивов
   shared/                      lucide icons и ambient TypeScript declarations
 tests/e2e/                     Playwright-сценарии
-scripts/                       проверки, changelog и экспорт схемы
-tools/eslint/                  кастомные правила, процессор и парсер ESLint
-docs/assets/screenshots/ui/   кадры текущего интерфейса для ручной сверки
+scripts/                       запускаемые npm-скрипты: проверки, changelog, экспорт, кадры
+tools/eslint/                  подключаемый ESLint-плагин: правило, процессор, парсер
+docs/assets/screenshots/       кадры текущего интерфейса для ручной сверки
+docs/design/                   спецификация дизайн-системы и план её внедрения
 artifacts/                     образец экспортной JSON-схемы
 ```
+
+Где что лежит:
+
+- **Юнит-тесты** — рядом с кодом, который они проверяют: `src/**`, `scripts/**`,
+  `vite.config.test.ts` в корне. `vitest.config.ts` подбирает их по этим путям.
+- **E2E-тесты** — в `tests/e2e/`, их запускает Playwright; vitest их не собирает.
+- **`scripts/`** — то, что запускается через npm-скрипты из `package.json`
+  (проверки, changelog, экспорт схемы, снимки экрана).
+- **`tools/eslint/`** — то, что подключается к ESLint из `eslint.config.js`
+  (кастомное правило, markdown-процессор, парсер). Это код плагина, а не скрипт.
 
 Главные инварианты:
 
@@ -230,7 +241,7 @@ artifacts/                     образец экспортной JSON-схем
 - E2E: 7 сценариев в `tests/e2e/screen-map.spec.ts`: рендер, hover-маршрут и tooltip,
   палитра, экспорт в буфер, фильтр статусов, контекстное удаление связи и undo,
   скрытие/восстановление правого инспектора с проверкой центровки холста.
-- Visual: кадры в `docs/assets/screenshots/ui/` используются для ручной сверки,
+- Visual: кадры в `docs/assets/screenshots/` используются для ручной сверки,
   а не как pixel-snapshot assertions. Их переснимает `npm run screenshots`.
 
 Подробности: [docs/testing.md](docs/testing.md).

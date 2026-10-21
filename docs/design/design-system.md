@@ -96,7 +96,7 @@ CHROME_H` (`data/screens.ts:9`). Значит: `box-sizing: border-box` обяз
 - Ширина карточки 232 — узкая. Заголовок экрана (`white-space: nowrap`) обязан получить
   `min-width: 0` и `text-overflow: ellipsis`, иначе длинные названия вылезут за карточку.
 - Приглушение поля (`opacity: 0.2` в неактивном маршруте) проверяется e2e
-  (`tests/e2e/screen-map.spec.ts:60` — `toHaveCSS("opacity", "0.2")`). Значение обязано
+  (`tests/e2e/screen-map.spec.ts`, строка 60 — `toHaveCSS("opacity", "0.2")`). Значение обязано
   остаться ровно `0.2`; переносить его в токен можно, менять нельзя.
 
 ### 4.2 Гейты репозитория
@@ -108,7 +108,7 @@ CHROME_H` (`data/screens.ts:9`). Значит: `box-sizing: border-box` обяз
 - `npm run lint` — ESLint, включая `max-lines` 250 для TS/JS.
 - `npm run check:file-length` — только TS/JS. CSS этим гейтом не ограничен.
 - `npm run lint:md` — markdownlint, включая `MD013` (120 колонок) и `MD060` (выровненные
-  таблицы). Это относится и к документам в `docs/superpowers/`.
+  таблицы). Это относится и к документам в `docs/`.
 - `npm run check:docs` — документация должна оставаться согласованной.
 - `npm run build` — собирается только `index.html`; корневые `design.html` и папка `design/`
   в бандл не попадают.
