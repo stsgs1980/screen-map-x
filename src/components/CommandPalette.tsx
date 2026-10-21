@@ -66,7 +66,10 @@ export function CommandPalette(): ReactElement {
       value: "копировать json буфер copy",
       label: "Копировать JSON",
       icon: Copy,
-      run: () => void copyJSON().then(() => notify("JSON скопирован в буфер обмена")),
+      run: () =>
+        void copyJSON().then((copied) =>
+          notify(copied ? "JSON скопирован в буфер обмена" : "Не удалось скопировать JSON"),
+        ),
     },
     {
       value: "посмотреть json просмотр view",

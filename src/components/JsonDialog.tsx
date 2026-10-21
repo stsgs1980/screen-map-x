@@ -20,8 +20,8 @@ export function JsonDialog(): ReactElement {
   }, [open, payloadText, edges]);
 
   const onCopy = async (): Promise<void> => {
-    await copyJSON();
-    notify("JSON скопирован в буфер обмена");
+    const copied = await copyJSON();
+    notify(copied ? "JSON скопирован в буфер обмена" : "Не удалось скопировать JSON");
   };
 
   return (

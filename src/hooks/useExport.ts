@@ -7,7 +7,24 @@ interface ExportActions {
   payload: () => SchemaExport;
   payloadText: () => string;
   downloadJSON: () => void;
-  copyJSON: () => Promise<void>;
+  copyJSON: () => Promise<boolean>;
+}
+
+function copyWithTextarea(text: string): boolean {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.readOnly = true;
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.append(textarea);
+  textarea.select();
+  try {
+    return document.execCommand("copy");
+  } catch {
+    return false;
+  } finally {
+    textarea.remove();
+  }
 }
 
 /**
@@ -33,8 +50,17 @@ export function useExport(): ExportActions {
     URL.revokeObjectURL(url);
   }, [payloadText]);
 
-  const copyJSON = useCallback(async (): Promise<void> => {
-    await navigator.clipboard.writeText(payloadText());
+  const copyJSON = useCallback(async (): Promise<boolean> => {
+    const text = payloadText();
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        return copyWithTextarea(text);
+      }
+    }
+    return copyWithTextarea(text);
   }, [payloadText]);
 
   return { payload, payloadText, downloadJSON, copyJSON };
