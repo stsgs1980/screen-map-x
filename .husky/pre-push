@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Pre-push gates: types and the unit suite.
+npm run typecheck
+npm test
