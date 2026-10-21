@@ -1,6 +1,6 @@
 # Screen-map-x
 
-[![CI](https://img.shields.io/badge/CI-GitHub%20Actions-2088FF)](.github/workflows/ci.yml)
+[![CI](https://github.com/stsgs1980/screen-map-x/actions/workflows/ci.yml/badge.svg)](https://github.com/stsgs1980/screen-map-x/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Node.js >=22.22.2](https://img.shields.io/badge/Node.js-%3E%3D22.22.2-43853d)](.nvmrc)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6)](https://www.typescript.org/)
