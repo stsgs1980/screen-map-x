@@ -19,6 +19,14 @@ describe("check-docs", () => {
     expect(failures).toHaveLength(0);
   });
 
+  it("ignores paths inside the generated husky shim directory", () => {
+    const failures: string[] = [];
+
+    checkPaths("README.md", "Хуки живут в каталоге `.husky/_`.", failures);
+
+    expect(failures).toHaveLength(0);
+  });
+
   it("flags a markdown link target that does not exist", () => {
     const failures: string[] = [];
 
