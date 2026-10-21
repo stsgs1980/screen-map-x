@@ -46,6 +46,10 @@ test-results/
 !.idea/vcs.xml
 !.idea/modules.xml
 !.idea/screen-map-x.iml
+# The inspection profile mirrors the plugins installed in one IDE, so WebStorm
+# rewrites it on every save and the file churns forever. The rest of the IDE
+# configuration stays shared; this one file remains local.
+.idea/inspectionProfiles/Project_Default.xml
 
 # OpenCode
 .agents/
