@@ -1,0 +1,1821 @@
+{
+  "meta": {
+    "section": "X",
+    "path": "РАЗДЕЛ X / ПЛАТЕЖИ",
+    "title": "Section X — screen map",
+    "exportedAt": "2026-10-21T09:04:15.901Z",
+    "stack": {
+      "graph": "React Flow (@xyflow/react)",
+      "layout": {
+        "engine": "elkjs",
+        "algorithm": "layered",
+        "direction": "DOWN",
+        "edgeRouting": "ORTHOGONAL"
+      }
+    },
+    "canvas": {
+      "width": 1200,
+      "height": 900,
+      "bg": "#111",
+      "grid": 10
+    },
+    "components": {
+      "card/screen": {
+        "width": 232,
+        "header": 40,
+        "row": 23,
+        "skeleton": 30,
+        "chrome": 13
+      },
+      "card/field": {
+        "icon": 12,
+        "port": 5
+      }
+    },
+    "edgeStyle": {
+      "routing": "orthogonal",
+      "dash": "3 4",
+      "color": "#7C7C7C",
+      "cornerRadius": 8,
+      "binding": "field->field"
+    },
+    "statusPalette": {
+      "new": "#A78BFA",
+      "sent": "#66D97A",
+      "pending": "#E6D24F",
+      "failed": "#F0788A",
+      "no status": "#3D3D3D"
+    },
+    "caption": {
+      "font": "mono 10px",
+      "letterSpacing": ".11em",
+      "color": "#5A5A5A"
+    },
+    "counts": {
+      "screens": 7,
+      "fields": 30,
+      "edges": 18,
+      "entities": 10
+    }
+  },
+  "screens": [
+    {
+      "id": "hub",
+      "code": "// 02 / A",
+      "title": "Обзор · хаб раздела",
+      "route": "/x",
+      "hub": true,
+      "skeleton": false,
+      "position": {
+        "x": 484,
+        "y": 352
+      },
+      "size": {
+        "width": 232,
+        "height": 191
+      },
+      "description": "Центральный экран раздела: агрегирует платежи, счета и возвраты. Все переходы сателлитов проходят через сущности хаба.",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/x/overview"
+        },
+        {
+          "method": "GET",
+          "path": "/api/x/overview/counters"
+        }
+      ],
+      "states": [
+        "loading · skeleton",
+        "ready",
+        "partial",
+        "error"
+      ],
+      "fields": [
+        {
+          "id": "hub.payment",
+          "entity": "payment",
+          "label": "Платёж",
+          "name": "payment_id",
+          "type": "uuid",
+          "status": "pending",
+          "statusColor": "#E6D24F",
+          "icon": "swap",
+          "ports": [
+            {
+              "id": "hub.payment|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "hub.payment|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "hub.payment|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "hub.payment|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "hub.invoice",
+          "entity": "invoice",
+          "label": "Счёт",
+          "name": "invoice_id",
+          "type": "uuid",
+          "status": "sent",
+          "statusColor": "#66D97A",
+          "icon": "doc",
+          "ports": [
+            {
+              "id": "hub.invoice|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "hub.invoice|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "hub.invoice|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "hub.invoice|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "hub.payer",
+          "entity": "payer",
+          "label": "Плательщик",
+          "name": "payer_id",
+          "type": "uuid",
+          "status": "sent",
+          "statusColor": "#66D97A",
+          "icon": "user",
+          "ports": [
+            {
+              "id": "hub.payer|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "hub.payer|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "hub.payer|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "hub.payer|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "hub.amount",
+          "entity": "amount",
+          "label": "Сумма",
+          "name": "amount",
+          "type": "money",
+          "status": "none",
+          "statusColor": "#3D3D3D",
+          "icon": "money",
+          "ports": [
+            {
+              "id": "hub.amount|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "hub.amount|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "hub.amount|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "hub.amount|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "hub.receipt",
+          "entity": "receipt",
+          "label": "Чек",
+          "name": "receipt_id",
+          "type": "uuid",
+          "status": "sent",
+          "statusColor": "#66D97A",
+          "icon": "receipt",
+          "ports": [
+            {
+              "id": "hub.receipt|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "hub.receipt|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "hub.receipt|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "hub.receipt|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "hub.refund",
+          "entity": "refund",
+          "label": "Возврат",
+          "name": "refund_id",
+          "type": "uuid",
+          "status": "failed",
+          "statusColor": "#F0788A",
+          "icon": "refund",
+          "ports": [
+            {
+              "id": "hub.refund|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "hub.refund|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "hub.refund|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "hub.refund|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "invoices",
+      "code": "// 01 / A",
+      "title": "Список счетов",
+      "route": "/x/invoices",
+      "hub": false,
+      "skeleton": true,
+      "position": {
+        "x": 24,
+        "y": 24
+      },
+      "size": {
+        "width": 232,
+        "height": 175
+      },
+      "description": "Реестр выставленных счетов. Выбор счёта — точка входа в новый платёж и в хаб.",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/x/invoices?status=&payer_id="
+        },
+        {
+          "method": "GET",
+          "path": "/api/x/invoices/:id"
+        }
+      ],
+      "states": [
+        "loading · skeleton",
+        "empty",
+        "error",
+        "ready"
+      ],
+      "fields": [
+        {
+          "id": "invoices.invoice",
+          "entity": "invoice",
+          "label": "Счёт",
+          "name": "invoice_id",
+          "type": "uuid",
+          "status": "sent",
+          "statusColor": "#66D97A",
+          "icon": "doc",
+          "ports": [
+            {
+              "id": "invoices.invoice|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "invoices.invoice|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "invoices.invoice|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "invoices.invoice|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "invoices.payer",
+          "entity": "payer",
+          "label": "Плательщик",
+          "name": "payer_name",
+          "type": "string",
+          "status": "new",
+          "statusColor": "#A78BFA",
+          "icon": "user",
+          "ports": [
+            {
+              "id": "invoices.payer|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "invoices.payer|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "invoices.payer|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "invoices.payer|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "invoices.amount",
+          "entity": "amount",
+          "label": "Сумма",
+          "name": "amount_total",
+          "type": "money",
+          "status": "none",
+          "statusColor": "#3D3D3D",
+          "icon": "money",
+          "ports": [
+            {
+              "id": "invoices.amount|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "invoices.amount|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "invoices.amount|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "invoices.amount|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "invoices.due_date",
+          "entity": "due_date",
+          "label": "Срок",
+          "name": "due_date",
+          "type": "date",
+          "status": "pending",
+          "statusColor": "#E6D24F",
+          "icon": "calendar",
+          "ports": [
+            {
+              "id": "invoices.due_date|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "invoices.due_date|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "invoices.due_date|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "invoices.due_date|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "create",
+      "code": "// 03 / B",
+      "title": "Новый платёж",
+      "route": "/x/payments/new",
+      "hub": false,
+      "skeleton": false,
+      "position": {
+        "x": 944,
+        "y": 24
+      },
+      "size": {
+        "width": 232,
+        "height": 145
+      },
+      "description": "Форма создания платежа: плательщик, сумма и счёт-основание уходят на подтверждение как единый черновик.",
+      "api": [
+        {
+          "method": "POST",
+          "path": "/api/x/payments"
+        },
+        {
+          "method": "GET",
+          "path": "/api/x/payers?query="
+        }
+      ],
+      "states": [
+        "editing",
+        "validating",
+        "submitting",
+        "error"
+      ],
+      "fields": [
+        {
+          "id": "create.payer",
+          "entity": "payer",
+          "label": "Плательщик",
+          "name": "payer_id",
+          "type": "uuid",
+          "status": "new",
+          "statusColor": "#A78BFA",
+          "icon": "user",
+          "ports": [
+            {
+              "id": "create.payer|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "create.payer|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "create.payer|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "create.payer|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "create.amount",
+          "entity": "amount",
+          "label": "Сумма",
+          "name": "amount",
+          "type": "money",
+          "status": "new",
+          "statusColor": "#A78BFA",
+          "icon": "money",
+          "ports": [
+            {
+              "id": "create.amount|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "create.amount|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "create.amount|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "create.amount|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "create.invoice",
+          "entity": "invoice",
+          "label": "Счёт-основание",
+          "name": "invoice_id",
+          "type": "uuid",
+          "status": "pending",
+          "statusColor": "#E6D24F",
+          "icon": "doc",
+          "ports": [
+            {
+              "id": "create.invoice|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "create.invoice|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "create.invoice|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "create.invoice|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "create.method",
+          "entity": "method",
+          "label": "Способ",
+          "name": "method",
+          "type": "enum",
+          "status": "none",
+          "statusColor": "#3D3D3D",
+          "icon": "card",
+          "ports": [
+            {
+              "id": "create.method|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "create.method|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "create.method|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "create.method|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "details",
+      "code": "// 04 / C",
+      "title": "Карточка платежа",
+      "route": "/x/payments/:paymentId",
+      "hub": false,
+      "skeleton": true,
+      "position": {
+        "x": 24,
+        "y": 360
+      },
+      "size": {
+        "width": 232,
+        "height": 175
+      },
+      "description": "Детальный просмотр платежа: сумма, счёт-основание и связанный чек. Отсюда открываются документы.",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/x/payments/:id"
+        },
+        {
+          "method": "GET",
+          "path": "/api/x/payments/:id/receipt"
+        }
+      ],
+      "states": [
+        "loading · skeleton",
+        "ready",
+        "not-found",
+        "error"
+      ],
+      "fields": [
+        {
+          "id": "details.payment",
+          "entity": "payment",
+          "label": "Платёж",
+          "name": "payment_id",
+          "type": "uuid",
+          "status": "sent",
+          "statusColor": "#66D97A",
+          "icon": "swap",
+          "ports": [
+            {
+              "id": "details.payment|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "details.payment|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "details.payment|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "details.payment|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "details.invoice",
+          "entity": "invoice",
+          "label": "Счёт",
+          "name": "invoice_id",
+          "type": "uuid",
+          "status": "sent",
+          "statusColor": "#66D97A",
+          "icon": "doc",
+          "ports": [
+            {
+              "id": "details.invoice|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "details.invoice|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "details.invoice|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "details.invoice|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "details.amount",
+          "entity": "amount",
+          "label": "Сумма",
+          "name": "amount",
+          "type": "money",
+          "status": "sent",
+          "statusColor": "#66D97A",
+          "icon": "money",
+          "ports": [
+            {
+              "id": "details.amount|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "details.amount|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "details.amount|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "details.amount|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "details.receipt",
+          "entity": "receipt",
+          "label": "Чек",
+          "name": "receipt_id",
+          "type": "uuid",
+          "status": "pending",
+          "statusColor": "#E6D24F",
+          "icon": "receipt",
+          "ports": [
+            {
+              "id": "details.receipt|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "details.receipt|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "details.receipt|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "details.receipt|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "confirm",
+      "code": "// 05 / C",
+      "title": "Подтверждение",
+      "route": "/x/payments/:paymentId/confirm",
+      "hub": false,
+      "skeleton": false,
+      "position": {
+        "x": 944,
+        "y": 360
+      },
+      "size": {
+        "width": 232,
+        "height": 168
+      },
+      "description": "Сверка суммы и плательщика перед отправкой. Подтверждённый платёж возвращается в хаб.",
+      "api": [
+        {
+          "method": "POST",
+          "path": "/api/x/payments/:id/confirm"
+        },
+        {
+          "method": "POST",
+          "path": "/api/x/payments/:id/code/resend"
+        }
+      ],
+      "states": [
+        "awaiting-code",
+        "checking",
+        "expired",
+        "error"
+      ],
+      "fields": [
+        {
+          "id": "confirm.payment",
+          "entity": "payment",
+          "label": "Платёж",
+          "name": "payment_id",
+          "type": "uuid",
+          "status": "pending",
+          "statusColor": "#E6D24F",
+          "icon": "swap",
+          "ports": [
+            {
+              "id": "confirm.payment|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "confirm.payment|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "confirm.payment|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "confirm.payment|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "confirm.amount",
+          "entity": "amount",
+          "label": "Сумма",
+          "name": "amount",
+          "type": "money",
+          "status": "pending",
+          "statusColor": "#E6D24F",
+          "icon": "money",
+          "ports": [
+            {
+              "id": "confirm.amount|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "confirm.amount|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "confirm.amount|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "confirm.amount|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "confirm.payer",
+          "entity": "payer",
+          "label": "Плательщик",
+          "name": "payer_id",
+          "type": "uuid",
+          "status": "pending",
+          "statusColor": "#E6D24F",
+          "icon": "user",
+          "ports": [
+            {
+              "id": "confirm.payer|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "confirm.payer|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "confirm.payer|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "confirm.payer|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "confirm.method",
+          "entity": "method",
+          "label": "Способ",
+          "name": "method",
+          "type": "enum",
+          "status": "none",
+          "statusColor": "#3D3D3D",
+          "icon": "card",
+          "ports": [
+            {
+              "id": "confirm.method|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "confirm.method|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "confirm.method|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "confirm.method|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "confirm.code",
+          "entity": "code",
+          "label": "Код из SMS",
+          "name": "confirm_code",
+          "type": "string",
+          "status": "new",
+          "statusColor": "#A78BFA",
+          "icon": "code",
+          "ports": [
+            {
+              "id": "confirm.code|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "confirm.code|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "confirm.code|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "confirm.code|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "receipts",
+      "code": "// 06 / D",
+      "title": "Чеки и документы",
+      "route": "/x/receipts",
+      "hub": false,
+      "skeleton": false,
+      "position": {
+        "x": 24,
+        "y": 676
+      },
+      "size": {
+        "width": 232,
+        "height": 122
+      },
+      "description": "Архив чеков по платежам и счетам: просмотр, PDF, повторная отправка плательщику.",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/x/receipts?payment_id=&invoice_id="
+        },
+        {
+          "method": "GET",
+          "path": "/api/x/receipts/:id/pdf"
+        }
+      ],
+      "states": [
+        "loading · skeleton",
+        "empty",
+        "ready",
+        "error"
+      ],
+      "fields": [
+        {
+          "id": "receipts.receipt",
+          "entity": "receipt",
+          "label": "Чек",
+          "name": "receipt_id",
+          "type": "uuid",
+          "status": "sent",
+          "statusColor": "#66D97A",
+          "icon": "receipt",
+          "ports": [
+            {
+              "id": "receipts.receipt|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "receipts.receipt|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "receipts.receipt|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "receipts.receipt|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "receipts.invoice",
+          "entity": "invoice",
+          "label": "Счёт",
+          "name": "invoice_id",
+          "type": "uuid",
+          "status": "sent",
+          "statusColor": "#66D97A",
+          "icon": "doc",
+          "ports": [
+            {
+              "id": "receipts.invoice|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "receipts.invoice|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "receipts.invoice|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "receipts.invoice|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "receipts.payment",
+          "entity": "payment",
+          "label": "Платёж",
+          "name": "payment_id",
+          "type": "uuid",
+          "status": "none",
+          "statusColor": "#3D3D3D",
+          "icon": "swap",
+          "ports": [
+            {
+              "id": "receipts.payment|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "receipts.payment|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "receipts.payment|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "receipts.payment|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "refunds",
+      "code": "// 07 / D",
+      "title": "Возвраты",
+      "route": "/x/refunds",
+      "hub": false,
+      "skeleton": false,
+      "position": {
+        "x": 944,
+        "y": 676
+      },
+      "size": {
+        "width": 232,
+        "height": 145
+      },
+      "description": "Возвраты по платежам: полный или частичный (сумма возврата редактируется локально), с обязательной причиной.",
+      "api": [
+        {
+          "method": "GET",
+          "path": "/api/x/refunds"
+        },
+        {
+          "method": "POST",
+          "path": "/api/x/payments/:id/refund"
+        }
+      ],
+      "states": [
+        "draft",
+        "processing",
+        "failed",
+        "done"
+      ],
+      "fields": [
+        {
+          "id": "refunds.refund",
+          "entity": "refund",
+          "label": "Возврат",
+          "name": "refund_id",
+          "type": "uuid",
+          "status": "failed",
+          "statusColor": "#F0788A",
+          "icon": "refund",
+          "ports": [
+            {
+              "id": "refunds.refund|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "refunds.refund|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "refunds.refund|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "refunds.refund|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "refunds.payment",
+          "entity": "payment",
+          "label": "Платёж",
+          "name": "payment_id",
+          "type": "uuid",
+          "status": "failed",
+          "statusColor": "#F0788A",
+          "icon": "swap",
+          "ports": [
+            {
+              "id": "refunds.payment|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "refunds.payment|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "refunds.payment|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "refunds.payment|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "refunds.amount",
+          "entity": "amount",
+          "label": "Сумма",
+          "name": "refund_amount",
+          "type": "money",
+          "status": "pending",
+          "statusColor": "#E6D24F",
+          "icon": "money",
+          "ports": [
+            {
+              "id": "refunds.amount|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "refunds.amount|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "refunds.amount|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "refunds.amount|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        },
+        {
+          "id": "refunds.reason",
+          "entity": "reason",
+          "label": "Причина",
+          "name": "reason",
+          "type": "text",
+          "status": "new",
+          "statusColor": "#A78BFA",
+          "icon": "text",
+          "ports": [
+            {
+              "id": "refunds.reason|L|in",
+              "side": "L",
+              "kind": "in"
+            },
+            {
+              "id": "refunds.reason|L|out",
+              "side": "L",
+              "kind": "out"
+            },
+            {
+              "id": "refunds.reason|R|in",
+              "side": "R",
+              "kind": "in"
+            },
+            {
+              "id": "refunds.reason|R|out",
+              "side": "R",
+              "kind": "out"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "key": "invoice",
+      "label": "Счёт",
+      "icon": "doc",
+      "fields": [
+        {
+          "ref": "hub.invoice",
+          "screen": "hub",
+          "name": "invoice_id",
+          "type": "uuid",
+          "status": "sent"
+        },
+        {
+          "ref": "invoices.invoice",
+          "screen": "invoices",
+          "name": "invoice_id",
+          "type": "uuid",
+          "status": "sent"
+        },
+        {
+          "ref": "create.invoice",
+          "screen": "create",
+          "name": "invoice_id",
+          "type": "uuid",
+          "status": "pending"
+        },
+        {
+          "ref": "details.invoice",
+          "screen": "details",
+          "name": "invoice_id",
+          "type": "uuid",
+          "status": "sent"
+        },
+        {
+          "ref": "receipts.invoice",
+          "screen": "receipts",
+          "name": "invoice_id",
+          "type": "uuid",
+          "status": "sent"
+        }
+      ],
+      "route": [
+        "e-invoice-invoices-hub",
+        "e-invoice-hub-details",
+        "e-invoice-invoices-create",
+        "e-invoice-details-receipts"
+      ]
+    },
+    {
+      "key": "payer",
+      "label": "Плательщик",
+      "icon": "user",
+      "fields": [
+        {
+          "ref": "hub.payer",
+          "screen": "hub",
+          "name": "payer_id",
+          "type": "uuid",
+          "status": "sent"
+        },
+        {
+          "ref": "invoices.payer",
+          "screen": "invoices",
+          "name": "payer_name",
+          "type": "string",
+          "status": "new"
+        },
+        {
+          "ref": "create.payer",
+          "screen": "create",
+          "name": "payer_id",
+          "type": "uuid",
+          "status": "new"
+        },
+        {
+          "ref": "confirm.payer",
+          "screen": "confirm",
+          "name": "payer_id",
+          "type": "uuid",
+          "status": "pending"
+        }
+      ],
+      "route": [
+        "e-payer-create-hub",
+        "e-payer-hub-confirm",
+        "e-payer-hub-invoices"
+      ]
+    },
+    {
+      "key": "amount",
+      "label": "Сумма",
+      "icon": "money",
+      "fields": [
+        {
+          "ref": "hub.amount",
+          "screen": "hub",
+          "name": "amount",
+          "type": "money",
+          "status": "none"
+        },
+        {
+          "ref": "invoices.amount",
+          "screen": "invoices",
+          "name": "amount_total",
+          "type": "money",
+          "status": "none"
+        },
+        {
+          "ref": "create.amount",
+          "screen": "create",
+          "name": "amount",
+          "type": "money",
+          "status": "new"
+        },
+        {
+          "ref": "details.amount",
+          "screen": "details",
+          "name": "amount",
+          "type": "money",
+          "status": "sent"
+        },
+        {
+          "ref": "confirm.amount",
+          "screen": "confirm",
+          "name": "amount",
+          "type": "money",
+          "status": "pending"
+        },
+        {
+          "ref": "refunds.amount",
+          "screen": "refunds",
+          "name": "refund_amount",
+          "type": "money",
+          "status": "pending"
+        }
+      ],
+      "route": [
+        "e-amount-create-confirm",
+        "e-amount-confirm-hub",
+        "e-amount-hub-details"
+      ]
+    },
+    {
+      "key": "due_date",
+      "label": "Срок оплаты",
+      "icon": "calendar",
+      "fields": [
+        {
+          "ref": "invoices.due_date",
+          "screen": "invoices",
+          "name": "due_date",
+          "type": "date",
+          "status": "pending"
+        }
+      ],
+      "route": []
+    },
+    {
+      "key": "method",
+      "label": "Способ оплаты",
+      "icon": "card",
+      "fields": [
+        {
+          "ref": "create.method",
+          "screen": "create",
+          "name": "method",
+          "type": "enum",
+          "status": "none"
+        },
+        {
+          "ref": "confirm.method",
+          "screen": "confirm",
+          "name": "method",
+          "type": "enum",
+          "status": "none"
+        }
+      ],
+      "route": [
+        "e-method-create-confirm"
+      ]
+    },
+    {
+      "key": "payment",
+      "label": "Платёж",
+      "icon": "swap",
+      "fields": [
+        {
+          "ref": "hub.payment",
+          "screen": "hub",
+          "name": "payment_id",
+          "type": "uuid",
+          "status": "pending"
+        },
+        {
+          "ref": "details.payment",
+          "screen": "details",
+          "name": "payment_id",
+          "type": "uuid",
+          "status": "sent"
+        },
+        {
+          "ref": "confirm.payment",
+          "screen": "confirm",
+          "name": "payment_id",
+          "type": "uuid",
+          "status": "pending"
+        },
+        {
+          "ref": "receipts.payment",
+          "screen": "receipts",
+          "name": "payment_id",
+          "type": "uuid",
+          "status": "none"
+        },
+        {
+          "ref": "refunds.payment",
+          "screen": "refunds",
+          "name": "payment_id",
+          "type": "uuid",
+          "status": "failed"
+        }
+      ],
+      "route": [
+        "e-payment-confirm-hub",
+        "e-payment-hub-details",
+        "e-payment-hub-receipts",
+        "e-payment-hub-refunds"
+      ]
+    },
+    {
+      "key": "receipt",
+      "label": "Чек",
+      "icon": "receipt",
+      "fields": [
+        {
+          "ref": "hub.receipt",
+          "screen": "hub",
+          "name": "receipt_id",
+          "type": "uuid",
+          "status": "sent"
+        },
+        {
+          "ref": "details.receipt",
+          "screen": "details",
+          "name": "receipt_id",
+          "type": "uuid",
+          "status": "pending"
+        },
+        {
+          "ref": "receipts.receipt",
+          "screen": "receipts",
+          "name": "receipt_id",
+          "type": "uuid",
+          "status": "sent"
+        }
+      ],
+      "route": [
+        "e-receipt-details-receipts",
+        "e-receipt-hub-receipts"
+      ]
+    },
+    {
+      "key": "refund",
+      "label": "Возврат",
+      "icon": "refund",
+      "fields": [
+        {
+          "ref": "hub.refund",
+          "screen": "hub",
+          "name": "refund_id",
+          "type": "uuid",
+          "status": "failed"
+        },
+        {
+          "ref": "refunds.refund",
+          "screen": "refunds",
+          "name": "refund_id",
+          "type": "uuid",
+          "status": "failed"
+        }
+      ],
+      "route": [
+        "e-refund-hub-refunds"
+      ]
+    },
+    {
+      "key": "code",
+      "label": "Код подтверждения",
+      "icon": "code",
+      "fields": [
+        {
+          "ref": "confirm.code",
+          "screen": "confirm",
+          "name": "confirm_code",
+          "type": "string",
+          "status": "new"
+        }
+      ],
+      "route": []
+    },
+    {
+      "key": "reason",
+      "label": "Причина возврата",
+      "icon": "text",
+      "fields": [
+        {
+          "ref": "refunds.reason",
+          "screen": "refunds",
+          "name": "reason",
+          "type": "text",
+          "status": "new"
+        }
+      ],
+      "route": []
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-invoice-invoices-hub",
+      "entity": "invoice",
+      "note": "выбранный счёт закрепляется в обзоре",
+      "from": {
+        "screen": "invoices",
+        "field": "invoices.invoice"
+      },
+      "to": {
+        "screen": "hub",
+        "field": "hub.invoice"
+      }
+    },
+    {
+      "id": "e-invoice-hub-details",
+      "entity": "invoice",
+      "note": "переход в карточку по invoice_id",
+      "from": {
+        "screen": "hub",
+        "field": "hub.invoice"
+      },
+      "to": {
+        "screen": "details",
+        "field": "details.invoice"
+      }
+    },
+    {
+      "id": "e-invoice-invoices-create",
+      "entity": "invoice",
+      "note": "счёт-основание для нового платежа",
+      "from": {
+        "screen": "invoices",
+        "field": "invoices.invoice"
+      },
+      "to": {
+        "screen": "create",
+        "field": "create.invoice"
+      }
+    },
+    {
+      "id": "e-invoice-details-receipts",
+      "entity": "invoice",
+      "note": "документы по счёту платежа",
+      "from": {
+        "screen": "details",
+        "field": "details.invoice"
+      },
+      "to": {
+        "screen": "receipts",
+        "field": "receipts.invoice"
+      }
+    },
+    {
+      "id": "e-payer-create-hub",
+      "entity": "payer",
+      "note": "плательщик после создания платежа",
+      "from": {
+        "screen": "create",
+        "field": "create.payer"
+      },
+      "to": {
+        "screen": "hub",
+        "field": "hub.payer"
+      }
+    },
+    {
+      "id": "e-payer-hub-confirm",
+      "entity": "payer",
+      "note": "сверка плательщика перед подтверждением",
+      "from": {
+        "screen": "hub",
+        "field": "hub.payer"
+      },
+      "to": {
+        "screen": "confirm",
+        "field": "confirm.payer"
+      }
+    },
+    {
+      "id": "e-payer-hub-invoices",
+      "entity": "payer",
+      "note": "фильтр списка счетов по плательщику",
+      "from": {
+        "screen": "hub",
+        "field": "hub.payer"
+      },
+      "to": {
+        "screen": "invoices",
+        "field": "invoices.payer"
+      }
+    },
+    {
+      "id": "e-amount-create-confirm",
+      "entity": "amount",
+      "note": "сумма к подтверждению",
+      "from": {
+        "screen": "create",
+        "field": "create.amount"
+      },
+      "to": {
+        "screen": "confirm",
+        "field": "confirm.amount"
+      }
+    },
+    {
+      "id": "e-amount-confirm-hub",
+      "entity": "amount",
+      "note": "подтверждённая сумма в обзоре",
+      "from": {
+        "screen": "confirm",
+        "field": "confirm.amount"
+      },
+      "to": {
+        "screen": "hub",
+        "field": "hub.amount"
+      }
+    },
+    {
+      "id": "e-amount-hub-details",
+      "entity": "amount",
+      "note": "сумма в карточке платежа",
+      "from": {
+        "screen": "hub",
+        "field": "hub.amount"
+      },
+      "to": {
+        "screen": "details",
+        "field": "details.amount"
+      }
+    },
+    {
+      "id": "e-payment-confirm-hub",
+      "entity": "payment",
+      "note": "созданный платёж возвращается в хаб",
+      "from": {
+        "screen": "confirm",
+        "field": "confirm.payment"
+      },
+      "to": {
+        "screen": "hub",
+        "field": "hub.payment"
+      }
+    },
+    {
+      "id": "e-payment-hub-details",
+      "entity": "payment",
+      "note": "открыть карточку платежа",
+      "from": {
+        "screen": "hub",
+        "field": "hub.payment"
+      },
+      "to": {
+        "screen": "details",
+        "field": "details.payment"
+      }
+    },
+    {
+      "id": "e-payment-hub-receipts",
+      "entity": "payment",
+      "note": "чек по платежу из обзора",
+      "from": {
+        "screen": "hub",
+        "field": "hub.payment"
+      },
+      "to": {
+        "screen": "receipts",
+        "field": "receipts.payment"
+      }
+    },
+    {
+      "id": "e-payment-hub-refunds",
+      "entity": "payment",
+      "note": "возврат по платежу из обзора",
+      "from": {
+        "screen": "hub",
+        "field": "hub.payment"
+      },
+      "to": {
+        "screen": "refunds",
+        "field": "refunds.payment"
+      }
+    },
+    {
+      "id": "e-receipt-details-receipts",
+      "entity": "receipt",
+      "note": "чек из карточки платежа",
+      "from": {
+        "screen": "details",
+        "field": "details.receipt"
+      },
+      "to": {
+        "screen": "receipts",
+        "field": "receipts.receipt"
+      }
+    },
+    {
+      "id": "e-receipt-hub-receipts",
+      "entity": "receipt",
+      "note": "все чеки раздела из хаба",
+      "from": {
+        "screen": "hub",
+        "field": "hub.receipt"
+      },
+      "to": {
+        "screen": "receipts",
+        "field": "receipts.receipt"
+      }
+    },
+    {
+      "id": "e-refund-hub-refunds",
+      "entity": "refund",
+      "note": "статус возврата из обзора",
+      "from": {
+        "screen": "hub",
+        "field": "hub.refund"
+      },
+      "to": {
+        "screen": "refunds",
+        "field": "refunds.refund"
+      }
+    },
+    {
+      "id": "e-method-create-confirm",
+      "entity": "method",
+      "note": "способ оплаты на шаге подтверждения",
+      "from": {
+        "screen": "create",
+        "field": "create.method"
+      },
+      "to": {
+        "screen": "confirm",
+        "field": "confirm.method"
+      }
+    }
+  ]
+}
