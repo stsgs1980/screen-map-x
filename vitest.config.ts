@@ -5,9 +5,9 @@ export default defineConfig({
     globals: true,
     environment: "node",
     passWithNoTests: true,
-    // Test files: src/**/*.test.ts(x) — create src/ per docs/getting-started.md Step 4.
-    // tests/** — tooling tests shipped with the template itself.
-    include: ["src/**/*.{test,spec}.{ts,tsx}", "tests/**/*.{test,spec}.{ts,tsx,mjs}"],
+    // Unit tests live next to the code in src/**. Browser scenarios in
+    // tests/e2e are Playwright specs and must not be collected by Vitest.
+    include: ["src/**/*.{test,spec}.{ts,tsx}"],
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
