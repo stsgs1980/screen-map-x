@@ -6,7 +6,9 @@
  * to the field ports.
  */
 import type { ElkNode } from "elkjs/lib/elk-api";
-import { NODE_W, screenHeight, type EdgeDef, type ScreenDef } from "../data/schema";
+import { NODE_W } from "../data/constants";
+import { screenHeight } from "../data/screens";
+import { type EdgeDef, type ScreenDef } from "../data/types";
 
 /* elkjs is heavy — load it lazily, only when the user asks for a layout */
 let elkPromise: Promise<InstanceType<(typeof import("elkjs/lib/elk.bundled.js"))["default"]>> | null = null;

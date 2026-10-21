@@ -18,24 +18,13 @@ import { Inspector } from "./components/Inspector";
 import { OrthEdge } from "./components/OrthEdge";
 import { ScreenNode } from "./components/ScreenNode";
 import { MapContext, type MapCtxValue } from "./context";
-import {
-  CANVAS,
-  EDGE_DEFS,
-  FIELD_OF,
-  NODE_W,
-  SCREENS,
-  SCREEN_BY_ID,
-  SECTION_PATH,
-  STATUS,
-  STATUS_KEYS,
-  buildExport,
-  initialPositions,
-  screenHeight,
-  type EdgeDef,
-  type ScreenFlowNode,
-  type StatusKey,
-} from "./data/schema";
-import { defOf, toFlowEdges, type OrthEdge as OrthEdgeType, type PosMap } from "./flow";
+import { CANVAS, NODE_W, SECTION_PATH } from "./data/constants";
+import { EDGE_DEFS } from "./data/edges";
+import { buildExport } from "./data/export";
+import { FIELD_OF, SCREENS, SCREEN_BY_ID, initialPositions, screenHeight } from "./data/screens";
+import { STATUS, STATUS_KEYS } from "./data/status";
+import { type EdgeDef, type StatusKey } from "./data/types";
+import { defOf, toFlowEdges, type OrthEdge as OrthEdgeType, type PosMap, type ScreenFlowNode } from "./flow";
 import { elkLayout } from "./layout/elk";
 
 const nodeTypes = { screen: ScreenNode } as unknown as NodeTypes;

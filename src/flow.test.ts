@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { EDGE_DEFS, initialPositions } from "./data/schema";
+import { EDGE_DEFS } from "./data/edges";
+import { initialPositions } from "./data/screens";
 import { defOf, sidesFor, toFlowEdges } from "./flow";
 
 describe("sidesFor", () => {

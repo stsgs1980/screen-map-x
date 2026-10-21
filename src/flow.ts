@@ -1,18 +1,50 @@
 /**
- * EdgeDef -> React Flow edge conversion.
+ * React Flow data shapes and EdgeDef -> React Flow edge conversion.
  * Handle sides (L/R) are derived from current geometry, so after an ELK
  * re-layout or a reset we simply rebuild the edges and every connector
  * exits the field row on the side facing its counterpart.
  */
-import { MarkerType, type Edge } from "@xyflow/react";
-import { EDGE_STYLE, NODE_W, fieldId, portId, type EdgeDef, type OrthData, type Side } from "./data/schema";
+import { MarkerType, type Edge, type Node } from "@xyflow/react";
+import { EDGE_STYLE, NODE_W } from "./data/constants";
+import { fieldId, portId } from "./data/fields";
+import type { EdgeDef, ScreenDef, Side } from "./data/types";
 
+/** Node data: the full screen definition. */
+export interface ScreenNodeData {
+  screen: ScreenDef;
+  [key: string]: unknown;
+}
+
+/** Custom React Flow node type for `card/screen`. */
+export type ScreenFlowNode = Node<ScreenNodeData, "screen">;
+
+/** Edge data: semantics of the field-to-field hand-off plus render flags. */
+export interface OrthData {
+  entity: string;
+  note: string;
+  offset: number;
+  from: { screen: string; entity: string };
+  to: { screen: string; entity: string };
+  highlight?: boolean;
+  dimmed?: boolean;
+  [key: string]: unknown;
+}
+
+/** Custom React Flow edge type for the orthogonal dashed connector. */
 export type OrthEdge = Edge<OrthData, "orth">;
+
+/** Screen positions by screen id. */
 export type PosMap = Record<string, { x: number; y: number }>;
 
-const centerX = (pos: PosMap, screen: string) => (pos[screen]?.x ?? 0) + NODE_W / 2;
+const centerX = (pos: PosMap, screen: string): number => (pos[screen]?.x ?? 0) + NODE_W / 2;
 
-/** Pick port sides so the line leaves each card facing the other card. */
+/**
+ * Pick port sides so the line leaves each card facing the other card.
+ * @param fromScreen - source screen id
+ * @param toScreen - target screen id
+ * @param pos - positions by screen id
+ * @returns [source side, target side]
+ */
 export function sidesFor(fromScreen: string, toScreen: string, pos: PosMap): [Side, Side] {
   const dx = centerX(pos, toScreen) - centerX(pos, fromScreen);
   if (dx > 8) return ["R", "L"];
@@ -21,6 +53,13 @@ export function sidesFor(fromScreen: string, toScreen: string, pos: PosMap): [Si
   return centerX(pos, fromScreen) <= 600 ? ["R", "R"] : ["L", "L"];
 }
 
+/**
+ * Convert semantic field-to-field defs into React Flow edges bound to
+ * concrete field ports.
+ * @param defs - semantic edges
+ * @param pos - positions by screen id
+ * @returns React Flow edges
+ */
 export function toFlowEdges(defs: EdgeDef[], pos: PosMap): OrthEdge[] {
   const pairCount = new Map<string, number>();
   return defs.map((def) => {
@@ -43,7 +82,11 @@ export function toFlowEdges(defs: EdgeDef[], pos: PosMap): OrthEdge[] {
   });
 }
 
-/** Recover the semantic EdgeDef from a live flow edge (for export / ELK). */
+/**
+ * Recover the semantic EdgeDef from a live flow edge (for export / ELK).
+ * @param e - React Flow edge
+ * @returns semantic edge definition
+ */
 export function defOf(e: OrthEdge): EdgeDef {
   const data = e.data as OrthData;
   return { id: e.id, entity: data.entity, note: data.note, from: data.from, to: data.to };

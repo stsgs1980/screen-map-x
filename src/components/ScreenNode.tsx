@@ -1,17 +1,13 @@
 import { Handle, Position, type NodeProps } from "@xyflow/react";
 import { memo, useContext } from "react";
 import { MapContext } from "../context";
-import {
-  ENTITY_META,
-  NODE_W,
-  STATUS,
-  fieldId,
-  portId,
-  screenHeight,
-  type FieldDef,
-  type ScreenFlowNode,
-  type Side,
-} from "../data/schema";
+import { NODE_W } from "../data/constants";
+import { ENTITY_META } from "../data/entities";
+import { fieldId, portId } from "../data/fields";
+import { screenHeight } from "../data/screens";
+import { STATUS } from "../data/status";
+import { type FieldDef, type Side } from "../data/types";
+import { type ScreenFlowNode } from "../flow";
 import { Icon } from "./Icon";
 
 /* --------------------------------------------------------- card/field

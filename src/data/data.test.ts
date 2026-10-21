@@ -1,15 +1,9 @@
-import { describe, expect, it } from "vitest";
-import {
-  EDGE_DEFS,
-  ENTITY_META,
-  FIELD_OF,
-  SCREENS,
-  STATUS,
-  buildExport,
-  fieldId,
-  initialPositions,
-  screenHeight,
-} from "./schema";
+import { EDGE_DEFS } from "./edges";
+import { ENTITY_META } from "./entities";
+import { buildExport } from "./export";
+import { fieldId } from "./fields";
+import { FIELD_OF, SCREENS, initialPositions, screenHeight } from "./screens";
+import { STATUS } from "./status";
 
 describe("screen map data", () => {
   it("has a hub and unique screen/field ids", () => {

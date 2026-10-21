@@ -1,15 +1,10 @@
 import { useContext } from "react";
 import { MapContext } from "../context";
-import {
-  ENTITY_META,
-  FIELD_OF,
-  SCREEN_BY_ID,
-  SCREENS,
-  SECTION_PATH,
-  STATUS,
-  type EdgeDef,
-  type ScreenDef,
-} from "../data/schema";
+import { SECTION_PATH } from "../data/constants";
+import { ENTITY_META } from "../data/entities";
+import { FIELD_OF, SCREEN_BY_ID, SCREENS } from "../data/screens";
+import { STATUS } from "../data/status";
+import { type EdgeDef, type ScreenDef } from "../data/types";
 
 interface Props {
   screen: ScreenDef | null;

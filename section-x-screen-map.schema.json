@@ -3,7 +3,7 @@
     "section": "X",
     "path": "РАЗДЕЛ X / ПЛАТЕЖИ",
     "title": "Section X — screen map",
-    "exportedAt": "2026-10-21T09:04:15.901Z",
+    "exportedAt": "2026-10-21T10:19:11.487Z",
     "stack": {
       "graph": "React Flow (@xyflow/react)",
       "layout": {
@@ -85,7 +85,12 @@
           "path": "/api/x/overview/counters"
         }
       ],
-      "states": ["loading · skeleton", "ready", "partial", "error"],
+      "states": [
+        "loading · skeleton",
+        "ready",
+        "partial",
+        "error"
+      ],
       "fields": [
         {
           "id": "hub.payment",
@@ -307,7 +312,12 @@
           "path": "/api/x/invoices/:id"
         }
       ],
-      "states": ["loading · skeleton", "empty", "error", "ready"],
+      "states": [
+        "loading · skeleton",
+        "empty",
+        "error",
+        "ready"
+      ],
       "fields": [
         {
           "id": "invoices.invoice",
@@ -465,7 +475,12 @@
           "path": "/api/x/payers?query="
         }
       ],
-      "states": ["editing", "validating", "submitting", "error"],
+      "states": [
+        "editing",
+        "validating",
+        "submitting",
+        "error"
+      ],
       "fields": [
         {
           "id": "create.payer",
@@ -623,7 +638,12 @@
           "path": "/api/x/payments/:id/receipt"
         }
       ],
-      "states": ["loading · skeleton", "ready", "not-found", "error"],
+      "states": [
+        "loading · skeleton",
+        "ready",
+        "not-found",
+        "error"
+      ],
       "fields": [
         {
           "id": "details.payment",
@@ -781,7 +801,12 @@
           "path": "/api/x/payments/:id/code/resend"
         }
       ],
-      "states": ["awaiting-code", "checking", "expired", "error"],
+      "states": [
+        "awaiting-code",
+        "checking",
+        "expired",
+        "error"
+      ],
       "fields": [
         {
           "id": "confirm.payment",
@@ -971,7 +996,12 @@
           "path": "/api/x/receipts/:id/pdf"
         }
       ],
-      "states": ["loading · skeleton", "empty", "ready", "error"],
+      "states": [
+        "loading · skeleton",
+        "empty",
+        "ready",
+        "error"
+      ],
       "fields": [
         {
           "id": "receipts.receipt",
@@ -1097,7 +1127,12 @@
           "path": "/api/x/payments/:id/refund"
         }
       ],
-      "states": ["draft", "processing", "failed", "done"],
+      "states": [
+        "draft",
+        "processing",
+        "failed",
+        "done"
+      ],
       "fields": [
         {
           "id": "refunds.refund",
@@ -1313,7 +1348,11 @@
           "status": "pending"
         }
       ],
-      "route": ["e-payer-create-hub", "e-payer-hub-confirm", "e-payer-hub-invoices"]
+      "route": [
+        "e-payer-create-hub",
+        "e-payer-hub-confirm",
+        "e-payer-hub-invoices"
+      ]
     },
     {
       "key": "amount",
@@ -1363,7 +1402,11 @@
           "status": "pending"
         }
       ],
-      "route": ["e-amount-create-confirm", "e-amount-confirm-hub", "e-amount-hub-details"]
+      "route": [
+        "e-amount-create-confirm",
+        "e-amount-confirm-hub",
+        "e-amount-hub-details"
+      ]
     },
     {
       "key": "due_date",
@@ -1400,7 +1443,9 @@
           "status": "none"
         }
       ],
-      "route": ["e-method-create-confirm"]
+      "route": [
+        "e-method-create-confirm"
+      ]
     },
     {
       "key": "payment",
@@ -1443,7 +1488,12 @@
           "status": "failed"
         }
       ],
-      "route": ["e-payment-confirm-hub", "e-payment-hub-details", "e-payment-hub-receipts", "e-payment-hub-refunds"]
+      "route": [
+        "e-payment-confirm-hub",
+        "e-payment-hub-details",
+        "e-payment-hub-receipts",
+        "e-payment-hub-refunds"
+      ]
     },
     {
       "key": "receipt",
@@ -1472,7 +1522,10 @@
           "status": "sent"
         }
       ],
-      "route": ["e-receipt-details-receipts", "e-receipt-hub-receipts"]
+      "route": [
+        "e-receipt-details-receipts",
+        "e-receipt-hub-receipts"
+      ]
     },
     {
       "key": "refund",
@@ -1494,7 +1547,9 @@
           "status": "failed"
         }
       ],
-      "route": ["e-refund-hub-refunds"]
+      "route": [
+        "e-refund-hub-refunds"
+      ]
     },
     {
       "key": "code",
