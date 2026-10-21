@@ -1,36 +1,14 @@
 import { Dialog } from "@base-ui/react/dialog";
 import { Command } from "cmdk";
 import type { ReactElement } from "react";
-import {
-  Copy,
-  Crosshair,
-  Download,
-  FileBraces,
-  Keyboard,
-  Network,
-  Redo2,
-  RotateCcw,
-  Search,
-  Star,
-  Undo2,
-  Waypoints,
-  type LucideIcon,
-} from "../../../shared/icons";
+import { Crosshair, Search, Star, Waypoints } from "../../../shared/icons";
 import { ENTITY_META } from "../data/entities";
 import { SCREENS } from "../data/screens";
 import { STATUS } from "../data/status";
-import { useExport } from "../hooks/useExport";
+import { usePaletteActions } from "../hooks/usePaletteActions";
 import { useMapStore } from "../model/mapStore";
-import { notify } from "./Toasts";
 
 const ENTITY_KEYS = Object.keys(ENTITY_META);
-
-interface PaletteAction {
-  value: string;
-  label: string;
-  icon: LucideIcon;
-  run: () => void;
-}
 
 /**
  * Ctrl+K command palette (cmdk inside a Base UI dialog): screens, fields,
@@ -43,48 +21,8 @@ export function CommandPalette(): ReactElement {
   const focusScreen = useMapStore((s) => s.focusScreen);
   const togglePin = useMapStore((s) => s.togglePin);
   const setPinnedEntity = useMapStore((s) => s.setPinnedEntity);
-  const runElk = useMapStore((s) => s.runElk);
-  const resetMap = useMapStore((s) => s.resetMap);
-  const undo = useMapStore((s) => s.undo);
-  const redo = useMapStore((s) => s.redo);
-  const setJsonDialogOpen = useMapStore((s) => s.setJsonDialogOpen);
-  const setHelpOpen = useMapStore((s) => s.setHelpOpen);
-  const { downloadJSON, copyJSON } = useExport();
+  const actions = usePaletteActions();
   const close = (): void => setOpen(false);
-  const actions: PaletteAction[] = [
-    {
-      value: "elk раскладка layered layout",
-      label: "ELK · layered-раскладка",
-      icon: Network,
-      run: () => void runElk(),
-    },
-    { value: "сброс хаб исходная схема reset", label: "Сброс · хаб в центре", icon: RotateCcw, run: resetMap },
-    { value: "отменить undo", label: "Отменить", icon: Undo2, run: undo },
-    { value: "повторить redo", label: "Повторить", icon: Redo2, run: redo },
-    { value: "скачать экспорт json скачать", label: "Скачать JSON", icon: Download, run: downloadJSON },
-    {
-      value: "копировать json буфер copy",
-      label: "Копировать JSON",
-      icon: Copy,
-      run: () =>
-        void copyJSON().then((copied) =>
-          notify(copied ? "JSON скопирован в буфер обмена" : "Не удалось скопировать JSON"),
-        ),
-    },
-    {
-      value: "посмотреть json просмотр view",
-      label: "Посмотреть JSON…",
-      icon: FileBraces,
-      run: () => setJsonDialogOpen(true),
-    },
-    {
-      value: "клавиши справка помощь help shortcuts",
-      label: "Клавиши и жесты",
-      icon: Keyboard,
-      run: () => setHelpOpen(true),
-    },
-  ];
-
   return (
     <Dialog.Root open={open} onOpenChange={(next) => setOpen(next)}>
       <Dialog.Portal>

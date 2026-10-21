@@ -2,6 +2,26 @@ import { getFlowInstance } from "./flowRef";
 import { applySilently } from "./history";
 import type { MapSliceCreator, UiSlice } from "./types";
 
+const HEADER_STORAGE_KEY = "screen-map-x:header-visible";
+
+function readHeaderVisible(): boolean {
+  try {
+    return typeof localStorage === "undefined" || localStorage.getItem(HEADER_STORAGE_KEY) !== "hidden";
+  } catch {
+    return true;
+  }
+}
+
+function writeHeaderVisible(visible: boolean): void {
+  try {
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(HEADER_STORAGE_KEY, visible ? "visible" : "hidden");
+    }
+  } catch {
+    // Storage can be unavailable in private or restricted browser contexts.
+  }
+}
+
 /**
  * Create the UI slice: route highlighting, selection, filters,
  * dialogs, command palette and canvas context-menu state.
@@ -13,6 +33,7 @@ export const createUiSlice: MapSliceCreator<UiSlice> = (set, get) => {
   };
 
   return {
+    headerVisible: readHeaderVisible(),
     hoverEntity: null,
     pinnedEntity: null,
     statusFilter: null,
@@ -22,6 +43,14 @@ export const createUiSlice: MapSliceCreator<UiSlice> = (set, get) => {
     helpOpen: false,
     contextTarget: null,
 
+    setHeaderVisible: (headerVisible) => {
+      writeHeaderVisible(headerVisible);
+      set({ headerVisible });
+    },
+    toggleHeader: () => get().setHeaderVisible(!get().headerVisible),
+    centerMap: () => {
+      void getFlowInstance()?.fitView({ padding: 0.12, maxZoom: 1, duration: 350 });
+    },
     setHoverEntity: (hoverEntity) => set({ hoverEntity }),
     togglePin: (entity) => set({ pinnedEntity: get().pinnedEntity === entity ? null : entity }),
     setPinnedEntity: (pinnedEntity) => set({ pinnedEntity }),

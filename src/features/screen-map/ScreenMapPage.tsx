@@ -8,9 +8,10 @@ import {
   type EdgeTypes,
   type NodeTypes,
 } from "@xyflow/react";
-import { useMemo, type ReactElement } from "react";
+import { useMemo, useRef, type ReactElement } from "react";
 import { CANVAS } from "./data/constants";
 import type { OrthEdge as OrthEdgeType, ScreenFlowNode } from "./flow/adapter";
+import { useAutoCenter } from "./hooks/useAutoCenter";
 import { useGlobalShortcuts } from "./hooks/useGlobalShortcuts";
 import { setFlowInstance } from "./model/flowRef";
 import { selectActiveEntity, useMapStore } from "./model/mapStore";
@@ -44,6 +45,9 @@ export function ScreenMapPage(): ReactElement {
   const setSelected = useMapStore((s) => s.setSelected);
   const clearSelectionAndPin = useMapStore((s) => s.clearSelectionAndPin);
   const setContextTarget = useMapStore((s) => s.setContextTarget);
+  const scrollRef = useRef<HTMLElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
+  useAutoCenter(scrollRef, frameRef);
   useGlobalShortcuts();
 
   /* highlight the active entity route / dim the rest for the edge renderer */
@@ -66,8 +70,8 @@ export function ScreenMapPage(): ReactElement {
         <div className="app">
           <Toolbar />
           <main className="main">
-            <section className="canvas-scroll">
-              <div className="canvas-frame" style={{ width: CANVAS.width, height: CANVAS.height }}>
+            <section ref={scrollRef} className="canvas-scroll">
+              <div ref={frameRef} className="canvas-frame" style={{ width: CANVAS.width, height: CANVAS.height }}>
                 <ReactFlow<ScreenFlowNode, OrthEdgeType>
                   nodes={nodes}
                   edges={displayEdges}

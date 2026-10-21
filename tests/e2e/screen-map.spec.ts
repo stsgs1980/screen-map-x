@@ -76,4 +76,27 @@ test.describe("section X screen map", () => {
     await page.keyboard.press("Control+Z");
     await expect(page.locator(".react-flow__edge")).toHaveCount(18);
   });
+
+  test("top bar can be hidden and restored while the canvas stays centred", async ({ page }) => {
+    await page.getByRole("button", { name: "Скрыть верхнюю панель" }).click();
+    await expect(page.locator(".app-title")).toHaveCount(0);
+
+    const restore = page.getByRole("button", { name: "Показать верхнюю панель" });
+    await expect(restore).toBeVisible();
+
+    const centreDelta = await page.evaluate(() => {
+      const scroll = document.querySelector(".canvas-scroll");
+      const frame = document.querySelector(".canvas-frame");
+      if (!scroll || !frame) return Number.POSITIVE_INFINITY;
+      const scrollRect = scroll.getBoundingClientRect();
+      const frameRect = frame.getBoundingClientRect();
+      const dx = Math.abs(frameRect.left + frameRect.width / 2 - (scrollRect.left + scrollRect.width / 2));
+      const dy = Math.abs(frameRect.top + frameRect.height / 2 - (scrollRect.top + scrollRect.height / 2));
+      return Math.max(dx, dy);
+    });
+    expect(centreDelta).toBeLessThan(24);
+
+    await restore.click();
+    await expect(page.locator(".app-title")).toContainText("Карта экранов");
+  });
 });

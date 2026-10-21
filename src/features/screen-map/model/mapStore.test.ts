@@ -44,6 +44,14 @@ describe("map store", () => {
     expect(temporal().pastStates).toHaveLength(0);
   });
 
+  it("toggles the top bar visibility", () => {
+    expect(state().headerVisible).toBe(true);
+    state().toggleHeader();
+    expect(state().headerVisible).toBe(false);
+    state().toggleHeader();
+    expect(state().headerVisible).toBe(true);
+  });
+
   it("tracks hover over pin as the active entity inputs", () => {
     state().togglePin("invoice");
     expect(state().pinnedEntity).toBe("invoice");

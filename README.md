@@ -46,6 +46,7 @@
 - Ручное редактирование графа: drag карточек, drag от порта, Delete, undo/redo.
 - Автораскладка ELK `layered / DOWN / ORTHOGONAL` с анимированным переходом.
 - Командная палитра Ctrl+K: экраны, поля, сущности и действия карты.
+- Скрываемая верхняя панель и автоцентровка холста при загрузке, resize и переключении панели.
 - Контекстные меню экранов и связей, preview-карточки сущностей и tooltip полей.
 - Просмотр, копирование и скачивание JSON-схемы, уведомления Toast.
 - Полный набор гейтов: ESLint, Stylelint, markdownlint, Prettier, TypeScript,
@@ -79,6 +80,8 @@
 - **Delete** - удалить выбранную связь. История zundo хранит только граф, а не hover,
   выбор экрана и промежуточные позиции во время drag.
 - **Знак вопроса** - диалог со справкой по клавишам и жестам вне полей ввода.
+- **Скрыть / Панель** - убрать или вернуть верхнюю панель; выбор сохраняется в браузере.
+- **Центр** - вписать всю карту в холст и выровнять рамку по центру доступной области.
 
 ## Tech Stack
 
@@ -212,10 +215,11 @@ artifacts/                     compliance report и образец экспор�
 
 ## Testing
 
-- Unit: 17 тестов в `src/features/screen-map/flow/adapter.test.ts`, `src/features/screen-map/data/data.test.ts` и
+- Unit: 18 тестов в `src/features/screen-map/flow/adapter.test.ts`, `src/features/screen-map/data/data.test.ts` и
   `src/features/screen-map/model/mapStore.test.ts`.
-- E2E: 6 сценариев в `tests/e2e/screen-map.spec.ts`: рендер, hover-маршрут и tooltip,
-  палитра, экспорт в буфер, фильтр статусов, контекстное удаление связи и undo.
+- E2E: 7 сценариев в `tests/e2e/screen-map.spec.ts`: рендер, hover-маршрут и tooltip,
+  палитра, экспорт в буфер, фильтр статусов, контекстное удаление связи и undo,
+  скрытие/восстановление верхней панели с проверкой центровки холста.
 - Visual: кадры в `docs/assets/screenshots/` и `docs/assets/screenshots/ui/` используются для ручной сверки,
   а не как pixel-snapshot assertions.
 

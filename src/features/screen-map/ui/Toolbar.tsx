@@ -3,10 +3,13 @@ import type { ReactElement } from "react";
 import {
   ChevronDown,
   Copy,
+  Crosshair,
   Download,
   FileBraces,
   Keyboard,
   Network,
+  PanelTopClose,
+  PanelTopOpen,
   Redo2,
   RotateCcw,
   Search,
@@ -27,6 +30,9 @@ const FIELDS_TOTAL = SCREENS.reduce((n, s) => n + s.fields.length, 0);
  * @returns the header bar
  */
 export function Toolbar(): ReactElement {
+  const headerVisible = useMapStore((s) => s.headerVisible);
+  const toggleHeader = useMapStore((s) => s.toggleHeader);
+  const centerMap = useMapStore((s) => s.centerMap);
   const links = useMapStore((s) => s.edges.length);
   const pinnedEntity = useMapStore((s) => s.pinnedEntity);
   const elkBusy = useMapStore((s) => s.elkBusy);
@@ -46,6 +52,19 @@ export function Toolbar(): ReactElement {
     const copied = await copyJSON();
     notify(copied ? "JSON скопирован в буфер обмена" : "Не удалось скопировать JSON");
   };
+
+  if (!headerVisible) {
+    return (
+      <button
+        className="btn header-restore"
+        onClick={toggleHeader}
+        aria-label="Показать верхнюю панель"
+        title="Показать верхнюю панель"
+      >
+        <PanelTopOpen size={14} aria-hidden /> Панель
+      </button>
+    );
+  }
 
   return (
     <header className="topbar">
@@ -75,6 +94,9 @@ export function Toolbar(): ReactElement {
         </button>
         <button className="btn" onClick={redo} disabled={!canRedo} title="Повторить (Ctrl+Shift+Z)">
           <Redo2 size={13} aria-hidden /> Повторить
+        </button>
+        <button className="btn" onClick={centerMap} title="Центрировать и вписать карту">
+          <Crosshair size={13} aria-hidden /> Центр
         </button>
         <button className="btn" onClick={resetMap} title="Исходная схема: хаб в центре, сателлиты по краям">
           <RotateCcw size={13} aria-hidden /> Сброс · хаб
@@ -111,6 +133,9 @@ export function Toolbar(): ReactElement {
             </Menu.Positioner>
           </Menu.Portal>
         </Menu.Root>
+        <button className="btn" onClick={toggleHeader} aria-label="Скрыть верхнюю панель" title="Скрыть верхнюю панель">
+          <PanelTopClose size={14} aria-hidden /> Скрыть
+        </button>
       </div>
     </header>
   );
