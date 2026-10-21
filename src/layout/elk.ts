@@ -11,9 +11,18 @@ import { screenHeight } from "../data/screens";
 import { type EdgeDef, type ScreenDef } from "../data/types";
 
 /* elkjs is heavy — load it lazily, only when the user asks for a layout */
-let elkPromise: Promise<InstanceType<(typeof import("elkjs/lib/elk.bundled.js"))["default"]>> | null = null;
-const getElk = () => (elkPromise ??= import("elkjs/lib/elk.bundled.js").then((m) => new m.default()));
+type ElkInstance = InstanceType<(typeof import("elkjs/lib/elk.bundled.js"))["default"]>;
 
+let elkPromise: Promise<ElkInstance> | null = null;
+const getElk = (): Promise<ElkInstance> =>
+  (elkPromise ??= import("elkjs/lib/elk.bundled.js").then((m) => new m.default()));
+
+/**
+ * Run the layered DOWN layout over the screens and return node positions.
+ * @param screens - screen definitions (sizes are derived from the spec)
+ * @param defs - current field-to-field edges
+ * @returns positions by screen id
+ */
 export async function elkLayout(
   screens: ScreenDef[],
   defs: EdgeDef[],

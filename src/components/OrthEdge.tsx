@@ -1,4 +1,5 @@
 import { BaseEdge, EdgeLabelRenderer, getSmoothStepPath, type EdgeProps } from "@xyflow/react";
+import type { ReactElement } from "react";
 import type { OrthEdge as OrthEdgeType } from "../flow";
 
 /**
@@ -7,8 +8,10 @@ import type { OrthEdge as OrthEdgeType } from "../flow";
  * so lines follow their field ports. When its entity route is active
  * the line turns bright, starts marching and shows the entity chip;
  * everything else is dimmed (opacity driven from App via data flags).
+ * @param props - React Flow edge props
+ * @returns the routed path plus an entity chip while highlighted
  */
-export function OrthEdge(props: EdgeProps<OrthEdgeType>) {
+export function OrthEdge(props: EdgeProps<OrthEdgeType>): ReactElement {
   const { id, sourceX, sourceY, sourcePosition, targetX, targetY, targetPosition, markerEnd, data, selected } = props;
 
   const [path, labelX, labelY] = getSmoothStepPath({

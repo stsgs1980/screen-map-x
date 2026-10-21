@@ -1,7 +1,8 @@
+import type { ReactElement, ReactNode } from "react";
 import type { IconName } from "../data/types";
 
 /** 12 px field icons (24 viewBox, stroke) */
-const PATHS: Record<IconName, React.ReactNode> = {
+const PATHS: Record<IconName, ReactNode> = {
   doc: (
     <>
       <path d="M6 3h8l4 4v14H6z" />
@@ -54,7 +55,12 @@ const PATHS: Record<IconName, React.ReactNode> = {
   text: <path d="M5 6h14M5 12h14M5 18h8" />,
 };
 
-export function Icon({ name }: { name: IconName }) {
+/**
+ * 12 px entity glyph for a field row.
+ * @param props - icon key of the entity
+ * @returns inline SVG
+ */
+export function Icon({ name }: { name: IconName }): ReactElement {
   return (
     <svg
       width="12"

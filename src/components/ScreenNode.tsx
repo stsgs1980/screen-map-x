@@ -1,77 +1,20 @@
-import { Handle, Position, type NodeProps } from "@xyflow/react";
-import { memo, useContext } from "react";
-import { MapContext } from "../context";
+import type { NodeProps } from "@xyflow/react";
+import { memo, type ReactElement } from "react";
 import { NODE_W } from "../data/constants";
-import { ENTITY_META } from "../data/entities";
-import { fieldId, portId } from "../data/fields";
 import { screenHeight } from "../data/screens";
 import { STATUS } from "../data/status";
-import { type FieldDef, type Side } from "../data/types";
-import { type ScreenFlowNode } from "../flow";
-import { Icon } from "./Icon";
+import type { ScreenFlowNode } from "../flow";
+import { selectActiveEntity, useMapStore } from "../store/mapStore";
+import { FieldRow } from "./FieldRow";
 
-/* --------------------------------------------------------- card/field
- * icon 12px + label + entity key + 5px port dots on both edges.
- * Ports are separate child elements (React Flow Handles): each side
- * carries an overlapping target+source pair so a connector can enter
- * or leave the field from whichever side faces its counterpart. */
-function FieldRow({ screenId, field }: { screenId: string; field: FieldDef }) {
-  const { activeEntity, setHoverEntity, statusFilter } = useContext(MapContext);
-  const fId = fieldId(screenId, field.entity);
-  const on = activeEntity === field.entity;
-  const dim = (!!activeEntity && !on) || (!!statusFilter && field.status !== statusFilter);
-  const color = STATUS[field.status].color;
-
-  const portStyle = (side: Side, z: number): React.CSSProperties => ({
-    left: side === "L" ? 0 : "100%",
-    top: "50%",
-    transform: "translate(-50%, -50%)",
-    background: on ? color : "#141414",
-    borderColor: on ? color : "#6E6E6E",
-    boxShadow: on ? `0 0 6px ${color}` : "none",
-    zIndex: z,
-  });
-
-  return (
-    <div
-      className={`fld${on ? "on" : ""}`}
-      style={{ opacity: dim ? 0.2 : 1 }}
-      title={`${field.name}: ${field.type} · ${STATUS[field.status].label} · entity ${field.entity}`}
-      onMouseEnter={() => setHoverEntity(field.entity)}
-      onMouseLeave={() => setHoverEntity(null)}
-    >
-      <span className="fld-bar" style={{ background: color }} />
-      <Icon name={ENTITY_META[field.entity]?.icon ?? "doc"} />
-      <span className="fld-label">{field.label}</span>
-      <span className="fld-ent">{field.entity}</span>
-      {(["L", "R"] as const).flatMap((side) => [
-        <Handle
-          key={`${side}-in`}
-          id={portId(fId, side, "in")}
-          type="target"
-          position={side === "L" ? Position.Left : Position.Right}
-          className="port"
-          style={portStyle(side, 1)}
-          isConnectable
-        />,
-        <Handle
-          key={`${side}-out`}
-          id={portId(fId, side, "out")}
-          type="source"
-          position={side === "L" ? Position.Left : Position.Right}
-          className="port"
-          style={portStyle(side, 2)}
-          isConnectable
-        />,
-      ])}
-    </div>
-  );
-}
-
-/* --------------------------------------------------------- card/screen
- * header 40px + field rows 23px + optional skeleton block + chrome 13px */
-export const ScreenNode = memo(function ScreenNode({ data, selected }: NodeProps<ScreenFlowNode>) {
-  const { activeEntity } = useContext(MapContext);
+/**
+ * `card/screen`: header 40px + field rows 23px + optional skeleton block
+ * + chrome strip 13px. Dims as a whole when another entity route is lit.
+ * @param props - React Flow node props
+ * @returns the screen card
+ */
+export const ScreenNode = memo(function ScreenNode({ data, selected }: NodeProps<ScreenFlowNode>): ReactElement {
+  const activeEntity = useMapStore(selectActiveEntity);
   const s = data.screen;
   const inRoute = !activeEntity || s.fields.some((f) => f.entity === activeEntity);
   const statusDots = [...new Set(s.fields.map((f) => f.status))];
