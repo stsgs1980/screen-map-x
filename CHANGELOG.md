@@ -1,0 +1,12 @@
+<!-- markdownlint-disable -->
+
+# 2.0.0 (2026-10-21)
+
+### Bug Fixes
+
+- **export:** handle clipboard copy failures 4de77a7
+
+### Features
+
+- **ui:** add Base UI primitives and cmdk palette 0f40f09
+- **ui:** geist typography and lucide icons via deep imports ff669c5
