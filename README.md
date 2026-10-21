@@ -189,7 +189,7 @@ src/
 tests/e2e/                     Playwright-сценарии
 scripts/                       проверки, changelog и экспорт схемы
 tools/eslint/                  кастомные правила, процессор и парсер ESLint
-docs/assets/screenshots/       референсные и UI-кадры для ручной сверки
+docs/assets/screenshots/ui/   кадры текущего интерфейса для ручной сверки
 artifacts/                     образец экспортной JSON-схемы
 ```
 
@@ -230,8 +230,8 @@ artifacts/                     образец экспортной JSON-схем
 - E2E: 7 сценариев в `tests/e2e/screen-map.spec.ts`: рендер, hover-маршрут и tooltip,
   палитра, экспорт в буфер, фильтр статусов, контекстное удаление связи и undo,
   скрытие/восстановление правого инспектора с проверкой центровки холста.
-- Visual: кадры в `docs/assets/screenshots/` и `docs/assets/screenshots/ui/` используются для ручной сверки,
-  а не как pixel-snapshot assertions.
+- Visual: кадры в `docs/assets/screenshots/ui/` используются для ручной сверки,
+  а не как pixel-snapshot assertions. Их переснимает `npm run screenshots`.
 
 Подробности: [docs/testing.md](docs/testing.md).
 

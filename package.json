@@ -29,6 +29,7 @@
     "check:docs": "node scripts/check-docs.ts",
     "changelog": "node scripts/generate-changelog.ts",
     "export:schema": "tsx scripts/export-schema.ts",
+    "screenshots": "tsx scripts/capture-screenshots.ts",
     "prepare": "husky"
   },
   "dependencies": {
