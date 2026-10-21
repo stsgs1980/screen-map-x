@@ -1,26 +1,95 @@
 {
   "name": "screen-map-x",
+  "version": "2.0.0",
   "private": true,
-  "version": "1.0.0",
+  "description": "Section X screen map: screens as nodes, field-to-field entity routes as edges (React Flow + elkjs)",
+  "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": ">=22.22.2",
+    "npm": ">=10.9.0"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
+    "lint": "eslint . --max-warnings=0",
+    "lint:css": "stylelint \"**/*.{css,scss}\" --allow-empty-input",
+    "lint:md": "markdownlint \"**/*.md\" --ignore node_modules",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "check:file-length": "node scripts/check-file-length.ts --all",
+    "check:docs": "node scripts/check-docs.ts",
+    "changelog": "node scripts/generate-changelog.ts",
     "export:schema": "tsx scripts/export-schema.ts"
   },
   "dependencies": {
-    "@xyflow/react": "^12.3.6",
-    "elkjs": "^0.9.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "@base-ui/react": "^1.9.0",
+    "@fontsource/geist-mono": "^5.3.0",
+    "@fontsource/geist-sans": "^5.3.0",
+    "@xyflow/react": "^12.12.0",
+    "cmdk": "^1.1.1",
+    "elkjs": "^0.12.0",
+    "lucide-react": "^1.56.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "zundo": "^2.3.0",
+    "zustand": "^5.0.15"
   },
   "devDependencies": {
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "tsx": "^4.19.0",
-    "typescript": "^5.6.0",
-    "vite": "^5.4.19"
-  }
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.0",
+    "@eslint/js": "^9.39.5",
+    "@eslint/markdown": "8.0.3",
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@typescript-eslint/parser": "^8.68.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "@vitest/coverage-v8": "^5.0.4",
+    "conventional-changelog": "^8.1.3",
+    "conventional-changelog-angular": "^9.4.0",
+    "eslint": "^9.39.0",
+    "eslint-plugin-jsdoc": "^65.2.2",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "markdownlint-cli": "^0.49.1",
+    "prettier": "^3.9.9",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "stylelint": "^17.14.1",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.71.1",
+    "vite": "^7.0.0",
+    "vitest": "^5.0.4"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx,mjs,cjs,mts,cts,json,html,md,vue,svelte,astro,scss,css,less,yaml}": "prettier --write",
+    "*.{js,ts,jsx,tsx,mjs,cjs,mts,cts}": "eslint --fix --max-warnings=0 --no-warn-ignored",
+    "*.{css,scss}": "stylelint --fix",
+    "*.md": "markdownlint --fix --ignore node_modules"
+  },
+  "keywords": [
+    "react-flow",
+    "elkjs",
+    "screen-map",
+    "information-architecture"
+  ]
 }

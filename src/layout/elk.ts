@@ -5,6 +5,7 @@
  * the user drags cards the live SmoothStep router keeps lines glued
  * to the field ports.
  */
+import type { ElkNode } from 'elkjs/lib/elk-api';
 import { NODE_W, screenHeight, type EdgeDef, type ScreenDef } from '../data/schema';
 
 /* elkjs is heavy — load it lazily, only when the user asks for a layout */
@@ -15,7 +16,7 @@ export async function elkLayout(
   screens: ScreenDef[],
   defs: EdgeDef[],
 ): Promise<Record<string, { x: number; y: number }>> {
-  const graph = {
+  const graph: ElkNode = {
     id: 'section-x',
     layoutOptions: {
       'elk.algorithm': 'layered',
@@ -31,7 +32,7 @@ export async function elkLayout(
   };
 
   const elk = await getElk();
-  const result = await elk.layout(graph as never);
+  const result = await elk.layout(graph);
   const map: Record<string, { x: number; y: number }> = {};
   for (const child of result.children ?? []) {
     map[child.id] = { x: Math.round(child.x ?? 0), y: Math.round(child.y ?? 0) };
