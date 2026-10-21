@@ -5,6 +5,7 @@ import {
   Controls,
   MiniMap,
   ReactFlow,
+  type Connection,
   type EdgeTypes,
   type NodeTypes,
 } from "@xyflow/react";
@@ -23,7 +24,7 @@ import { Inspector } from "./ui/inspector/Inspector";
 import { JsonDialog } from "./ui/JsonDialog";
 import { OrthEdge } from "./ui/OrthEdge";
 import { ScreenNode } from "./ui/ScreenNode";
-import { ToastHost } from "./ui/Toasts";
+import { notify, ToastHost } from "./ui/Toasts";
 import { Toolbar } from "./ui/Toolbar";
 
 const nodeTypes = { screen: ScreenNode } as unknown as NodeTypes;
@@ -49,6 +50,11 @@ export function ScreenMapPage(): ReactElement {
   const frameRef = useRef<HTMLDivElement>(null);
   useAutoCenter(scrollRef, frameRef);
   useGlobalShortcuts();
+
+  const handleConnect = (conn: Connection): void => {
+    const result = onConnect(conn);
+    if (!result.ok) notify(result.reason);
+  };
 
   /* highlight the active entity route / dim the rest for the edge renderer */
   const displayEdges = useMemo<OrthEdgeType[]>(
@@ -77,7 +83,7 @@ export function ScreenMapPage(): ReactElement {
                   edges={displayEdges}
                   onNodesChange={onNodesChange}
                   onEdgesChange={onEdgesChange}
-                  onConnect={onConnect}
+                  onConnect={handleConnect}
                   nodeTypes={nodeTypes}
                   edgeTypes={edgeTypes}
                   onInit={setFlowInstance}
@@ -105,17 +111,15 @@ export function ScreenMapPage(): ReactElement {
                   defaultEdgeOptions={{ type: "orth" }}
                   style={{ background: CANVAS.bg }}
                 >
-                  <Background variant={BackgroundVariant.Lines} gap={CANVAS.grid} size={1} color="#1D1D1D" />
+                  <Background variant={BackgroundVariant.Lines} gap={CANVAS.grid} size={1} />
                   <Controls position="top-right" showInteractive={false} />
                   <MiniMap
                     position="bottom-right"
                     style={{ width: 128, height: 84 }}
                     pannable
                     zoomable
-                    bgColor="rgba(20,20,20,.92)"
-                    maskColor="rgba(0,0,0,.55)"
-                    nodeColor={(n) => (n.id === "hub" ? "#5A5A5A" : "#2E2E2E")}
-                    nodeStrokeColor="#3D3D3D"
+                    nodeColor={(n) => (n.id === "hub" ? "var(--minimap-node-hub)" : "var(--minimap-node)")}
+                    nodeStrokeColor="var(--border)"
                   />
                   <CanvasOverlays />
                 </ReactFlow>

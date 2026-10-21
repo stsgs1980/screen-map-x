@@ -29,3 +29,24 @@ export const EDGE_DEFS: EdgeDef[] = [
   d("refund", "hub", "refunds", "статус возврата из обзора"),
   d("method", "create", "confirm", "способ оплаты на шаге подтверждения"),
 ];
+
+/**
+ * Unique id for a manual edge: the semantic base id, plus a counter when the
+ * base is already taken. Parallel spokes therefore coexist instead of the
+ * second one being silently dropped.
+ * @param defs - existing semantic edges
+ * @param entity - entity key
+ * @param from - source screen id
+ * @param to - target screen id
+ * @returns an id that no existing edge uses
+ */
+export const nextEdgeId = (defs: EdgeDef[], entity: string, from: string, to: string): string => {
+  const base = `e-${entity}-${from}-${to}`;
+  let id = base;
+  let attempt = 0;
+  while (defs.some((edge) => edge.id === id)) {
+    attempt += 1;
+    id = `${base}-${attempt}`;
+  }
+  return id;
+};

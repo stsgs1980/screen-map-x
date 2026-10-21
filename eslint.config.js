@@ -113,6 +113,13 @@ export default [
         { allowExpressions: true, allowTypedFunctionExpressions: true },
       ],
       "no-console": ["error", { allow: ["warn", "error"] }],
+      // The app renders only trusted static data and never evaluates strings;
+      // these rules keep it that way.
+      "no-eval": "error",
+      "no-implied-eval": "error",
+      "no-new-func": "error",
+      "no-script-url": "error",
+      "react/no-danger": "error",
       "react/jsx-uses-react": "error",
       "react/jsx-uses-vars": "error",
       "react-hooks/rules-of-hooks": "error",
@@ -122,6 +129,28 @@ export default [
       "jsx-a11y/anchor-is-valid": "error",
       "jsx-a11y/label-has-associated-control": "error",
       "jsx-a11y/no-redundant-roles": "error",
+      // Anti-monolith limits, mirrored in README "Conventions":
+      // a TS/JS file stays under 250 lines, a plain function under 50 code lines.
+      "max-lines": ["error", { max: 250, skipBlankLines: false, skipComments: false }],
+      "max-lines-per-function": ["error", { max: 50, skipBlankLines: true, skipComments: true }],
+    },
+  },
+  {
+    // React components are markup-heavy and live in the UI layer: README
+    // "Conventions" allows a component up to 200 lines, while a plain
+    // function stays under 50.
+    files: ["src/features/screen-map/ui/**/*.tsx", "src/features/screen-map/ScreenMapPage.tsx"],
+    rules: {
+      "max-lines-per-function": ["error", { max: 200, skipBlankLines: true, skipComments: true }],
+    },
+  },
+  {
+    // Test suites are exempt from the anti-monolith limits, exactly like
+    // scripts/check-file-length.ts does.
+    files: ["**/*.{test,spec}.{ts,tsx}"],
+    rules: {
+      "max-lines": "off",
+      "max-lines-per-function": "off",
     },
   },
   {

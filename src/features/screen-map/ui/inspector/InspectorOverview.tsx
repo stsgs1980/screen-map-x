@@ -35,7 +35,7 @@ export function InspectorOverview(): ReactElement {
       <div className="insp-top">
         <div>
           <div className="mono-label">{SECTION_PATH}</div>
-          <h2 className="insp-h">Карта экранов</h2>
+          <h2 className="insp-h">Screen-map-x</h2>
         </div>
         <button
           className="btn btn-ghost insp-close inspector-collapse"

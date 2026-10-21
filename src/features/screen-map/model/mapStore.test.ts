@@ -28,6 +28,45 @@ describe("map store", () => {
     expect(added?.data?.entity).toBe("amount");
   });
 
+  it("rejects a manual connection between fields of different entities", () => {
+    const result = state().onConnect({
+      source: "invoices",
+      target: "refunds",
+      sourceHandle: "invoices.amount|R|out",
+      targetHandle: "refunds.refund|L|in",
+    });
+
+    expect(result).toEqual({ ok: false, reason: expect.stringContaining("сущност") });
+    expect(state().edges).toHaveLength(18);
+  });
+
+  it("keeps both manual connections when the same pair is wired twice", () => {
+    const connection = {
+      source: "invoices",
+      target: "refunds",
+      sourceHandle: "invoices.amount|R|out",
+      targetHandle: "refunds.amount|L|in",
+    };
+
+    state().onConnect(connection);
+    state().deleteEdge("e-invoice-invoices-hub");
+    state().onConnect(connection);
+
+    expect(state().edges).toHaveLength(19);
+  });
+
+  it("re-derives edge port sides when a card is dragged", () => {
+    const before = state().edges.find((e) => e.id === "e-invoice-invoices-hub");
+    expect(before?.sourceHandle).toBe("invoices.invoice|R|out");
+    expect(before?.targetHandle).toBe("hub.invoice|L|in");
+
+    state().onNodesChange([{ id: "invoices", type: "position", position: { x: 944, y: 24 } }]);
+
+    const after = state().edges.find((e) => e.id === "e-invoice-invoices-hub");
+    expect(after?.sourceHandle).toBe("invoices.invoice|L|out");
+    expect(after?.targetHandle).toBe("hub.invoice|R|in");
+  });
+
   it("undoes and redoes graph changes", () => {
     const first = state().edges[0];
     state().deleteEdge(first.id);

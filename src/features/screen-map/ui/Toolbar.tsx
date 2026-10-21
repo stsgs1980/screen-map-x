@@ -53,13 +53,19 @@ export function Toolbar(): ReactElement {
     notify(copied ? "JSON скопирован в буфер обмена" : "Не удалось скопировать JSON");
   };
 
+  const onRunElk = (): void => {
+    void runElk().then((result) => {
+      if (!result.ok) notify(result.reason);
+    });
+  };
+
   return (
     <header className="topbar">
       <div className="topbar-l">
         <div>
           <div className="mono-label">{SECTION_PATH}</div>
           <h1 className="app-title">
-            Карта экранов <span className="title-dim">· field → field</span>
+            Screen-map-x <span className="title-dim">· field → field</span>
           </h1>
         </div>
         <span className="counter mono">
@@ -90,7 +96,7 @@ export function Toolbar(): ReactElement {
         </button>
         <button
           className="btn"
-          onClick={() => void runElk()}
+          onClick={onRunElk}
           disabled={elkBusy}
           title="elkjs: layered, direction DOWN, orthogonal routing"
         >

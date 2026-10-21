@@ -18,7 +18,6 @@ export function CanvasContextMenu(): ReactElement {
   const setSelected = useMapStore((s) => s.setSelected);
   const focusScreen = useMapStore((s) => s.focusScreen);
   const togglePin = useMapStore((s) => s.togglePin);
-  const setPinnedEntity = useMapStore((s) => s.setPinnedEntity);
   const deleteEdge = useMapStore((s) => s.deleteEdge);
 
   const anchor = useMemo(
@@ -68,7 +67,7 @@ export function CanvasContextMenu(): ReactElement {
                 <div className="menu-head mono">
                   {def.entity} · {def.from.screen} -&gt; {def.to.screen}
                 </div>
-                <Menu.Item className="menu-item" onClick={() => setPinnedEntity(def.entity)}>
+                <Menu.Item className="menu-item" onClick={() => togglePin(def.entity)}>
                   <Waypoints size={13} aria-hidden /> Закрепить маршрут сущности
                 </Menu.Item>
                 <Menu.Item className="menu-item danger" onClick={() => deleteEdge(def.id)}>

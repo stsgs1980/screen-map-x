@@ -50,6 +50,9 @@ test-results/
 # OpenCode
 .agents/
 
+# Superpowers agent workspace (briefs and ledger, never present in CI)
+.superpowers/
+
 # OS files
 .DS_Store
 Thumbs.db

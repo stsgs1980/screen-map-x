@@ -41,8 +41,10 @@ export function FieldRow({ screenId, field }: { screenId: string; field: FieldDe
     left: side === "L" ? 0 : "100%",
     top: "50%",
     transform: "translate(-50%, -50%)",
-    background: on ? color : "#141414",
-    borderColor: on ? color : "#6E6E6E",
+    // The inactive port keeps the colours from field.css; only the active one
+    // carries the status colour, which is per status.
+    background: on ? color : undefined,
+    borderColor: on ? color : undefined,
     boxShadow: on ? `0 0 6px ${color}` : "none",
     zIndex: z,
   });
@@ -53,7 +55,7 @@ export function FieldRow({ screenId, field }: { screenId: string; field: FieldDe
         render={
           <div
             className={on ? "fld on" : "fld"}
-            style={{ opacity: dim ? 0.2 : 1 }}
+            style={{ opacity: dim ? "var(--opacity-dim)" : 1 }}
             onMouseEnter={() => setHoverEntity(field.entity)}
             onMouseLeave={() => setHoverEntity(null)}
           />

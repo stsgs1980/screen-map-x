@@ -88,7 +88,7 @@ export function InspectorScreen({ screen }: { screen: ScreenDef }): ReactElement
           <span
             className="spec-st"
             style={{
-              color: STATUS[f.status].color === "#3D3D3D" ? "#8A8A8A" : STATUS[f.status].color,
+              color: f.status === "none" ? "var(--fg-muted)" : STATUS[f.status].color,
             }}
           >
             {STATUS[f.status].label}

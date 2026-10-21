@@ -9,6 +9,8 @@ const EXTENSIONS = /\.(ts|tsx|js|jsx|mts|cts|mjs|cjs)$/;
 const TEST_FILE = /\.(test|spec)\.(ts|tsx|js|jsx|mts|cts|mjs|cjs)$/;
 /** Everything under tests/ or __tests__/ is test support code. */
 const TEST_DIR = /(?:^|[\\/])(?:__tests__|tests?)[\\/]/;
+/** IDE templates are not project source. */
+const IDE_DIR = /^\.idea\//;
 
 const args = process.argv.slice(2);
 const checkAll = args.includes("--all");
@@ -47,7 +49,7 @@ function listFiles(): string[] {
 
   return execSync(command, { encoding: "utf8" })
     .split("\0")
-    .filter((file) => EXTENSIONS.test(file));
+    .filter((file) => EXTENSIONS.test(file) && !IDE_DIR.test(file));
 }
 
 /**

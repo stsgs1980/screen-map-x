@@ -17,3 +17,10 @@ export const fieldId = (screen: string, entity: string): string => `${screen}.${
  * @returns port id like `hub.invoice|R|out`
  */
 export const portId = (fId: string, side: Side, kind: "in" | "out"): string => `${fId}|${side}|${kind}`;
+
+/**
+ * Entity key carried by a port id, e.g. `hub.invoice|R|out` -> `invoice`.
+ * @param port - port id
+ * @returns entity key of the field the port belongs to
+ */
+export const entityOfPort = (port: string): string => port.split("|")[0].split(".").at(-1) ?? "";

@@ -1,8 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
 /**
- * Browser e2e scenarios run against a production preview on a dedicated
- * port, so they verify the same bundle shape that ships to users.
+ * Browser e2e scenarios run against a Vite dev server on a dedicated port
+ * bound to loopback, so the browser never leaves the machine.
  */
 export default defineConfig({
   testDir: "./tests/e2e",

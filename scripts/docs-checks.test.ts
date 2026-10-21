@@ -1,0 +1,55 @@
+import { describe, expect, it } from "vitest";
+import { checkLinkTargets, checkPaths, checkScriptNames } from "./docs-checks";
+
+describe("check-docs", () => {
+  it("flags a source path that does not exist", () => {
+    const failures: string[] = [];
+
+    checkPaths("README.md", "Модуль `src/features/screen-map/data/missing.ts`.", failures);
+
+    expect(failures).toHaveLength(1);
+    expect(failures[0]).toContain("does not exist");
+  });
+
+  it("accepts a source path that exists", () => {
+    const failures: string[] = [];
+
+    checkPaths("README.md", "Модуль `src/features/screen-map/data/constants.ts`.", failures);
+
+    expect(failures).toHaveLength(0);
+  });
+
+  it("flags a markdown link target that does not exist", () => {
+    const failures: string[] = [];
+
+    checkLinkTargets("README.md", "См. [гайд](docs/gone.md).", failures);
+
+    expect(failures).toHaveLength(1);
+    expect(failures[0]).toContain("does not exist");
+  });
+
+  it("accepts a markdown link to an existing file and ignores external links", () => {
+    const failures: string[] = [];
+
+    checkLinkTargets("README.md", "[README](README.md) [сеть](https://example.com/x)", failures);
+
+    expect(failures).toHaveLength(0);
+  });
+
+  it("flags an npm script that does not exist", () => {
+    const failures: string[] = [];
+
+    checkScriptNames("README.md", "Запустите `npm run nosuchscript`.", {}, failures);
+
+    expect(failures).toHaveLength(1);
+    expect(failures[0]).toContain("not in package.json scripts");
+  });
+
+  it("does not treat the dev script as a future script", () => {
+    const failures: string[] = [];
+
+    checkScriptNames("README.md", "Запустите `npm run dev`.", { dev: "vite" }, failures);
+
+    expect(failures).toHaveLength(0);
+  });
+});

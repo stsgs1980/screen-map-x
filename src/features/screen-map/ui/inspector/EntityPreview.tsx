@@ -7,13 +7,13 @@ import { useMapStore } from "../../model/mapStore";
 
 /**
  * Rich hover card for one entity: every field carrying it (screen, API name,
- * status) and the current hand-off chain from the live edge set.
+ * status) and the hand-offs that move it between screens.
  * @param props - the entity key
  * @returns preview card content
  */
 export function EntityPreview({ entity }: { entity: string }): ReactElement {
   const edges = useMapStore((s) => s.edges);
-  const hops = edges.map(defOf).filter((d) => d !== null && d.entity === entity);
+  const hops = edges.map(defOf).filter((d) => d.entity === entity);
   return (
     <>
       <div className="pv-head mono">

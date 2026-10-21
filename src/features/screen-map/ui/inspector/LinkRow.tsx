@@ -25,7 +25,7 @@ export function LinkRow({ def, dir }: { def: EdgeDef; dir: "in" | "out" }): Reac
       onMouseLeave={() => setHoverEntity(null)}
       title={def.note}
     >
-      <span className="dot" style={{ background: otherField ? STATUS[otherField.status].color : "#666" }} />
+      <span className="dot" style={{ background: otherField ? STATUS[otherField.status].color : "var(--fg-subtle)" }} />
       <span className="link-ent">{def.entity}</span>
       <span className="link-arrow">
         {dir === "in" ? <ArrowLeft size={11} aria-hidden /> : <ArrowRight size={11} aria-hidden />}

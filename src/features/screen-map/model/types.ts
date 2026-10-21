@@ -17,15 +17,21 @@ export interface ContextTarget {
   y: number;
 }
 
+/** Outcome of a manual connection: the new edge id, or why it was refused. */
+export type ConnectResult = { ok: true; id: string } | { ok: false; reason: string };
+
+/** Outcome of a store command: success, or a human-readable reason. */
+export type ActionResult = { ok: true } | { ok: false; reason: string };
+
 /** Graph-owned state and actions: React Flow graph, layouts and history commands. */
 export interface GraphSlice extends GraphHistory {
   elkBusy: boolean;
   onNodesChange: (changes: NodeChange<ScreenFlowNode>[]) => void;
   onEdgesChange: (changes: EdgeChange<OrthEdge>[]) => void;
-  onConnect: (conn: Connection) => void;
+  onConnect: (conn: Connection) => ConnectResult;
   deleteEdge: (id: string) => void;
   applyLayout: (pos: PosMap, defs: EdgeDef[]) => void;
-  runElk: () => Promise<void>;
+  runElk: () => Promise<ActionResult>;
   resetMap: () => void;
   undo: () => void;
   redo: () => void;

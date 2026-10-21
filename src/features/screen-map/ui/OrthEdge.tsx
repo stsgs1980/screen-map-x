@@ -1,11 +1,12 @@
 import { BaseEdge, EdgeLabelRenderer, getSmoothStepPath, type EdgeProps } from "@xyflow/react";
 import type { ReactElement } from "react";
+import { EDGE_STYLE } from "../data/constants";
 import type { OrthEdge as OrthEdgeType } from "../flow/adapter";
 
 /**
- * Autoflow-style connector: orthogonal (SmoothStep) routing with
- * 8px corner radius, dash 3/4, #7C7C7C. Recomputed on every drag,
- * so lines follow their field ports. When its entity route is active
+ * Autoflow-style connector: orthogonal (SmoothStep) routing with the
+ * corner radius, dash and colour locked in EDGE_STYLE. Recomputed on every
+ * drag, so lines follow their field ports. When its entity route is active
  * the line turns bright, starts marching and shows the entity chip;
  * everything else is dimmed (opacity driven from App via data flags).
  * @param props - React Flow edge props
@@ -21,7 +22,7 @@ export function OrthEdge(props: EdgeProps<OrthEdgeType>): ReactElement {
     targetX,
     targetY,
     targetPosition,
-    borderRadius: 8,
+    borderRadius: EDGE_STYLE.cornerRadius,
     offset: data?.offset ?? 20,
   });
 
@@ -36,9 +37,9 @@ export function OrthEdge(props: EdgeProps<OrthEdgeType>): ReactElement {
         markerEnd={markerEnd}
         interactionWidth={16}
         style={{
-          stroke: hl || selected ? "#F2F2F2" : "#7C7C7C",
+          stroke: hl || selected ? "var(--edge-hl)" : EDGE_STYLE.color,
           strokeWidth: hl || selected ? 1.6 : 1,
-          strokeDasharray: "3 4",
+          strokeDasharray: EDGE_STYLE.dash,
           opacity: dim ? 0.1 : 1,
           transition: "opacity .18s ease, stroke .18s ease",
         }}

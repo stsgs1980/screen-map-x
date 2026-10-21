@@ -20,7 +20,6 @@ export function CommandPalette(): ReactElement {
   const setOpen = useMapStore((s) => s.setPaletteOpen);
   const focusScreen = useMapStore((s) => s.focusScreen);
   const togglePin = useMapStore((s) => s.togglePin);
-  const setPinnedEntity = useMapStore((s) => s.setPinnedEntity);
   const actions = usePaletteActions();
   const close = (): void => setOpen(false);
   return (
@@ -65,7 +64,7 @@ export function CommandPalette(): ReactElement {
                       className="cmdk-item"
                       value={`поле field ${f.name} ${f.label} ${f.entity} ${s.title}`}
                       onSelect={() => {
-                        setPinnedEntity(f.entity);
+                        togglePin(f.entity);
                         focusScreen(s.id);
                         close();
                       }}

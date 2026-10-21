@@ -18,7 +18,7 @@ export function CanvasOverlays(): ReactElement {
   return (
     <>
       <Panel position="top-left" className="panel-card canvas-head">
-        <div className="mono-label">// SECTION X — SCREEN MAP</div>
+        <div className="mono-label">// SCREEN-MAP-X</div>
         <div className="canvas-sub mono">1200 × 900 · grid 10 · orth · dashed 3/4 · r8</div>
       </Panel>
 

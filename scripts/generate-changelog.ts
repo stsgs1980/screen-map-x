@@ -26,14 +26,14 @@ const previous = existsSync(CHANGELOG) ? readFileSync(CHANGELOG, "utf8").replace
 rmSync(DRAFT, { force: true });
 
 try {
-  execSync(`npx conventional-changelog -p angular -i ${DRAFT} -s`, { stdio: "inherit" });
+  execSync(`npx --no -- conventional-changelog -p angular -i ${DRAFT} -s`, { stdio: "inherit" });
 
   // Convert asterisk to dash for consistency with prettier.
   const generated = readFileSync(DRAFT, "utf8").replace(/^\* /gm, "- ");
   writeFileSync(DRAFT, `${MARKDOWNLINT_DISABLE}\n${generated}`);
 
   // The draft has no known extension, so the prettier parser is explicit.
-  execSync(`npx prettier --write --parser markdown ${DRAFT}`, { stdio: "inherit" });
+  execSync(`npx --no -- prettier --write --parser markdown ${DRAFT}`, { stdio: "inherit" });
 } catch (error) {
   rmSync(DRAFT, { force: true });
   process.stderr.write("Changelog generation failed; CHANGELOG.md was left untouched.\n");
