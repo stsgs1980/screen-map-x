@@ -19,10 +19,18 @@ import {
   Star,
   Undo2,
   Waypoints,
+  type LucideIcon,
 } from "./icons";
 import { notify } from "./Toasts";
 
 const ENTITY_KEYS = Object.keys(ENTITY_META);
+
+interface PaletteAction {
+  value: string;
+  label: string;
+  icon: LucideIcon;
+  run: () => void;
+}
 
 /**
  * Ctrl+K command palette (cmdk inside a Base UI dialog): screens, fields,
@@ -43,6 +51,36 @@ export function CommandPalette(): ReactElement {
   const setHelpOpen = useMapStore((s) => s.setHelpOpen);
   const { downloadJSON, copyJSON } = useExport();
   const close = (): void => setOpen(false);
+  const actions: PaletteAction[] = [
+    {
+      value: "elk раскладка layered layout",
+      label: "ELK · layered-раскладка",
+      icon: Network,
+      run: () => void runElk(),
+    },
+    { value: "сброс хаб исходная схема reset", label: "Сброс · хаб в центре", icon: RotateCcw, run: resetMap },
+    { value: "отменить undo", label: "Отменить", icon: Undo2, run: undo },
+    { value: "повторить redo", label: "Повторить", icon: Redo2, run: redo },
+    { value: "скачать экспорт json скачать", label: "Скачать JSON", icon: Download, run: downloadJSON },
+    {
+      value: "копировать json буфер copy",
+      label: "Копировать JSON",
+      icon: Copy,
+      run: () => void copyJSON().then(() => notify("JSON скопирован в буфер обмена")),
+    },
+    {
+      value: "посмотреть json просмотр view",
+      label: "Посмотреть JSON…",
+      icon: FileBraces,
+      run: () => setJsonDialogOpen(true),
+    },
+    {
+      value: "клавиши справка помощь help shortcuts",
+      label: "Клавиши и жесты",
+      icon: Keyboard,
+      run: () => setHelpOpen(true),
+    },
+  ];
 
   return (
     <Dialog.Root open={open} onOpenChange={(next) => setOpen(next)}>
@@ -122,86 +160,22 @@ export function CommandPalette(): ReactElement {
               </Command.Group>
 
               <Command.Group heading="Действия" className="cmdk-group">
-                <Command.Item
-                  className="cmdk-item"
-                  value="elk раскладка layered layout"
-                  onSelect={() => {
-                    void runElk();
-                    close();
-                  }}
-                >
-                  <Network size={13} aria-hidden /> ELK · layered-раскладка
-                </Command.Item>
-                <Command.Item
-                  className="cmdk-item"
-                  value="сброс хаб исходная схема reset"
-                  onSelect={() => {
-                    resetMap();
-                    close();
-                  }}
-                >
-                  <RotateCcw size={13} aria-hidden /> Сброс · хаб в центре
-                </Command.Item>
-                <Command.Item
-                  className="cmdk-item"
-                  value="отменить undo"
-                  onSelect={() => {
-                    undo();
-                    close();
-                  }}
-                >
-                  <Undo2 size={13} aria-hidden /> Отменить
-                </Command.Item>
-                <Command.Item
-                  className="cmdk-item"
-                  value="повторить redo"
-                  onSelect={() => {
-                    redo();
-                    close();
-                  }}
-                >
-                  <Redo2 size={13} aria-hidden /> Повторить
-                </Command.Item>
-                <Command.Item
-                  className="cmdk-item"
-                  value="скачать экспорт json скачать"
-                  onSelect={() => {
-                    downloadJSON();
-                    close();
-                  }}
-                >
-                  <Download size={13} aria-hidden /> Скачать JSON
-                </Command.Item>
-                <Command.Item
-                  className="cmdk-item"
-                  value="копировать json буфер copy"
-                  onSelect={() => {
-                    void copyJSON().then(() => notify("JSON скопирован в буфер обмена"));
-                    close();
-                  }}
-                >
-                  <Copy size={13} aria-hidden /> Копировать JSON
-                </Command.Item>
-                <Command.Item
-                  className="cmdk-item"
-                  value="посмотреть json просмотр view"
-                  onSelect={() => {
-                    close();
-                    setJsonDialogOpen(true);
-                  }}
-                >
-                  <FileBraces size={13} aria-hidden /> Посмотреть JSON…
-                </Command.Item>
-                <Command.Item
-                  className="cmdk-item"
-                  value="клавиши справка помощь help shortcuts"
-                  onSelect={() => {
-                    close();
-                    setHelpOpen(true);
-                  }}
-                >
-                  <Keyboard size={13} aria-hidden /> Клавиши и жесты
-                </Command.Item>
+                {actions.map((action) => {
+                  const ActionIcon = action.icon;
+                  return (
+                    <Command.Item
+                      key={action.label}
+                      className="cmdk-item"
+                      value={action.value}
+                      onSelect={() => {
+                        action.run();
+                        close();
+                      }}
+                    >
+                      <ActionIcon size={13} aria-hidden /> {action.label}
+                    </Command.Item>
+                  );
+                })}
               </Command.Group>
             </Command.List>
           </Command>
