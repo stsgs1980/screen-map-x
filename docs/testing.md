@@ -10,8 +10,14 @@ Playwright для браузерных сценариев. Скриншоты д
 
 - `src/features/screen-map/flow/adapter.test.ts` - выбор сторон портов и построение React Flow edges.
 - `src/features/screen-map/data/data.test.ts` - целостность экранов, полей, сущностей и экспорта.
+- `src/features/screen-map/data/export.test.ts` - формат сгенерированной JSON-схемы.
+- `src/features/screen-map/layout/elk.test.ts` - снап раскладки ELK на сетку 10 px.
 - `src/features/screen-map/model/mapStore.test.ts` - начальный граф, connect, undo/redo, границы истории
   и переключение правого инспектора.
+- `src/features/screen-map/model/layoutHistory.test.ts` - чистота истории при раскладках.
+- `src/features/screen-map/model/elkRun.test.ts` - обработка ошибки раскладки ELK.
+- `scripts/docs-checks.test.ts` - контракт проверки документации.
+- `vite.config.test.ts` - конфигурация dev-сервера и закрепление CI-экшенов.
 
 Команды:
 
@@ -21,9 +27,9 @@ npm run test:watch
 npm run test:coverage
 ```
 
-Vitest собирает только `src/**/*.{test,spec}.{ts,tsx}`. Это намеренно: файлы
-Playwright тоже называются `*.spec.ts`, но запускаются другим runner и не должны
-попадать в Node-окружение Vitest.
+Vitest собирает `src/**/*.{test,spec}.{ts,tsx}`, `scripts/**/*.{test,spec}.{ts,tsx}`
+и корневые `*.{test,spec}.{ts,tsx}`. Файлы Playwright в `tests/e2e/` намеренно не
+попадают в Node-окружение Vitest: они запускаются другим runner.
 
 ## Browser e2e
 
@@ -80,5 +86,5 @@ E2E hover-сценарий специально проверяет реальн�
 - кнопка сворачивания в инспекторе или кнопка «Инспектор» в верхней панели
   скрывает/возвращает правое окно, а холст остается по центру доступной области.
 
-Эталонные кадры лежат в `docs/assets/screenshots/`, кадры новых примитивов - в
+Референсные кадры лежат в `docs/assets/screenshots/`, кадры новых примитивов - в
 `docs/assets/screenshots/ui/`.

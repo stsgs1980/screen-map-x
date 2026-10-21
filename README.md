@@ -1,16 +1,16 @@
-# Раздел X - карта экранов
+# Screen-map-x
 
 [![CI](https://img.shields.io/badge/CI-GitHub%20Actions-2088FF)](.github/workflows/ci.yml)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Node.js >=22.22.2](https://img.shields.io/badge/Node.js-%3E%3D22.22.2-43853d)](.nvmrc)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6)](https://www.typescript.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6)](https://www.typescript.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB)](https://react.dev/)
 
 > **Status**: ACTIVE
 > **Version**: 2.0.0
 > **Last Updated**: 2026-10-21
 
-![Карта экранов раздела X](docs/assets/screenshots/ui/01-main.png)
+![Screen-map-x](docs/assets/screenshots/ui/01-main.png)
 
 ## Overview
 
@@ -44,7 +44,9 @@
 - Подсветка полного маршрута сущности при наведении на поле, линию или сущность.
 - Закрепление маршрута кликом, фильтр полей по статусу и спецификация экрана.
 - Ручное редактирование графа: drag карточек, drag от порта, Delete, undo/redo.
-- Автораскладка ELK `layered / DOWN / ORTHOGONAL` с анимированным переходом.
+  Связь между полями разных сущностей не создаётся - приложение сообщает об этом тостом,
+  потому что ребро всегда описывает передачу одной сущности.
+- Автораскладка ELK `layered / DOWN / ORTHOGONAL` с анимированным переходом и снапом на сетку 10 px.
 - Командная палитра Ctrl+K: экраны, поля, сущности и действия карты.
 - Скрываемая правая панель инспектора и автоцентровка холста при загрузке, resize и переключении панели.
 - Контекстные меню экранов и связей, preview-карточки сущностей и tooltip полей.
@@ -54,20 +56,20 @@
 
 ## Specification
 
-| Требование                        | Реализация                                                             |
-| --------------------------------- | ---------------------------------------------------------------------- |
-| Холст 1200 x 900, фон `#111`      | Фиксированный frame и React Flow Background Lines                      |
-| Сетка и snap 10 px                | `snapGrid: [10, 10]`, позиции экранов в модулях данных                 |
-| Заголовок карточки 40 px          | `HEAD_H = 40` в `src/features/screen-map/data/constants.ts`            |
-| Строка поля 23 px                 | `ROW_H = 23`, компонент `FieldRow`                                     |
-| Скелетон 30 px и chrome 13 px     | Опциональный блок и нижняя полоса карточки                             |
-| Иконки полей 12 px, порты 5 px    | Lucide 12 px и отдельные React Flow Handle по краям                    |
-| Линии orth, dash 3/4, `#7C7C7C`   | SmoothStep с радиусом 8 px в `OrthEdge`                                |
-| 7 экранов, хаб в центре           | Хаб `// 02 / A` и шесть сателлитов                                     |
-| Статусы полей                     | `new`, `sent`, `pending`, `failed`, `no status`                        |
-| Моно-подписи 10 px, spacing .11em | `.mono-label`, цвет `#5A5A5A`, шрифт Geist Mono                        |
-| ELK layered / DOWN                | Лениво загружаемый `elkjs`, стороны портов по геометрии                |
-| Экспорт JSON                      | `buildExport()` и образец `artifacts/section-x-screen-map.schema.json` |
+| Требование                        | Реализация                                                                  |
+| --------------------------------- | --------------------------------------------------------------------------- |
+| Холст 1200 x 900, фон `#111`      | Фиксированный frame и React Flow Background Lines                           |
+| Сетка и snap 10 px                | `snapGrid: [10, 10]`, позиции экранов в модулях данных и снап ELK-раскладки |
+| Заголовок карточки 40 px          | `HEAD_H = 40` в `src/features/screen-map/data/constants.ts`                 |
+| Строка поля 23 px                 | `ROW_H = 23`, компонент `FieldRow`                                          |
+| Скелетон 30 px и chrome 13 px     | Опциональный блок и нижняя полоса карточки                                  |
+| Иконки полей 12 px, порты 5 px    | Lucide 12 px и отдельные React Flow Handle по краям                         |
+| Линии orth, dash 3/4, `#7C7C7C`   | SmoothStep с радиусом 8 px в `OrthEdge`                                     |
+| 7 экранов, хаб в центре           | Хаб `// 02 / A` и шесть сателлитов                                          |
+| Статусы полей                     | `new`, `sent`, `pending`, `failed`, `no status`                             |
+| Моно-подписи 10 px, spacing .11em | `.mono-label`, цвет `#5A5A5A`, шрифт Geist Mono                             |
+| ELK layered / DOWN                | Лениво загружаемый `elkjs`, стороны портов по геометрии                     |
+| Экспорт JSON                      | `buildExport()` и образец `artifacts/section-x-screen-map.schema.json`      |
 
 ### Взаимодействие
 
@@ -86,8 +88,8 @@
 
 ## Tech Stack
 
-- **Language**: TypeScript 5.9, strict mode.
-- **UI**: React 19, Vite 7, Geist Sans и Geist Mono.
+- **Language**: TypeScript 6.0, strict mode.
+- **UI**: React 19, Vite 8, Geist Sans и Geist Mono.
 - **Graph**: `@xyflow/react` 12, `elkjs` 0.12.
 - **State**: zustand 5 и zundo 2 для истории графа.
 - **Primitives**: `@base-ui/react`, cmdk и lucide-react.
@@ -139,8 +141,10 @@ npm run export:schema
 | Команда                     | Описание                                         |
 | --------------------------- | ------------------------------------------------ |
 | `npm run dev`               | Vite dev server на порту 5173                    |
+| `npm run dev:lan`           | Тот же dev server, доступный из локальной сети   |
 | `npm run build`             | TypeScript и production build                    |
 | `npm run preview`           | Локальный preview production-сборки              |
+| `npm run preview:lan`       | Preview, доступный из локальной сети             |
 | `npm run lint`              | ESLint по JS, TS, TSX и Markdown-сниппетам       |
 | `npm run lint:css`          | Stylelint по CSS                                 |
 | `npm run lint:md`           | markdownlint по документации                     |
@@ -159,15 +163,14 @@ npm run export:schema
 
 ## Docs
 
-| Документ                                               | Содержание                                 |
-| ------------------------------------------------------ | ------------------------------------------ |
-| [getting-started.md](docs/getting-started.md)          | Установка, запуск, гейты и troubleshooting |
-| [kickoff.md](docs/kickoff.md)                          | Как заменить демо-данные реальным разделом |
-| [webstorm.md](docs/webstorm.md)                        | Настройки WebStorm и включённые `.idea/`   |
-| [testing.md](docs/testing.md)                          | Unit, e2e и визуальная проверка            |
-| [markdown.md](docs/markdown.md)                        | Правила оформления Markdown                |
-| [compliance-report.md](artifacts/compliance-report.md) | Исходный аудит и итоговое дополнение       |
-| [SECURITY.md](SECURITY.md)                             | Политика безопасности и состояние аудита   |
+| Документ                                      | Содержание                                 |
+| --------------------------------------------- | ------------------------------------------ |
+| [getting-started.md](docs/getting-started.md) | Установка, запуск, гейты и troubleshooting |
+| [kickoff.md](docs/kickoff.md)                 | Как заменить демо-данные реальным разделом |
+| [webstorm.md](docs/webstorm.md)               | Настройки WebStorm и включённые `.idea/`   |
+| [testing.md](docs/testing.md)                 | Unit, e2e и визуальная проверка            |
+| [markdown.md](docs/markdown.md)               | Правила оформления Markdown                |
+| [SECURITY.md](SECURITY.md)                    | Политика безопасности и состояние аудита   |
 
 ## Architecture
 
@@ -186,8 +189,8 @@ src/
 tests/e2e/                     Playwright-сценарии
 scripts/                       проверки, changelog и экспорт схемы
 tools/eslint/                  кастомные правила, процессор и парсер ESLint
-docs/assets/screenshots/       эталонные и UI-кадры для ручной сверки
-artifacts/                     compliance report и образец экспортной JSON-схемы
+docs/assets/screenshots/       референсные и UI-кадры для ручной сверки
+artifacts/                     образец экспортной JSON-схемы
 ```
 
 Главные инварианты:
@@ -209,6 +212,9 @@ artifacts/                     compliance report и образец экспор�
 2. `ENTITY_META` в `src/features/screen-map/data/entities.ts`: подпись и иконка сущности.
 3. `EDGE_DEFS` в `src/features/screen-map/data/edges.ts`: переходы `{ screen, entity } -> { screen, entity }`.
 4. При необходимости статусы в `src/features/screen-map/data/status.ts` и геометрию в `src/features/screen-map/data/constants.ts`.
+5. Типы домена лежат в `src/features/screen-map/data/types.ts`, контракт id полей и портов -
+   в `src/features/screen-map/data/fields.ts`: идентификатор порта собирается как
+   `<screen>.<entity>|<L|R>|<in|out>`, и именно его используют порты и связи.
 
 После изменений выполните `npm test`, `npm run export:schema` и `npm run test:e2e`.
 Тесты данных проверяют уникальность и связность идентификаторов, а экспорт строится из
@@ -216,8 +222,11 @@ artifacts/                     compliance report и образец экспор�
 
 ## Testing
 
-- Unit: 18 тестов в `src/features/screen-map/flow/adapter.test.ts`, `src/features/screen-map/data/data.test.ts` и
-  `src/features/screen-map/model/mapStore.test.ts`.
+- Unit: 37 тестов в 9 файлах: `src/features/screen-map/flow/adapter.test.ts`,
+  `src/features/screen-map/data/data.test.ts`, `src/features/screen-map/data/export.test.ts`,
+  `src/features/screen-map/layout/elk.test.ts`, `src/features/screen-map/model/mapStore.test.ts`,
+  `src/features/screen-map/model/layoutHistory.test.ts`, `src/features/screen-map/model/elkRun.test.ts`,
+  `scripts/docs-checks.test.ts` и `vite.config.test.ts`.
 - E2E: 7 сценариев в `tests/e2e/screen-map.spec.ts`: рендер, hover-маршрут и tooltip,
   палитра, экспорт в буфер, фильтр статусов, контекстное удаление связи и undo,
   скрытие/восстановление правого инспектора с проверкой центровки холста.
@@ -240,7 +249,10 @@ artifacts/                     compliance report и образец экспор�
 
 - TypeScript strict, явные типы параметров и возвращаемых значений, JSDoc для public API.
 - Отступ 2 пробела, двойные кавычки, semicolons, trailing commas, ширина 120.
-- Файл TS/JS - до 250 строк, компонент - до 200 строк, функция - до 50 строк.
+- Файл TS/JS - до 250 строк (`npm run check:file-length` и ESLint `max-lines`).
+- Функция - до 50 строк кода (ESLint `max-lines-per-function`).
+- React-компонент - до 200 строк кода: компоненты в `src/features/screen-map/ui/` и
+  `ScreenMapPage` проверяются отдельным лимитом ESLint, остальные функции - общим.
 - Не собирайте динамические классы фрагментами с начальным пробелом вида `" on"`:
   `prettier-plugin-tailwindcss` может обрезать такой пробел и склеить классы.
   Используйте полные строки (`"fld on"`) или массив с `.join(" ")`.
