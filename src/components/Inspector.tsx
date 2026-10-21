@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { MapContext } from '../context';
+import { useContext } from "react";
+import { MapContext } from "../context";
 import {
   ENTITY_META,
   FIELD_OF,
@@ -9,7 +9,7 @@ import {
   STATUS,
   type EdgeDef,
   type ScreenDef,
-} from '../data/schema';
+} from "../data/schema";
 
 interface Props {
   screen: ScreenDef | null;
@@ -24,11 +24,11 @@ function LinkRow({
   onFocusScreen,
 }: {
   def: EdgeDef;
-  dir: 'in' | 'out';
+  dir: "in" | "out";
   onFocusScreen: (id: string) => void;
 }) {
   const { setHoverEntity } = useContext(MapContext);
-  const other = dir === 'in' ? def.from : def.to;
+  const other = dir === "in" ? def.from : def.to;
   const otherScreen = SCREEN_BY_ID[other.screen];
   const otherField = FIELD_OF(other.screen, other.entity);
   return (
@@ -39,12 +39,9 @@ function LinkRow({
       onMouseLeave={() => setHoverEntity(null)}
       title={def.note}
     >
-      <span
-        className="dot"
-        style={{ background: otherField ? STATUS[otherField.status].color : '#666' }}
-      />
+      <span className="dot" style={{ background: otherField ? STATUS[otherField.status].color : "#666" }} />
       <span className="link-ent">{def.entity}</span>
-      <span className="link-arrow">{dir === 'in' ? '←' : '→'}</span>
+      <span className="link-arrow">{dir === "in" ? "←" : "→"}</span>
       <span className="link-target">
         {otherScreen?.title} · {otherField?.label}
       </span>
@@ -68,8 +65,8 @@ export function Inspector({ screen, defs, onClose, onFocusScreen }: Props) {
         <div className="mono-label">{SECTION_PATH}</div>
         <h2 className="insp-h">Карта экранов</h2>
         <p className="insp-p">
-          Узлы — экраны, рёбра — переходы по полям-сущностям (не по кнопкам). Наведите курсор на
-          поле, чтобы подсветить весь маршрут сущности; клик по экрану открывает его спецификацию.
+          Узлы — экраны, рёбра — переходы по полям-сущностям (не по кнопкам). Наведите курсор на поле, чтобы подсветить
+          весь маршрут сущности; клик по экрану открывает его спецификацию.
         </p>
         <div className="stat-grid">
           <div>
@@ -91,7 +88,7 @@ export function Inspector({ screen, defs, onClose, onFocusScreen }: Props) {
           {entities.map((e) => (
             <button
               key={e.key}
-              className={`ent-row${activeEntity === e.key ? ' on' : ''}`}
+              className={`ent-row${activeEntity === e.key ? "on" : ""}`}
               onMouseEnter={() => setHoverEntity(e.key)}
               onMouseLeave={() => setHoverEntity(null)}
               onClick={() => togglePin(e.key)}
@@ -100,7 +97,7 @@ export function Inspector({ screen, defs, onClose, onFocusScreen }: Props) {
               <span className="ent-key">{e.key}</span>
               <span className="ent-label">{ENTITY_META[e.key].label}</span>
               <span className="ent-meta">
-                {e.fields} пол. · {e.edges} перех.{pinnedEntity === e.key ? ' · pinned' : ''}
+                {e.fields} пол. · {e.edges} перех.{pinnedEntity === e.key ? " · pinned" : ""}
               </span>
             </button>
           ))}
@@ -113,7 +110,7 @@ export function Inspector({ screen, defs, onClose, onFocusScreen }: Props) {
               <span className="mono-label">{s.code}</span>
               <span className="scr-row-t">
                 {s.title}
-                {s.hub ? ' ★' : ''}
+                {s.hub ? " ★" : ""}
               </span>
               <span className="scr-row-r">{s.route}</span>
             </button>
@@ -121,9 +118,8 @@ export function Inspector({ screen, defs, onClose, onFocusScreen }: Props) {
         </div>
 
         <p className="insp-note">
-          Связи можно редактировать: тяните от порта-поля, чтобы добавить переход, Delete удаляет
-          выбранную связь, перетаскивание карточек привязано к сетке 10 px. «Сброс · хаб ★»
-          возвращает исходную схему.
+          Связи можно редактировать: тяните от порта-поля, чтобы добавить переход, Delete удаляет выбранную связь,
+          перетаскивание карточек привязано к сетке 10 px. «Сброс · хаб ★» возвращает исходную схему.
         </p>
       </aside>
     );
@@ -138,7 +134,7 @@ export function Inspector({ screen, defs, onClose, onFocusScreen }: Props) {
         <div>
           <div className="mono-label">
             {screen.code}
-            {screen.hub ? ' · HUB' : ''}
+            {screen.hub ? " · HUB" : ""}
           </div>
           <h2 className="insp-h">{screen.title}</h2>
         </div>
@@ -171,7 +167,7 @@ export function Inspector({ screen, defs, onClose, onFocusScreen }: Props) {
       <div className="sec-h mono-label">Поля · статусы</div>
       {screen.fields.map((f) => (
         <div
-          className={`spec-field${activeEntity === f.entity ? ' on' : ''}`}
+          className={`spec-field${activeEntity === f.entity ? "on" : ""}`}
           key={f.entity}
           onMouseEnter={() => setHoverEntity(f.entity)}
           onMouseLeave={() => setHoverEntity(null)}
@@ -181,7 +177,10 @@ export function Inspector({ screen, defs, onClose, onFocusScreen }: Props) {
           <span className="spec-name">
             {f.name}: {f.type}
           </span>
-          <span className="spec-st" style={{ color: STATUS[f.status].color === '#3D3D3D' ? '#8A8A8A' : STATUS[f.status].color }}>
+          <span
+            className="spec-st"
+            style={{ color: STATUS[f.status].color === "#3D3D3D" ? "#8A8A8A" : STATUS[f.status].color }}
+          >
             {STATUS[f.status].label}
           </span>
         </div>

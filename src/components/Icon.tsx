@@ -1,4 +1,4 @@
-import type { IconName } from '../data/schema';
+import type { IconName } from "../data/schema";
 
 /** 12 px field icons (24 viewBox, stroke) */
 const PATHS: Record<IconName, React.ReactNode> = {

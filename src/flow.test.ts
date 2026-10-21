@@ -36,9 +36,7 @@ describe("toFlowEdges", () => {
   });
 
   it("spreads parallel spokes with increasing offsets", () => {
-    const pair = edges.filter(
-      (e) => [e.source, e.target].sort().join("::") === "confirm::hub",
-    );
+    const pair = edges.filter((e) => [e.source, e.target].sort().join("::") === "confirm::hub");
     const offsets = pair.map((e) => e.data?.offset ?? 0);
     expect(new Set(offsets).size).toBe(offsets.length);
   });

@@ -1,7 +1,6 @@
-import { memo, useContext } from 'react';
-import { Handle, Position, type NodeProps } from '@xyflow/react';
-import { MapContext } from '../context';
-import { Icon } from './Icon';
+import { Handle, Position, type NodeProps } from "@xyflow/react";
+import { memo, useContext } from "react";
+import { MapContext } from "../context";
 import {
   ENTITY_META,
   NODE_W,
@@ -12,7 +11,8 @@ import {
   type FieldDef,
   type ScreenFlowNode,
   type Side,
-} from '../data/schema';
+} from "../data/schema";
+import { Icon } from "./Icon";
 
 /* --------------------------------------------------------- card/field
  * icon 12px + label + entity key + 5px port dots on both edges.
@@ -23,47 +23,46 @@ function FieldRow({ screenId, field }: { screenId: string; field: FieldDef }) {
   const { activeEntity, setHoverEntity, statusFilter } = useContext(MapContext);
   const fId = fieldId(screenId, field.entity);
   const on = activeEntity === field.entity;
-  const dim =
-    (!!activeEntity && !on) || (!!statusFilter && field.status !== statusFilter);
+  const dim = (!!activeEntity && !on) || (!!statusFilter && field.status !== statusFilter);
   const color = STATUS[field.status].color;
 
   const portStyle = (side: Side, z: number): React.CSSProperties => ({
-    left: side === 'L' ? 0 : '100%',
-    top: '50%',
-    transform: 'translate(-50%, -50%)',
-    background: on ? color : '#141414',
-    borderColor: on ? color : '#6E6E6E',
-    boxShadow: on ? `0 0 6px ${color}` : 'none',
+    left: side === "L" ? 0 : "100%",
+    top: "50%",
+    transform: "translate(-50%, -50%)",
+    background: on ? color : "#141414",
+    borderColor: on ? color : "#6E6E6E",
+    boxShadow: on ? `0 0 6px ${color}` : "none",
     zIndex: z,
   });
 
   return (
     <div
-      className={`fld${on ? ' on' : ''}`}
+      className={`fld${on ? "on" : ""}`}
       style={{ opacity: dim ? 0.2 : 1 }}
       title={`${field.name}: ${field.type} · ${STATUS[field.status].label} · entity ${field.entity}`}
       onMouseEnter={() => setHoverEntity(field.entity)}
       onMouseLeave={() => setHoverEntity(null)}
     >
       <span className="fld-bar" style={{ background: color }} />
-      <Icon name={ENTITY_META[field.entity]?.icon ?? 'doc'} />
+      <Icon name={ENTITY_META[field.entity]?.icon ?? "doc"} />
       <span className="fld-label">{field.label}</span>
       <span className="fld-ent">{field.entity}</span>
-      {(['L', 'R'] as const).flatMap((side) => [
+      {(["L", "R"] as const).flatMap((side) => [
         <Handle
           key={`${side}-in`}
-          id={portId(fId, side, 'in')}
+          id={portId(fId, side, "in")}
           type="target"
-          position={side === 'L' ? Position.Left : Position.Right}
+          position={side === "L" ? Position.Left : Position.Right}
           className="port"
           style={portStyle(side, 1)}
           isConnectable
         />,
         <Handle
           key={`${side}-out`}
-          id={portId(fId, side, 'out')}
+          id={portId(fId, side, "out")}
           type="source"
-          position={side === 'L' ? Position.Left : Position.Right}
+          position={side === "L" ? Position.Left : Position.Right}
           className="port"
           style={portStyle(side, 2)}
           isConnectable
@@ -83,7 +82,7 @@ export const ScreenNode = memo(function ScreenNode({ data, selected }: NodeProps
 
   return (
     <div
-      className={`scr${selected ? ' sel' : ''}${inRoute ? '' : ' dim'}`}
+      className={`scr${selected ? "sel" : ""}${inRoute ? "" : "dim"}`}
       style={{ width: NODE_W, height: screenHeight(s) }}
     >
       <div className="scr-head">
@@ -107,9 +106,9 @@ export const ScreenNode = memo(function ScreenNode({ data, selected }: NodeProps
 
       {s.skeleton && (
         <div className="skel" aria-hidden>
-          <span style={{ width: '72%', animationDelay: '0s' }} />
-          <span style={{ width: '46%', animationDelay: '.25s' }} />
-          <span style={{ width: '60%', animationDelay: '.5s' }} />
+          <span style={{ width: "72%", animationDelay: "0s" }} />
+          <span style={{ width: "46%", animationDelay: ".25s" }} />
+          <span style={{ width: "60%", animationDelay: ".5s" }} />
         </div>
       )}
 

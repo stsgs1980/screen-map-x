@@ -1,5 +1,5 @@
-import { createContext } from 'react';
-import type { StatusKey } from './data/schema';
+import { createContext } from "react";
+import type { StatusKey } from "./data/schema";
 
 export interface MapCtxValue {
   /** entity whose whole route is lit (hover ?? pinned) */

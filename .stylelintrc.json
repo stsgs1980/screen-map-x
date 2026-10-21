@@ -56,6 +56,13 @@
     "declaration-block-no-redundant-longhand-properties": null,
     "lightness-notation": null,
     "hue-degree-notation": null,
-    "at-rule-prelude-no-invalid": null
+    "at-rule-prelude-no-invalid": null,
+    "selector-class-pattern": [
+      "^((react-flow__[a-z-]+)|([a-z][a-z0-9]*)(-[a-z0-9]+)*)$",
+      {
+        "resolveNestedSelectors": true,
+        "message": "Expected class selector to be kebab-case (react-flow__* are third-party BEM)"
+      }
+    ]
   }
 }
