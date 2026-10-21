@@ -137,6 +137,12 @@ describe("design tokens", () => {
     expect(contrast(token("--fg-subtle"), token("--bg-surface"))).toBeGreaterThanOrEqual(3);
   });
 
+  it("keeps the accent readable under the label colour", () => {
+    // The primary button, the hub badge and the edge chip are accent fills with
+    // --fg-on-accent text, so the pair has to clear WCAG AA for normal text.
+    expect(contrast(token("--fg-on-accent"), token("--bg-accent"))).toBeGreaterThanOrEqual(4.5);
+  });
+
   it("keeps the status dot ring visible on every surface it sits on", () => {
     // The ring is what makes the `none` status (#3D3D3D, 1.5:1) readable.
     expect(contrast(token("--fg-subtle"), token("--bg-surface"))).toBeGreaterThanOrEqual(3);
